@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import SidebarItems from './SidebarItems'
 import { Home,Building2,Bell,ClipboardList  } from 'lucide-react'
+import { Link } from 'react-router-dom'
 const Sidebar = () => {
     const[active,setActive] = useState(0)
     const data = [
@@ -15,13 +16,13 @@ const Sidebar = () => {
             id:1,
             label:"Jobs",
             icon:ClipboardList,
-            endpoint:'/profile'
+            endpoint:'/'
         },
         {
             id:2,
-            label:"Create Organization",
+            label:"Organization",
             icon:Building2,
-            endpoint:'/'
+            endpoint:'/organization_profile'
         },
         {
             id:3,
@@ -42,7 +43,7 @@ const Sidebar = () => {
                  active={items.id === active} onActive={()=>handlerActive(items.id)} endpoint={items.endpoint}/>
             ))}
             </div>
-            <div className='flex flex-row items-center bg-[#f6f6f7] px-3 py-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
+            <Link to='/profile' className='flex flex-row items-center bg-[#f6f6f7] px-3 py-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
             shadow-md w-full hover:custom-border transition-all'>
                 <div className='mr-3'>
                     <img src="https://avatars.githubusercontent.com/u/77003390?v=4" alt="" className='w-10 h-10 rounded-md' />
@@ -50,7 +51,7 @@ const Sidebar = () => {
                 <div>
                     Abdullah sajid
                 </div>
-            </div>
+            </Link>
         </div>
     </div>
   )

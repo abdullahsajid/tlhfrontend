@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Posts = () => {
+  const[like,setLike] = useState(1)
+  const handlerLike = () => {
+    setLike(like+1)
+  }
   return (
     <div className='flex flex-col bg-[#f6f6f7] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
     shadow w-full hover:custom-border transition-all'>
@@ -21,7 +25,7 @@ const Posts = () => {
       </div>
 
       <div className='flex items-center gap-x-2'>
-        <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500'>1 like</div>
+        <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500' onClick={()=>handlerLike()}>{like} like</div>
         <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500'>10 comments</div>
       </div>
     </div>
