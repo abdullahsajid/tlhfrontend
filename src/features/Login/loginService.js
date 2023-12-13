@@ -11,6 +11,7 @@ export const login = createAsyncThunk('user/login',async ({email,password},{reje
             withCredentials:true
         })
         cookie.set("token",userRes.data.token,{path:'/'})
+        localStorage.setItem("loginUser",JSON.stringify(userRes.data))
         return await userRes.data
     }catch(error){
         return rejectWithValue(error.userRes.data)

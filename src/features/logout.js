@@ -13,6 +13,7 @@ export const logout = createAsyncThunk('user/login',async (_,{rejectWithValue}) 
                 credentials: "include",
                 withCredentials: true
             })
+            localStorage.removeItem('loginUser')
         return await userRes
     }catch(error){
         return rejectWithValue(error.userRes.data)

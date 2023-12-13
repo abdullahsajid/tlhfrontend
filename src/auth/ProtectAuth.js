@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { Children } from 'react'
 import Cookies from 'universal-cookie'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const cookie = new Cookies()
 const Auth = () => {
-    const token = cookie.get('token')
-  return (
-    <div>
-        {token ? <Outlet/> : "" }
-    </div>
-  )
+    const {loginUser} = useSelector((state)=> state.login)
+
+    if(loginUser){
+      return loginUser.token ? <Outlet/> : <Navigate to={'/'}/>
+    }
+    return <Navigate to={'/'}/>
 }
 
 export default Auth

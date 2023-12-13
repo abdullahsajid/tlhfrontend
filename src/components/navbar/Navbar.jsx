@@ -2,13 +2,14 @@ import React, { useEffect, useState} from 'react'
 import {GripHorizontal,Cog,BadgePlus,LogOut } from "lucide-react" 
 import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
 const cookie = new Cookies()
 const Navbar = ({handler,showOption,showBar}) => {
     const token = cookie.get('token')
     const [isAuth,setAuth] = useState(false)
     const dispatch = useDispatch()
+    const {loginUser} = useSelector((state)=> state.login)
     const logoutHandler = async () => {
         await dispatch(logout())
         cookie.remove()
@@ -16,13 +17,10 @@ const Navbar = ({handler,showOption,showBar}) => {
     }
 
     useEffect(()=>{
-        if (token) {
-            setAuth(true);
-        } else {
-            setAuth(false);
-        }
-    },[isAuth])
-    
+        (loginUser) ? setAuth(true) : setAuth(false)
+    },[loginUser])
+
+
   return (
     <div className='p-3 border-solid border-b-2 border-slate-300 bg-white transition-all'>
         <div className='max-w-[90rem] mx-auto flex justify-between items-center transition-all'>
