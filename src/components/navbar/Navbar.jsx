@@ -1,8 +1,28 @@
 import React, { useEffect, useState} from 'react'
 import {GripHorizontal,Cog,BadgePlus,LogOut } from "lucide-react" 
 import { Link } from 'react-router-dom'
+import Cookies from 'universal-cookie'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../features/logout'
+const cookie = new Cookies()
 const Navbar = ({handler,showOption,showBar}) => {
-    const [test,setTest] = useState(false)
+    const token = cookie.get('token')
+    const [isAuth,setAuth] = useState(false)
+    const dispatch = useDispatch()
+    const logoutHandler = async () => {
+        await dispatch(logout())
+        cookie.remove()
+        setAuth(false)
+    }
+
+    useEffect(()=>{
+        if (token) {
+            setAuth(true);
+        } else {
+            setAuth(false);
+        }
+    },[isAuth])
+    
   return (
     <div className='p-3 border-solid border-b-2 border-slate-300 bg-white transition-all'>
         <div className='max-w-[90rem] mx-auto flex justify-between items-center transition-all'>
@@ -14,11 +34,7 @@ const Navbar = ({handler,showOption,showBar}) => {
                 <input type="text" className='w-full rounded-md p-1 border-2 border-slate-300 shadow' />
             </div>
             <div>
-                <div className='flex gap-2'>
-                    <button className='border-2 border-slate-300 p-1 rounded-md font-semibold shadow text-sm' onClick={()=>handler(2)}>Join Now</button>
-                    <button className='flex justify-center items-center custom-bg-lg to-blue-500 shadow-md p-1 rounded-md text-white font-bold text-sm' onClick={()=>handler(3)}>SignIn</button>
-                </div>
-                {test && <div className='flex flex-col transition-all'>
+                {isAuth ? <div className='flex flex-col transition-all'>
                     <div className='flex cursor-pointer w-full hover:border hover:border-solid hover:border-[#f6f6f7] hover:bg-[#f6f6f7] rounded-md px-1 py-0 transition-all'
                     onClick={() => showBar()}>
                         <GripHorizontal  />
@@ -37,14 +53,19 @@ const Navbar = ({handler,showOption,showBar}) => {
                                     <div><BadgePlus  size={18}/></div> 
                                     <div>Edit organization</div>
                                 </div>
-                                <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 rounded-md hover:bg-white transition-all'>
+                                <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 rounded-md hover:bg-white transition-all'
+                                onClick={logoutHandler}>
                                     <div><LogOut  size={18}/></div> 
                                     <div>Log out</div>
                                 </div>
                             </div>
                         </div>
                     )}
-                </div>}
+                </div>
+                : <div className='flex gap-2'>
+                        <button className='border-2 border-slate-300 p-1 rounded-md font-semibold shadow text-sm' onClick={()=>handler(2)}>Join Now</button>
+                        <button className='flex justify-center items-center custom-bg-lg to-blue-500 shadow-md p-1 rounded-md text-white font-bold text-sm' onClick={()=>handler(3)}>SignIn</button>
+                    </div> }
 
             </div>
         </div>

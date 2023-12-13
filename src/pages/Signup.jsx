@@ -1,6 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {XSquare } from 'lucide-react' 
+import { useDispatch } from 'react-redux'
+import { signUp } from '../features/Signup/signUpService'
 const Signup = ({handler}) => {
+    const dispatch = useDispatch()
+    const[name,setName] = useState('')
+    const[email,setEmail] = useState('')
+    const[password,setPassword] = useState('')
+    const[confirmPassword,setConfirmPassword] = useState('')
+
+    const handlerSubmit = (e) => {
+        e.preventDefault()
+        if(password === confirmPassword){
+            const user = dispatch(signUp({email,password,name}))
+            if(user){
+                setName('')
+                setPassword('')
+                setEmail('')
+                setConfirmPassword('')
+            }
+        }else{
+            console.log("something went wrong!")
+        }
+    }
+
   return (
     <div className={`fixed top-5 flex justify-center items-center w-screen h-full transition-all`}>
         <div className='min-w-[650px] max-w-[80vw] h-[650px] max-h-[90vh] min-h-[400px] flex flex-col bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7]
@@ -21,18 +44,42 @@ const Signup = ({handler}) => {
                         <h1 class="text-3xl font-bold">Create your account</h1>
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
-                        <label htmlFor="email" className='font-semibold'>Email:</label>
-                        <input type="email" id='email' className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300' />
+                        <label htmlFor="name" className='font-semibold'>Name:</label>
+                        <input type="text" 
+                            id='name'
+                            className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
+                            value={name}
+                            onChange={(e)=>setName(e.target.value)}
+                        />
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
-                        <label htmlFor="Password" className='font-semibold'>Password</label>
-                        <input id="Password" className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'/>
+                        <label htmlFor="email" className='font-semibold'>Email:</label>
+                        <input type="email"
+                            id='email'
+                            className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}    
+                        />
+                    </div>
+                    <div className='px-3 py-3 flex flex-col gap-y-2'>
+                        <label htmlFor="password" className='font-semibold'>Password</label>
+                        <input type='password'
+                            id="password"
+                            className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
+                            value={password}
+                            onChange={(e)=> setPassword(e.target.value)}
+                        />
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="confirmPassword" className='font-semibold'>Confirm Password</label>
-                        <input id="confirmPassword" className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'/>
+                        <input type='password'
+                            id="confirmPassword"
+                            className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
+                            value={confirmPassword}
+                            onChange={(e)=>setConfirmPassword(e.target.value)}
+                        />
                     </div>
-                    <div className='mt-5 px-3 py-2 flex justify-center w-full'>
+                    <div className='mt-5 px-3 py-2 flex justify-center w-full' onClick={handlerSubmit}>
                         <button className='w-full custom-bg-lg px-2 rounded-sm text-white cursor-pointer py-2'>Sign up</button>
                     </div>
                 </div>

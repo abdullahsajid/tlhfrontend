@@ -10,6 +10,8 @@ import Org_profile from './pages/organization/Org_profile';
 import OrgForm from './pages/organization/OrgForm';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Auth from './auth/ProtectAuth';
+
 function App(){
   const[showEditPanel,setShowEditPanel] = useState(false)
   const[showOption,setShowOptions] = useState(false)
@@ -22,12 +24,12 @@ function App(){
     }
   return (
     <>
-    <div className={`fixed inset-x-0 h-full ${(showEditPanel === 0 || showEditPanel === 1 || showEditPanel === 2 || showEditPanel === 3) ?'backdrop-blur':''}`}>
-      {showEditPanel === 0 && <CandidateForm handler={handleShowPanel}/>}
-      {showEditPanel === 1 && <OrgForm handler={handleShowPanel}/>}
-      {showEditPanel === 2 && <Signup handler={handleShowPanel}/>}
-      {showEditPanel === 3 && <Login handler={handleShowPanel}/>}
-    </div>
+      <div className={`fixed inset-x-0 h-full ${(showEditPanel === 0 || showEditPanel === 1 || showEditPanel === 2 || showEditPanel === 3) ?'backdrop-blur':''}`}>
+        {showEditPanel === 0 && <CandidateForm handler={handleShowPanel}/>}
+        {showEditPanel === 1 && <OrgForm handler={handleShowPanel}/>}
+        {showEditPanel === 2 && <Signup handler={handleShowPanel}/>}
+        {showEditPanel === 3 && <Login handler={handleShowPanel}/>}
+      </div>
       <div className='h-full'>  
           <div className='h-[60px] fixed inset-y-0 z-[110] w-full'>
             <Navbar handler={handleShowPanel} showBar={handleShowOptions} showOption={showOption}/>
@@ -38,9 +40,11 @@ function App(){
             </div>
             <div className='md:pl-64 pt-[60px] h-full flex'>
               <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/profile' element={<Profile/>}/>
-                <Route path='/organization_profile' element={<Org_profile/>}/>
+                <Route element={<Auth/>}>
+                  <Route path='/' element={<Home/>}/>
+                  <Route path='/profile' element={<Profile/>}/>
+                  <Route path='/organization_profile' element={<Org_profile/>}/>
+                </Route>
               </Routes>
             </div>
           </div>
