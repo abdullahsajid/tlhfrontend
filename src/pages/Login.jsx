@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import {XSquare } from 'lucide-react' 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import toast, { LoaderIcon } from 'react-hot-toast'
 import { login } from '../features/Login/loginService'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const Login = ({handler}) => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const[emailError,setEmailError] = useState('')
     const[passwordError,setPasswordError] = useState('')
-
-    const handleLogin = (e) => {
+    const {loginUser} = useSelector((state) => state.login)
+    
+    const handleLogin = async (e) => {
         e.preventDefault()
         if(emailError || passwordError){
             return 
@@ -19,10 +22,8 @@ const Login = ({handler}) => {
         if(email == '' || password == ''){
             return 
         }
-        const user = dispatch(login({email,password}))
+        const user = await dispatch(login({email,password}))
         if(user){
-            setEmail('')
-            setPassword('')
             handler()
             toast.success("Login Successfully!",{ 
                 style: {
@@ -31,6 +32,7 @@ const Login = ({handler}) => {
                   background: '#15202B',
                   color: '#fff',
             }})
+            navigate('/home')
         }else{
             toast.error("credentials wrong!",{
                 style: {

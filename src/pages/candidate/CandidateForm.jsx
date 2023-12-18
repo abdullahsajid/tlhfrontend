@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {XSquare,ImagePlus} from 'lucide-react' 
 import {candidateProfile} from '../../features/CandidateProfile/candidateProfileService'
-import { useDispatch } from 'react-redux'
+import { addCandidateSkills } from '../../features/getProfile/candidateSkills/addCsService'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCandidateLinks } from '../../features/getProfile/candidateLinks/addClService'
+import Skeleton from 'react-loading-skeleton'
+import toast from 'react-hot-toast'
+import { getCandidateProfile } from '../../features/getProfile/getCpService'
 
 const CandidateForm = ({handler}) => {
     const dispatch = useDispatch()
@@ -12,6 +17,11 @@ const CandidateForm = ({handler}) => {
     const[about,setAbout] = useState('')
     const[education,setEducation] = useState('')
     const[experience,setExperience] = useState('')
+    const[skill,setSkills] = useState('')
+    const[link,setLinks] = useState('')
+    const[socialName,setSocialName] = useState('')
+
+    const {data} = useSelector((state) => state.candidateProfile.candidateProfile)
 
     const handleBannerImg = (e) => {
         const selectfile = e.target.files[0]
@@ -35,10 +45,134 @@ const CandidateForm = ({handler}) => {
         }
     }
 
-    const handlerProfile = (e) => {
+    const handlerProfile = async (e) => {
         e.preventDefault()
-        dispatch(candidateProfile({name,bio,education,banner,avatar,experience}))
+        if(name === '' && bio === '' && about === '' && education === '' && experience === '' && (!banner || banner === null) && (!avatar || avatar === null)){
+            toast.error("please fill all fields!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+            return
+        }else{
+            const data = await dispatch(candidateProfile({name,bio,about,education,banner,avatar,experience}))
+            if(data){
+                handler()
+                toast.success("profile added!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+                dispatch(getCandidateProfile())
+                return
+            }else{
+                toast.error("something went wrong try again!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+            }
+        }
     }
+
+    const handlerSkill = async (e) => {
+        e.preventDefault()
+        if(skill == ''){
+            toast.error("something went wrong try again!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+            return
+        }else{
+            const data = await dispatch(addCandidateSkills({skill}))
+            if(data){
+                setSkills('')
+                handler()
+                toast.success("Skill added!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+                dispatch(getCandidateProfile())
+            }else{
+                toast.error("something went wrong try again!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+            }
+        }
+    }
+    const handlerSocialLink = async (e) => {
+        e.preventDefault()
+        if(link == '' || socialName == ''){
+            toast.error("something went wrong try again!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+            return
+        }else{
+            const data = await dispatch(addCandidateLinks({link,socialName}))
+            console.log("social: ",data)
+            if(data){
+                setLinks('')
+                setSocialName('')
+                handler()
+                toast.success("social link added!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+                dispatch(getCandidateProfile())
+            }else{
+                toast.error("something went wrong try again!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+            }
+        }
+    }
+
+    useEffect(() => {
+        if(data){
+            const imgBanner = new Image()
+            const avatarImg = new Image()
+            imgBanner.src = data.banner_url
+            avatarImg.src = data.avatar_url
+            imgBanner.onload = () => {
+                setBanner(data.banner_url)  
+            }
+            avatarImg.onload = () => {
+                setAvatar(data.avatar_url)
+            } 
+            setName(data.name)
+            setBio(data.bio)
+            setAbout(data.about)
+            setEducation(data.education)
+            setExperience(data.experience)
+        }
+    },[])
 
   return (
     <div className={`fixed top-5 flex justify-center items-center w-screen h-full transition-all`}>
@@ -54,11 +188,14 @@ const CandidateForm = ({handler}) => {
                 </div>
                 <div className='flex flex-col relative z-0'>
                     <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>
-                        <div className='w-full bg-center bg-cover bg-no-repeat overflow-hidden'>
-                            <img src={`${banner ? banner : "https://private-user-images.githubusercontent.com/77003390/250310935-518c1dd8-472f-47e7-9cf9-7244ab106f22.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDE5NDQ2MTgsIm5iZiI6MTcwMTk0NDMxOCwicGF0aCI6Ii83NzAwMzM5MC8yNTAzMTA5MzUtNTE4YzFkZDgtNDcyZi00N2U3LTljZjktNzI0NGFiMTA2ZjIyLmpwZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA3VDEwMTgzOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTA1NThjNGQ2ODgxNmE0NWNlM2M5ZTZlM2EzYjEwZDYzNTUzOGRjOWZjNWEwZmIwMGE0NWY4MTQ0NWNkNDE5YjAmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.xfrz5l3baQIKYAIvOC24mTLPL_ZCT6KTbLNtOiOhuTA"}`} alt=""
-                            className='w-full h-full bg-no-repeat overflow-hidden max-w-[700px]' />
+                        <div className='w-full h-full relative'>
+                            {banner ?
+                             <img src={`${banner && banner }`}
+                             className='overflow-hidden max-w-[700px] object-cover' />
+                             : <Skeleton width={"100%"} height={"320px"}/>
+                            }
                         </div>
-                        <div className='flex justify-center items-center w-full h-full absolute top-0'>
+                        <div className='flex justify-center items-center w-full h-full absolute top-0 z-[100]'>
                             <div className='flex flex-row justify-center items-center'>
                                 <label htmlFor="imageInput"  className='flex justify-center items-center' style={{backdropFilter:'blur(10px)', backgroundColor: 'rgba(15, 20, 25, 0.75)', minWidth: '44px', minHeight: '44px', borderRadius: '999px' }}>
                                     <input type="file"
@@ -72,8 +209,8 @@ const CandidateForm = ({handler}) => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex flex-col justify-center relative h-[100px] max-w-[100px] mt-[-3rem] ml-[1rem] rounded-md mb-3'>
-                        <div className='flex justify-center items-center w-full h-full absolute top-0'>
+                    <div className='flex flex-col justify-center relative h-[100px] max-w-[100px] mt-[-3rem] ml-[1rem] rounded-md mb-3 z-[100]'>
+                        <div className='flex justify-center items-center w-full h-full absolute top-0 z-[100]'>
                             <div className='flex flex-row justify-center items-center'>
                                 <label htmlFor="avatarInput"  className='flex justify-center items-center' style={{backdropFilter:'blur(4px)', backgroundColor: 'rgba(15, 20, 25, 0.75)', minWidth: '34px', minHeight: '34px', borderRadius: '999px' }}>
                                     <ImagePlus size={18} color='white'/>
@@ -87,8 +224,10 @@ const CandidateForm = ({handler}) => {
                                 />
                             </div>
                         </div>
-                        <div className='rounded-md'>
-                            <img src={`${avatar ? avatar : "https://avatars.githubusercontent.com/u/77003390?v=4"}`} alt="" className=' rounded-md' />
+                        <div className='rounded-md  h-[100px] max-w-[100px]'>
+                            {avatar ? 
+                            <img src={`${avatar && avatar }`} className='h-full w-full rounded-md object-cover' />
+                            : <Skeleton width={"100%"} height={"100px"} style={{border:"3px solid #fff",borderRadius:"0.375rem"}} />}
                         </div>
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
@@ -137,22 +276,50 @@ const CandidateForm = ({handler}) => {
                     <div className='px-3 py-1'>
                         <hr className='border-solid border-2 border-slate-300' />
                     </div>
+                    {data?.skill && <div className='px-3 py-1 text-xs'>Your skills*</div>}
+                    <div className='px-3 py-1 flex gap-x-3'>
+                        {data?.skill && data?.skill?.map((item)=>(
+                            <div className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer'>{item.skill}</div>
+                        ))}
+                    </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="skills" className='font-semibold'>Add skills:</label>
-                        <input type="text" id='skills' className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300' />
+                        <input 
+                            type="text" 
+                            id='skills' 
+                            className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300' 
+                            value={skill}
+                            onChange={(e)=>setSkills(e.target.value)}
+                        />
                     </div>
                     <div className='px-3 pb-2 flex justify-end'>
-                        <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer'>Add Skill</button>
+                        <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' onClick={handlerSkill}>Add Skill</button>
                     </div>
                     <div className='px-3 py-1'>
                         <hr className='border-solid border-2 border-slate-300' />
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
-                        <label htmlFor="skills" className='font-semibold'>Add Socials:</label>
-                        <input type="text" id='skills' className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300' />
+                        <label htmlFor="socialName" className='font-semibold'>Add Socials name:</label>
+                        <input 
+                            type="text" 
+                            id='socialName' 
+                            className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300' 
+                            value={socialName}
+                            onChange={(e)=>setSocialName(e.target.value)}
+                        />
+                    </div>
+                    <div className='px-3 py-3 flex flex-col gap-y-2'>
+                        <label htmlFor="socialLink" className='font-semibold'>Add Socials link:</label>
+                        <input 
+                            type="text" 
+                            id='socialLink' 
+                            className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300'
+                            value={link}
+                            onChange={(e)=>setLinks(e.target.value)}
+                        />
                     </div>
                     <div className='px-3 pb-2 flex justify-end'>
-                        <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer'>Add Link</button>
+                        <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' onClick={handlerSocialLink}>Add Link</button>
                     </div>
                 </div>
             </div>

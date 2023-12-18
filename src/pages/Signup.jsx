@@ -2,12 +2,19 @@ import React, { useState } from 'react'
 import {XSquare } from 'lucide-react' 
 import { useDispatch } from 'react-redux'
 import { signUp } from '../features/Signup/signUpService'
+import toast from 'react-hot-toast'
+
 const Signup = ({handler}) => {
     const dispatch = useDispatch()
     const[name,setName] = useState('')
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const[confirmPassword,setConfirmPassword] = useState('')
+    const[emailError,setEmailError] = useState('')
+    const[passwordError,setPasswordError] = useState('')
+    const[confirmPassError,setConfirmPassError] = useState('')
+
+
 
     const handlerSubmit = (e) => {
         e.preventDefault()
@@ -18,11 +25,56 @@ const Signup = ({handler}) => {
                 setPassword('')
                 setEmail('')
                 setConfirmPassword('')
+                handler()
+                toast.success('successfully signUp move to login',{
+                    style: {
+                      borderRadius: '10px',
+                      border: "1px solid #38444D",
+                      background: '#15202B',
+                      color: '#fff',
+                }})
+            }else{
+                toast.error("something Wrong!",{
+                    style: {
+                      borderRadius: '10px',
+                      border: "1px solid #38444D",
+                      background: '#15202B',
+                      color: '#fff',
+                  }
+                  })
             }
         }else{
             console.log("something went wrong!")
         }
     }
+
+    const validateEmail = () => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailPattern.test(email)){
+          setEmailError("Invalid Email")
+        }else if(email === ''){
+          setEmailError('field is empty!')
+        }
+        else{
+          setEmailError('')
+        }
+      }
+      const ValidatePass = () => {
+        if((password == '') || (password.length < 5)){
+          return setPasswordError("invalid password")
+        }else{
+          setPasswordError('')
+        }
+      }
+      const validatePassword = () => {
+        if(password === confirmPassword){
+          setConfirmPassError('')
+        }else if(confirmPassword === ''){
+          setConfirmPassError('field is empty!')
+        }else{
+          setConfirmPassError('password not match!')
+        }
+      }
 
   return (
     <div className={`fixed top-5 flex justify-center items-center w-screen h-full transition-all`}>
@@ -58,8 +110,11 @@ const Signup = ({handler}) => {
                             id='email'
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                             value={email}
-                            onChange={(e)=>setEmail(e.target.value)}    
+                            onChange={(e)=>setEmail(e.target.value)}   
+                            required
+                            onBlur={validateEmail} 
                         />
+                        <span>{emailError}</span>
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="password" className='font-semibold'>Password</label>
@@ -68,7 +123,10 @@ const Signup = ({handler}) => {
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                             value={password}
                             onChange={(e)=> setPassword(e.target.value)}
+                            required
+                            onBlur={ValidatePass}
                         />
+                        <span>{passwordError}</span>
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="confirmPassword" className='font-semibold'>Confirm Password</label>
@@ -77,7 +135,10 @@ const Signup = ({handler}) => {
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                             value={confirmPassword}
                             onChange={(e)=>setConfirmPassword(e.target.value)}
+                            required
+                            onBlur={validatePassword}
                         />
+                         <span>{confirmPassError}</span>
                     </div>
                     <div className='mt-5 px-3 py-2 flex justify-center w-full' onClick={handlerSubmit}>
                         <button className='w-full custom-bg-lg px-2 rounded-sm text-white cursor-pointer py-2'>Sign up</button>

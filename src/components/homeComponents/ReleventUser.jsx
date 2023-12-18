@@ -1,6 +1,16 @@
 import React from 'react'
+import toast from 'react-hot-toast'
 
 const ReleventUser = () => {
+    const Test = () => {
+        toast.success("Test to see!",{
+            style:{
+                backgroundColor:'#f6f6f7',
+                border:'3px solid #fff',
+                boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }
+        })
+    }
   return (
     <div className='flex bg-[#f6f6f7] rounded-md p-3 shadow border border-solid border-[#f6f6f7]'>
         <div className='flex flex-col gap-y-4 w-full'>
@@ -9,7 +19,7 @@ const ReleventUser = () => {
                     <div><img src="https://pbs.twimg.com/profile_images/1362579425804644353/8L3BctZn_200x200.jpg" className='w-10 h-10 rounded-md' /></div>
                     <div className='font-semibold text-sm'>Bilal Talib</div>
                 </div>
-                <div className='flex items-center'>
+                <div className='flex items-center' onClick={Test}>
                     <button className='custom-bg-lg px-2 py-1 rounded-sm text-white'>Follow</button>
                 </div>
             </div>

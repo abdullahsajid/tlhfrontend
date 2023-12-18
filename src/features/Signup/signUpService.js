@@ -9,8 +9,11 @@ export const signUp = createAsyncThunk('user/signUp',async ({email,password,name
             },
             withCredentials:true
         })
+        // localStorage.setItem("signupUser",JSON.stringify(userRes.data))
+        console.log(userRes.data)
         return await userRes.data
     }catch(error){
         return rejectWithValue(error.userRes.data)
     }
 })
+
