@@ -26,22 +26,20 @@ const Login = ({handler}) => {
         if(user){
             handler()
             toast.success("Login Successfully!",{ 
-                style: {
-                  borderRadius: '10px',
-                  border: "1px solid #38444D",
-                  background: '#15202B',
-                  color: '#fff',
+              style:{
+                backgroundColor:'#f6f6f7',
+                border:'3px solid #fff',
+                boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }})
             navigate('/home')
         }else{
             toast.error("credentials wrong!",{
-                style: {
-                  borderRadius: '10px',
-                  border: "1px solid #38444D",
-                  background: '#15202B',
-                  color: '#fff',
-                },
-              })
+                style:{
+                  backgroundColor:'#f6f6f7',
+                  border:'3px solid #fff',
+                  boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              },
+            })
         }
     }
 

@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 const cookie = new Cookies()
-export const organizationProfile = createAsyncThunk('user/organizationProfile',async({name,industry,Email,weblink,location,Bio,banner,avatar,about},{rejectWithValue}) => {
+export const updateOpService = createAsyncThunk('user/updateOp',async({name,industry,Email,weblink,location,Bio,banner,avatar,about},{rejectWithValue}) => {
     try{
         const token = cookie.get('token')
         // console.log("payload",{name,industry,Email,weblink,location,Bio,banner,avatar})
         // console.log("Token",token)
-        const userRes = await axios.post(`http://localhost:8000/organization/createOrgProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about},
+        const userRes = await axios.put(`http://localhost:8000/organization/updateProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about},
             {
                 headers:{
                     "Content-Type":'application/json',

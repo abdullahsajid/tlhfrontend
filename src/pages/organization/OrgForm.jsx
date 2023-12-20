@@ -3,7 +3,10 @@ import {XSquare,ImagePlus} from 'lucide-react'
 import { organizationProfile } from '../../features/organizationProfile/organizationProfileService'
 import { useDispatch, useSelector } from 'react-redux'
 import { addOrgSocialLinks } from '../../features/getProfile/orgLinks/addOrgLService'
+import { getOrganizationProfile } from '../../features/getProfile/getOrgpService'
 import Skeleton from 'react-loading-skeleton'
+import toast from 'react-hot-toast'
+import { updateOpService } from '../../features/organizationProfile/updateOrgProfile/updateOpService'
 
 const OrgForm = ({handler}) => {
     const dispatch = useDispatch()
@@ -47,20 +50,84 @@ const OrgForm = ({handler}) => {
         const data = await dispatch(organizationProfile({name,industry,Email,weblink,location,Bio,banner,avatar,about}))
         if(data){
             handler()
+            toast.success("profile added!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+            dispatch(getOrganizationProfile())
+        }else{
+            toast.error("something went wrong try again!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
         }
     }
 
     const socialLinkHandler = async (e) => {
         e.preventDefault()
         if(socialName == '' || link == ''){
+            toast.error("please fill all fields!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
             return
         }else{
-            console.log("Test to see!",socialName,link)
+            // console.log("Test to see!",socialName,link)
             const socialData = await dispatch(addOrgSocialLinks({socialName,link,data}))
             if(socialData.payload){
                 handler()
+                toast.success("social link added!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+                dispatch(getOrganizationProfile())
+            }else{
+                toast.error("something went wrong try again!",{
+                    style:{
+                        backgroundColor:'#f6f6f7',
+                        border:'3px solid #fff',
+                        boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
             }
         }
+    }
+
+    const updateProfile = async (e) => {
+        e.preventDefault()
+        const data = await dispatch(updateOpService({name,industry,Email,weblink,location,Bio,banner,avatar,about}))
+        if(data){
+            handler()
+            toast.success("update profile successfully!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+            dispatch(getOrganizationProfile())
+        }else{
+            toast.error("something went wrong try again!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+        }
+
     }
 
     useEffect(()=>{
@@ -87,7 +154,7 @@ const OrgForm = ({handler}) => {
                         <div onClick={()=>handler()} className='cursor-pointer'><XSquare/></div>
                         <div className='flex font-semibold'>Edit Organization</div>
                     </div>
-                    <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer' onClick={handleOrgProfile}>Save</div>
+                    <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer' onClick={data?.id ? updateProfile : handleOrgProfile}>{`${data?.id ? "Update":"Save"}`}</div>
                 </div>
                 <div className='flex flex-col relative z-0'>
                     <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>

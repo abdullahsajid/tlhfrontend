@@ -25,7 +25,7 @@ const Navbar = ({handler,showOption,showBar}) => {
     <div className='p-3 border-solid border-b-2 border-slate-300 bg-white transition-all'>
         <div className='max-w-[90rem] mx-auto flex justify-between items-center transition-all'>
             <div className='flex gap-1 justify-center items-center'>
-                <span className='flex justify-center items-center custom-bg-lg to-blue-500 text-white p-[3px] rounded-md font-bold shadow-md'>Tech</span>
+                <span className='flex justify-center items-center custom-bg-lg to-blue-500 text-white p-[3px] rounded-[0.20rem] font-bold shadow-md'>Tech</span>
                 <span className='font-semibold'>LinkHub</span>
             </div>
             <div className='w-[35rem]'>
@@ -61,8 +61,8 @@ const Navbar = ({handler,showOption,showBar}) => {
                     )}
                 </div>
                 : <div className='flex gap-2'>
-                        <button className='border-2 border-slate-300 p-1 rounded-md font-semibold shadow text-sm' onClick={()=>handler(2)}>Join Now</button>
-                        <button className='flex justify-center items-center custom-bg-lg to-blue-500 shadow-md p-1 rounded-md text-white font-bold text-sm' onClick={()=>handler(3)}>SignIn</button>
+                        <button className='border-2 border-slate-300 p-1 rounded-[0.20rem] font-semibold shadow text-sm' onClick={()=>handler(2)}>Join Now</button>
+                        <button className='flex justify-center items-center custom-bg-lg to-blue-500 shadow-md p-1 rounded-[0.20rem] text-white font-bold text-sm' onClick={()=>handler(3)}>SignIn</button>
                     </div> }
 
             </div>

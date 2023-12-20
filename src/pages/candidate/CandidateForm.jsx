@@ -7,6 +7,7 @@ import { addCandidateLinks } from '../../features/getProfile/candidateLinks/addC
 import Skeleton from 'react-loading-skeleton'
 import toast from 'react-hot-toast'
 import { getCandidateProfile } from '../../features/getProfile/getCpService'
+import { updateProfileService } from '../../features/CandidateProfile/updateProfile/updateProfileService'
 
 const CandidateForm = ({handler}) => {
     const dispatch = useDispatch()
@@ -84,7 +85,7 @@ const CandidateForm = ({handler}) => {
     const handlerSkill = async (e) => {
         e.preventDefault()
         if(skill == ''){
-            toast.error("something went wrong try again!",{
+            toast.error("please fill field!",{
                 style:{
                     backgroundColor:'#f6f6f7',
                     border:'3px solid #fff',
@@ -116,10 +117,11 @@ const CandidateForm = ({handler}) => {
             }
         }
     }
+
     const handlerSocialLink = async (e) => {
         e.preventDefault()
         if(link == '' || socialName == ''){
-            toast.error("something went wrong try again!",{
+            toast.error("please fill all fields!",{
                 style:{
                     backgroundColor:'#f6f6f7',
                     border:'3px solid #fff',
@@ -154,6 +156,30 @@ const CandidateForm = ({handler}) => {
         }
     }
 
+    const updateProfile = async (e) => {
+        e.preventDefault()
+        const data = await dispatch(updateProfileService({name,bio,about,education,banner,avatar,experience}))
+        if(data){
+            handler()
+            toast.success("profile Successfully updated!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+            dispatch(getCandidateProfile())
+        }else{
+            toast.error("something went wrong try again!",{
+                style:{
+                    backgroundColor:'#f6f6f7',
+                    border:'3px solid #fff',
+                    boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+        }
+    }
+
     useEffect(() => {
         if(data){
             const imgBanner = new Image()
@@ -184,7 +210,7 @@ const CandidateForm = ({handler}) => {
                         <div onClick={()=>handler()} className='cursor-pointer'><XSquare/></div>
                         <div className='flex font-semibold'>Edit Profile</div>
                     </div>
-                    <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer'  onClick={handlerProfile}>Save</div>
+                    <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer' onClick={data?.id ? updateProfile : handlerProfile}>{`${data?.id ? "Update" : "Save"}`}</div>
                 </div>
                 <div className='flex flex-col relative z-0'>
                     <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>

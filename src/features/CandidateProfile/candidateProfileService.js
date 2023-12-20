@@ -5,8 +5,8 @@ const cookie = new Cookies()
 export const candidateProfile = createAsyncThunk('user/candidateProfile',async ({name,bio,about,education,banner,avatar,experience},{rejectWithValue}) => {
     try{
         const token = cookie.get('token')
-        console.log("payload",{name,bio,about,education,banner,avatar,experience})
-        console.log("Token",token)
+        // console.log("payload",{name,bio,about,education,banner,avatar,experience})
+        // console.log("Token",token)
         const userRes = await axios.post(`http://localhost:8000/candidate/createProfile`,{name,bio,about,education,banner,avatar,experience},
             {
                 headers:{
