@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 const Sidebar = () => {
+    const org = useSelector((state) => state.getOrgProfile.getOp)
     const {loginUser} = useSelector((state) => state.login)
     const [toggleUser,setToggleUser] = useState(false)
     const[active,setActive] = useState(0)
@@ -20,7 +21,7 @@ const Sidebar = () => {
     },[])
 
     useEffect(()=>{
-        if (loginUser?.token) {
+        if(org.data && org.data.id && loginUser?.token){
             setSidebarData([
                 {
                     id: 0,
@@ -47,6 +48,28 @@ const Sidebar = () => {
                     endpoint: '/'
                 }
             ]);
+        }
+        else if (loginUser?.token) {
+            setSidebarData([
+                {
+                    id: 0,
+                    label: "Home",
+                    icon: Home,
+                    endpoint: '/home'
+                },
+                {
+                    id: 1,
+                    label: "Jobs",
+                    icon: ClipboardList,
+                    endpoint: '/'
+                },
+                {
+                    id: 3,
+                    label: "Notifications",
+                    icon: Bell,
+                    endpoint: '/'
+                }
+            ]);
         } else {
             setSidebarData([
                 {
@@ -63,7 +86,7 @@ const Sidebar = () => {
                 }
             ]);
         }
-    },[loginUser])
+    },[loginUser,org.data])
 
     const handlerActive = (id) => {
         setActive(id)

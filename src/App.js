@@ -14,8 +14,8 @@ import Login from "./pages/Login";
 import Auth from "./auth/ProtectAuth";
 import Dummy from "./components/DummyData";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
-
+import { getCandidateProfile } from "./features/getProfile/getCpService";
+import { getOrganizationProfile } from "./features/getProfile/getOrgpService";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,10 +30,10 @@ function App() {
   const handleShowOptions = () => {
     setShowOptions(!showOption);
   };
-  // useEffect(() => {
-  //   dispatch(getCandidateProfile());
-  //   dispatch(getOrganizationProfile());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getCandidateProfile());
+    dispatch(getOrganizationProfile());
+  }, [dispatch]);
 
   // useEffect(() => {
   //   if(loginUser && loginUser.token){
