@@ -10,6 +10,9 @@ import organizationProfileSlice from '../features/organizationProfile/organizati
 import addOlSlice from "../features/getProfile/orgLinks/addOrgLSlice";
 import updateProfileSlice from "../features/CandidateProfile/updateProfile/updateProfileSlice";
 import updateOpSlice from "../features/organizationProfile/updateOrgProfile/updateOpSlice";
+import ProfilesSlice from "../features/CandidateProfile/getProfiles/profilesSlice";
+import getCandCommentSlice  from "../features/Comments/candidateComment/getComments/getCommentSlice";
+
 const loginUser = localStorage.getItem('loginUser') ?
         JSON.parse(localStorage.getItem('loginUser')) : null
 
@@ -32,7 +35,9 @@ export const store = configureStore({
         organizationProfile:organizationProfileSlice,
         addOrgLink:addOlSlice,
         update:updateProfileSlice,
-        update:updateOpSlice
+        update:updateOpSlice,
+        userProfiles:ProfilesSlice,
+        getComments:getCandCommentSlice
     },
     preloadedState:initialState
 })

@@ -16,7 +16,8 @@ import Dummy from "./components/DummyData";
 import { useDispatch, useSelector } from "react-redux";
 import { getCandidateProfile } from "./features/getProfile/getCpService";
 import { getOrganizationProfile } from "./features/getProfile/getOrgpService";
-
+import PostContainer from "./pages/posts/PostContainer";
+import { getAllProfiles } from "./features/CandidateProfile/getProfiles/UsersProfileService";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -33,6 +34,7 @@ function App() {
   useEffect(() => {
     dispatch(getCandidateProfile());
     dispatch(getOrganizationProfile());
+    dispatch(getAllProfiles())
   }, [dispatch]);
 
   // useEffect(() => {
@@ -78,13 +80,11 @@ function App() {
           </div>
           <div className="md:pl-64 pt-[60px] h-full flex w-full">
             <Routes>
-              
               <Route path="/" element={<Dummy />} />
-              {/* <Route element={<Auth />}> */}
                 <Route path="/home" element={<Auth><Home /></Auth>} />
-                <Route path="/profile" element={<Auth><Profile/></Auth>} />
+                <Route path={`/${loginUser?.data?.name}`} element={<Auth><Profile/></Auth>} />
                 <Route path="/organization_profile" element={<Auth><Org_profile/></Auth>} />
-              {/* </Route> */}
+                <Route path="/post" element={<Auth><PostContainer/></Auth>} />
             </Routes>
           </div>
         </div>

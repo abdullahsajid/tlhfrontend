@@ -1,12 +1,24 @@
 import React, { useState,useEffect } from 'react'
 import toast from 'react-hot-toast'
 import Skeleton from 'react-loading-skeleton'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { candidatePostLike } from '../../features/candidatePost/CPostLike/postLikeService'
 
-const Posts = ({name,link,postImg,content,time}) => {
+const Posts = ({postId,name,link,postImg,content,time,data,comment}) => {
+  const navigate = useNavigate()
   const[like,setLike] = useState(1)
+  const dispatch = useDispatch()
   const [fakeLoading,setFakeLoading] = useState(true)
-  const handlerLike = () => {
-    setLike(like+1)
+
+  const handlerLike = async () => {
+    const id = postId
+    const data = await dispatch(candidatePostLike({id}))
+    if(data){
+      alert("post Like!")
+    }else{
+      alert("something wrong!")
+    }
   }
 
   useEffect(() => {
@@ -14,6 +26,11 @@ const Posts = ({name,link,postImg,content,time}) => {
       setFakeLoading(false)
     },2000)
   },[])
+
+  const handleSpecificPost = () => {
+    navigate('/post',{state:{postId,name,link,postImg,content,time,data}})
+  }
+
 
   return (
     <div className='flex flex-col bg-[#f6f6f7] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
@@ -27,7 +44,7 @@ const Posts = ({name,link,postImg,content,time}) => {
             <div className='text-sm font-semibold'>{fakeLoading ? <Skeleton width={200} style={{border:"3px solid #fff"}}/> : (time != null && time !== '') ? time : <Skeleton width={200} style={{border:"3px solid #fff"}}/>}</div>
         </div>
       </div>
-      <div className='flex flex-col gap-y-2'>
+      <div className='flex flex-col gap-y-2' onClick={handleSpecificPost}>
         <div className='flex mb-2'>
             {fakeLoading ? <Skeleton width={200} style={{border:"3px solid #fff"}}/> : (content != null && content !== '') ? content : <Skeleton width={200} style={{border:"3px solid #fff"}}/>}
         </div>
@@ -39,9 +56,8 @@ const Posts = ({name,link,postImg,content,time}) => {
 
       <div className='flex items-center gap-x-2'>
         <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500' onClick={()=>handlerLike()}>{like} like</div>
-        <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500'>10 comments</div>
+        <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500'>{(comment?.length > 0) ? comment?.length : 0} comments</div>
       </div>
-
     </div>
   )
 }

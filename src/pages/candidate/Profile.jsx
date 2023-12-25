@@ -81,9 +81,11 @@ const Profile = () => {
               {/* <CandidatePost/> */}
               {data?.candidatePosts ? posts.map((item)=>(
                 <Posts 
-                link={data?.avatar_url} 
-                name={'Abdullah Sajid'} postImg={item?.postImg} content={item?.content}
-                time={item?.createdAt}/>
+                  postId={item?.id}
+                  link={data?.avatar_url} 
+                  name={data?.name} postImg={item?.postImg} content={item?.content}
+                  time={item?.createdAt} data={data} comment={item?.comments}
+                />
               )) :  <div className='flex flex-col text-lg font-medium bg-[#f6f6f7] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
               shadow-md w-full hover:custom-border transition-all'>
                 No Posts
@@ -118,7 +120,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 h-full bg-[#f6f6f7] rounded-md w-full h-auto border border-solid border-[#f6f6f7] shadow hover:custom-border'>
+            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 bg-[#f6f6f7] rounded-md w-full h-auto border border-solid border-[#f6f6f7] shadow hover:custom-border'>
               <div className=' text-1xl font-semibold'>Social Links</div>
               {data?.socialLink ? data?.socialLink.map((item) => (
                 <a href={`${item?.link}`} className='flex items-center gap-x-2'>
