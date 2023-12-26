@@ -1,11 +1,11 @@
 import React,{useState,useEffect}from 'react'
 import { Link2 } from 'lucide-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
-import CandidatePost from '../../components/Posts/CandidatePost'
 import Posts from '../../components/homeComponents/Posts'
 
 const Profile = () => {
+  const dispatch = useDispatch()
   const {data} = useSelector((state) => state.candidateProfile.candidateProfile)
   const[fakeLoading,setFakeLoading] = useState(true)
   const[posts,setPosts] = useState([])
@@ -76,15 +76,13 @@ const Profile = () => {
         <div className='flex gap-x-3 relative z-[100] w-full'>
           <div className='flex w-full mt-5 ml-7'>
             <div className='flex flex-col gap-y-2 w-[650px]'>
-              {/* <div className='text-base font-semibold'>posts</div> */}
-              {/* <div>{fakeLoading && <Skeleton count={3} style={{width:'100%',border:'3px solid #fff'}}/>}</div> */}
-              {/* <CandidatePost/> */}
-              {data?.candidatePosts ? posts.map((item)=>(
+              {data?.candidatePosts ? posts.map((item) => (
                 <Posts 
                   postId={item?.id}
                   link={data?.avatar_url} 
                   name={data?.name} postImg={item?.postImg} content={item?.content}
                   time={item?.createdAt} data={data} comment={item?.comments}
+                  like={item?.likes}
                 />
               )) :  <div className='flex flex-col text-lg font-medium bg-[#f6f6f7] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
               shadow-md w-full hover:custom-border transition-all'>

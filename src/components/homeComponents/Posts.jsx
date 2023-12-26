@@ -4,23 +4,15 @@ import Skeleton from 'react-loading-skeleton'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { candidatePostLike } from '../../features/candidatePost/CPostLike/postLikeService'
+import Like from '../Posts/Like'
 
-const Posts = ({postId,name,link,postImg,content,time,data,comment}) => {
+const Posts = ({postId,name,link,postImg,content,time,data,comment,like}) => {
   const navigate = useNavigate()
-  const[like,setLike] = useState(1)
+
   const dispatch = useDispatch()
   const [fakeLoading,setFakeLoading] = useState(true)
 
-  const handlerLike = async () => {
-    const id = postId
-    const data = await dispatch(candidatePostLike({id}))
-    if(data){
-      alert("post Like!")
-    }else{
-      alert("something wrong!")
-    }
-  }
-
+  
   useEffect(() => {
     setTimeout(()=> {
       setFakeLoading(false)
@@ -28,7 +20,7 @@ const Posts = ({postId,name,link,postImg,content,time,data,comment}) => {
   },[])
 
   const handleSpecificPost = () => {
-    navigate('/post',{state:{postId,name,link,postImg,content,time,data}})
+    navigate('/post',{state:{postId,name,link,postImg,content,time,data,like}})
   }
 
 
@@ -55,7 +47,7 @@ const Posts = ({postId,name,link,postImg,content,time,data,comment}) => {
       </div>
 
       <div className='flex items-center gap-x-2'>
-        <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500' onClick={()=>handlerLike()}>{like} like</div>
+        <Like postId={postId} like={like}/>
         <div className='text-sm font-bold border border-solid border-white bg-white px-2 rounded-sm cursor-pointer text-slate-500'>{(comment?.length > 0) ? comment?.length : 0} comments</div>
       </div>
     </div>

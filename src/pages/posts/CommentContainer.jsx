@@ -4,6 +4,7 @@ import { commentCandidate } from '../../features/Comments/candidateComment/candC
 import Comments from './Comments'
 import toast from 'react-hot-toast'
 import { getCommentCandidate } from '../../features/Comments/candidateComment/getComments/getCommentService'
+
 const CommentContainer = ({id,avatar}) => {
     const [comment,setComment] = useState('')
     const dispatch = useDispatch()

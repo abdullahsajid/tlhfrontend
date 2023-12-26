@@ -3,10 +3,10 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 const cookie = new Cookies()
 
-export const candidatePostLike = createAsyncThunk('user/candidatePostLike',async ({id},{rejectWithValue}) => {
+export const getCandidatePostLike = createAsyncThunk('user/getCandidatePostLike',async ({id},{rejectWithValue}) => {
     try{
         const token = cookie.get('token')
-        const userRes = await axios.get(`http://localhost:8000/candidate/postLike/${id}`,
+        const userRes = await axios.get(`http://localhost:8000/candidate/getlikes/${id}`,
             {
                 headers:{
                     "Content-Type":'application/json',

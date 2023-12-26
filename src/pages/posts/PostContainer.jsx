@@ -5,12 +5,15 @@ import UserProfile from './UserProfile'
 import CommentContainer from './CommentContainer'
 import { useDispatch } from 'react-redux'
 import { getCommentCandidate } from '../../features/Comments/candidateComment/getComments/getCommentService'
+import { getCandidatePostLike } from '../../features/candidatePost/CPostLike/getPostLikeService'
 const PostContainer = () => {
     const location = useLocation()
     const dispatch = useDispatch()
+
     useEffect(()=>{
       const id = location.state.postId
       dispatch(getCommentCandidate({id}))
+      dispatch(getCandidatePostLike({id}))
     },[])
     
   return (
@@ -21,6 +24,8 @@ const PostContainer = () => {
                 postImg={location.state.postImg}
                 content={location.state.content}
                 time={location.state.time}
+                like={location.state.like}
+                postId={location.state.postId}
             />
             <CommentContainer id={location.state.postId} avatar={location.state.link}/>
       </div>

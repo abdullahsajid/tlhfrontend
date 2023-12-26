@@ -12,6 +12,7 @@ import updateProfileSlice from "../features/CandidateProfile/updateProfile/updat
 import updateOpSlice from "../features/organizationProfile/updateOrgProfile/updateOpSlice";
 import ProfilesSlice from "../features/CandidateProfile/getProfiles/profilesSlice";
 import getCandCommentSlice  from "../features/Comments/candidateComment/getComments/getCommentSlice";
+import getPostCandidateLikeSlice  from "../features/candidatePost/CPostLike/getPostLikeSlice";
 
 const loginUser = localStorage.getItem('loginUser') ?
         JSON.parse(localStorage.getItem('loginUser')) : null
@@ -37,7 +38,8 @@ export const store = configureStore({
         update:updateProfileSlice,
         update:updateOpSlice,
         userProfiles:ProfilesSlice,
-        getComments:getCandCommentSlice
+        getComments:getCandCommentSlice,
+        getLike:getPostCandidateLikeSlice
     },
     preloadedState:initialState
 })

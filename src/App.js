@@ -24,18 +24,21 @@ function App() {
   const [showEditPanel, setShowEditPanel] = useState(false);
   const [showOption, setShowOptions] = useState(false);
   const {loginUser} = useSelector((state) => state.login)
+
   const handleShowPanel = (val) => {
     setShowEditPanel(val);
     setShowOptions(false);
   };
+
   const handleShowOptions = () => {
     setShowOptions(!showOption);
   };
-  useEffect(() => {
-    dispatch(getCandidateProfile());
-    dispatch(getOrganizationProfile());
-    dispatch(getAllProfiles())
-  }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getCandidateProfile());
+  //   dispatch(getOrganizationProfile());
+  //   dispatch(getAllProfiles())
+  // }, [dispatch]);
 
   // useEffect(() => {
   //   if(loginUser && loginUser.token){
