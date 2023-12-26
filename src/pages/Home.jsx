@@ -6,12 +6,13 @@ import ReleventUser from '../components/homeComponents/ReleventUser'
 import { useDispatch } from "react-redux";
 import { getCandidateProfile } from '../features/getProfile/getCpService'
 import { getOrganizationProfile } from '../features/getProfile/getOrgpService'
-
+import { getAllProfiles } from '../features/CandidateProfile/getProfiles/UsersProfileService'
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCandidateProfile());
     dispatch(getOrganizationProfile());
+    dispatch(getAllProfiles())
   }, [dispatch]);
   return (
     <div className='flex gap-x-7'>

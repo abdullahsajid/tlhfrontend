@@ -13,10 +13,10 @@ const SpecificPost = ({name,avatar,postImg,content,time,like,postId}) => {
     const id = postId
     const data = await dispatch(candidatePostLike({id}))
     if(data){
-      alert("post Like!")
+      console.log("post Like!")
       dispatch(getCandidatePostLike({id}))
     }else{
-      alert("something wrong!")
+      console.log("something wrong!")
     }
   }
 
@@ -38,8 +38,10 @@ const SpecificPost = ({name,avatar,postImg,content,time,like,postId}) => {
             {content}
           </div>
           <div className='flex w-full'>
+            {postImg &&
               <img src={postImg}
               className='bg-center bg-no-repeat bg-cover rounded-md object-cover w-full h-[350px]' />
+            }
           </div>
         </div>
 

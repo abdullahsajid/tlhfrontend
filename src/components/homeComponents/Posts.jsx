@@ -41,8 +41,10 @@ const Posts = ({postId,name,link,postImg,content,time,data,comment,like}) => {
             {fakeLoading ? <Skeleton width={200} style={{border:"3px solid #fff"}}/> : (content != null && content !== '') ? content : <Skeleton width={200} style={{border:"3px solid #fff"}}/>}
         </div>
         <div className='flex w-full'>
+          {postImg &&
             <img src={`${postImg}`}
             className='bg-center bg-no-repeat bg-cover rounded-md object-cover w-full h-[350px]' />
+          }
         </div>
       </div>
 

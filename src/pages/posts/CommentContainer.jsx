@@ -8,7 +8,7 @@ import { getCommentCandidate } from '../../features/Comments/candidateComment/ge
 const CommentContainer = ({id,avatar}) => {
     const [comment,setComment] = useState('')
     const dispatch = useDispatch()
-
+    const profile = useSelector((state) => state.userProfiles.profiles.data)
     const comments = useSelector((state) => state.getComments?.getComments?.data || {})
     
     const handleComment = async () => {
@@ -25,7 +25,7 @@ const CommentContainer = ({id,avatar}) => {
             const data = await dispatch(commentCandidate({id,comment}))
             if(data){
                 setComment('')
-                toast.success("profile added!",{
+                toast.success("comment added",{
                     style:{
                         backgroundColor:'#f6f6f7',
                         border:'3px solid #fff',
@@ -68,9 +68,14 @@ const CommentContainer = ({id,avatar}) => {
                 </div>
             </div>
         </div>
-        {comments && comments?.comments?.map((value)=> (
-              <Comments content={value.comment} date={value.createdAt}/>
-        ))}
+        {comments && comments?.comments?.map((value)=> {
+            const profileData = profile.find((val) => val?.user_id == value?.userId)
+            return <Comments content={value.comment}
+                            date={value.createdAt}
+                            avatar={profileData.avatar_url}
+                            name={profileData.name}
+                    />
+        })}
     </>
   )
 }

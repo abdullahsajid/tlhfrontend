@@ -9,10 +9,10 @@ const Like = ({postId,like}) => {
         const id = postId
         const data = await dispatch(candidatePostLike({id}))
         if(data){
-          alert("post Like!")
+          console.log("post Like!")
           dispatch(getCandidateProfile());
         }else{
-          alert("something wrong!")
+          console.log("something wrong!")
         }
     } 
 

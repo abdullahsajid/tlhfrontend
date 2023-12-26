@@ -3,7 +3,7 @@ import { Link2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import Posts from '../../components/homeComponents/Posts'
-
+import { getAllProfiles } from '../../features/CandidateProfile/getProfiles/UsersProfileService'
 const Profile = () => {
   const dispatch = useDispatch()
   const {data} = useSelector((state) => state.candidateProfile.candidateProfile)
@@ -17,6 +17,7 @@ const Profile = () => {
     if (data && data.candidatePosts) {
       setPosts(data?.candidatePosts?.slice().reverse());
     }
+    dispatch(getAllProfiles())
   },[data])
 
   return (
