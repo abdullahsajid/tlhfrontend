@@ -36,7 +36,7 @@ const Posts = ({postId,name,link,postImg,content,time,data,comment,like}) => {
             <div className='text-sm font-semibold'>{fakeLoading ? <Skeleton width={200} style={{border:"3px solid #fff"}}/> : (time != null && time !== '') ? time : <Skeleton width={200} style={{border:"3px solid #fff"}}/>}</div>
         </div>
       </div>
-      <div className='flex flex-col gap-y-2' onClick={handleSpecificPost}>
+      <div className='flex flex-col gap-y-2 cursor-pointer' onClick={handleSpecificPost}>
         <div className='flex mb-2'>
             {fakeLoading ? <Skeleton width={200} style={{border:"3px solid #fff"}}/> : (content != null && content !== '') ? content : <Skeleton width={200} style={{border:"3px solid #fff"}}/>}
         </div>

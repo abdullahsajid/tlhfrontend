@@ -8,8 +8,8 @@ import { getCommentCandidate } from '../../features/Comments/candidateComment/ge
 const CommentContainer = ({id,avatar}) => {
     const [comment,setComment] = useState('')
     const dispatch = useDispatch()
-    const profile = useSelector((state) => state.userProfiles.profiles.data)
-    const comments = useSelector((state) => state.getComments?.getComments?.data || {})
+    const profile = useSelector((state) => state.userProfiles?.profiles?.data)
+    const comments = useSelector((state) => state.getComments?.getComments?.data)
     
     const handleComment = async () => {
         if(comment == ''){
@@ -51,7 +51,7 @@ const CommentContainer = ({id,avatar}) => {
         <div className='flex flex-col bg-[#f6f6f7] p-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
         shadow-md w-full hover:custom-border transition-all'>
             <div className='px-4 pt-4 pb-4'>
-                <div class="flex items-center">
+                <div className="flex items-center">
                     <div className='me-3 flex items-center min-w-[40px]'>
                         <img src={avatar} alt=""
                         className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
@@ -68,12 +68,13 @@ const CommentContainer = ({id,avatar}) => {
                 </div>
             </div>
         </div>
-        {comments && comments?.comments?.map((value)=> {
+        {comments && comments?.comments?.map((value,i)=> {
             const profileData = profile.find((val) => val?.user_id == value?.userId)
             return <Comments content={value.comment}
                             date={value.createdAt}
                             avatar={profileData.avatar_url}
                             name={profileData.name}
+                            key={i}
                     />
         })}
     </>

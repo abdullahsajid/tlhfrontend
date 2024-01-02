@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { candidatePostLike } from '../../features/candidatePost/CPostLike/postLikeService'
-import { getCandidateProfile } from '../../features/getProfile/getCpService'
+import { loginUserPost } from '../../features/candidatePost/getAuthPost/loginUserPostService'
 import { useDispatch } from 'react-redux'
+
 const Like = ({postId,like}) => {
     const dispatch = useDispatch()
-
+    // const 
     const handlerLike = async () => {
         const id = postId
         const data = await dispatch(candidatePostLike({id}))
+    
         if(data){
           console.log("post Like!")
-          dispatch(getCandidateProfile());
+          dispatch(loginUserPost())
         }else{
           console.log("something wrong!")
         }

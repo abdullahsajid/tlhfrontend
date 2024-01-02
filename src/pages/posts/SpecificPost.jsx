@@ -6,8 +6,8 @@ import { getCandidatePostLike } from '../../features/candidatePost/CPostLike/get
 
 const SpecificPost = ({name,avatar,postImg,content,time,like,postId}) => {
   const dispatch = useDispatch()
-  const comment = useSelector((state) => state.getComments?.getComments?.data?.comments || {})
-  const likes = useSelector((state) => state.getLike?.getPostLike?.data?.candLike || {})
+  const comment = useSelector((state) => state.getComments?.getComments?.data?.comments)
+  const likes = useSelector((state) => state.getLike?.getPostLike?.data?.candLike)
 
   const handlerLike = async () => {
     const id = postId

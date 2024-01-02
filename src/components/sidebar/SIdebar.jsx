@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import SidebarItems from './SidebarItems'
-import { Home,Building2,Bell,ClipboardList  } from 'lucide-react'
+import { Home,Building2,Bell,ClipboardList,UserRoundPlus   } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
@@ -45,6 +45,12 @@ const Sidebar = () => {
                     id: 3,
                     label: "Notifications",
                     icon: Bell,
+                    endpoint: '/'
+                },
+                {
+                    id: 4,
+                    label: "Create job",
+                    icon: UserRoundPlus,
                     endpoint: '/'
                 }
             ]);
@@ -99,8 +105,8 @@ const Sidebar = () => {
     <div className='h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm '>
         <div className='flex justify-between flex-col w-full h-full p-3 pl-0'>
             <div className='flex flex-col gap-y-2'>
-                {sidebarData.map((items,key)=>(
-                    <SidebarItems label={items.label} Icon={items.icon}
+                {sidebarData.map((items,i)=>(
+                    <SidebarItems key={i} label={items.label} Icon={items.icon}
                     active={items.id === active} onActive={()=>handlerActive(items.id)} endpoint={items.endpoint} />
                 ))}
             </div>

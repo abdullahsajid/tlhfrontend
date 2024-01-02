@@ -2,23 +2,28 @@ import React,{useState,useEffect}from 'react'
 import { Link2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
-import Posts from '../../components/homeComponents/Posts'
+import { getCandidateProfile } from '../../features/getProfile/getCpService'
 import { getAllProfiles } from '../../features/CandidateProfile/getProfiles/UsersProfileService'
+import { loginUserPost } from '../../features/candidatePost/getAuthPost/loginUserPostService'
+import CandidatePost from '../../components/Posts/CandidatePost'
+import { getOrganizationProfile } from '../../features/getProfile/getOrgpService'
+
 const Profile = () => {
   const dispatch = useDispatch()
-  const {data} = useSelector((state) => state.candidateProfile.candidateProfile)
+  const {data} = useSelector((state) => state.candidateProfile?.candidateProfile)
+  // const {loginUserPosts} = useSelector((state) => state.post?.loginUserPost?.data)
   const[fakeLoading,setFakeLoading] = useState(true)
-  const[posts,setPosts] = useState([])
-
+  // const[posts,setPosts] = useState([])
+  // console.log(loginUserPosts)
   useEffect(() => {
     setTimeout(()=> {
       setFakeLoading(false)
     },2000)
-    if (data && data.candidatePosts) {
-      setPosts(data?.candidatePosts?.slice().reverse());
-    }
+    dispatch(getCandidateProfile())
     dispatch(getAllProfiles())
-  },[data])
+    dispatch(loginUserPost())
+    dispatch(getOrganizationProfile())
+  },[dispatch])
 
   return (
     <div className='py-6 px-10 transition-all w-full'>
@@ -53,8 +58,8 @@ const Profile = () => {
             {fakeLoading ? <Skeleton width={200}/> : !(data?.name) ? <Skeleton width={200}/> : data?.name}
           </div>
           <div className='flex w-96 flex-wrap gap-3 '>
-            {data?.skill ? data?.skill.map((item) => (
-              <div className='bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border'>
+            {data?.skill ? data?.skill.map((item,i) => (
+              <div className='bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border' key={i}>
                 {fakeLoading ? <Skeleton width={80} style={{border:"3px solid #fff"}}/> : !(item?.skill) ? <Skeleton width={80} style={{border:"3px solid #fff"}}/> : item?.skill}
               </div>  
             )) :
@@ -77,19 +82,7 @@ const Profile = () => {
         <div className='flex gap-x-3 relative z-[100] w-full'>
           <div className='flex w-full mt-5 ml-7'>
             <div className='flex flex-col gap-y-2 w-[650px]'>
-              {data?.candidatePosts ? posts.map((item) => (
-                <Posts 
-                  postId={item?.id}
-                  link={data?.avatar_url} 
-                  name={data?.name} postImg={item?.postImg} content={item?.content}
-                  time={item?.createdAt} data={data} comment={item?.comments}
-                  like={item?.likes}
-                />
-              )) :  <div className='flex flex-col text-lg font-medium bg-[#f6f6f7] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
-              shadow-md w-full hover:custom-border transition-all'>
-                No Posts
-                <Skeleton width={"100%"} count={5}/>
-                </div>}
+              <CandidatePost/>
             </div>
           </div>
 
@@ -121,8 +114,8 @@ const Profile = () => {
 
             <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 bg-[#f6f6f7] rounded-md w-full h-auto border border-solid border-[#f6f6f7] shadow hover:custom-border'>
               <div className=' text-1xl font-semibold'>Social Links</div>
-              {data?.socialLink ? data?.socialLink.map((item) => (
-                <a href={`${item?.link}`} className='flex items-center gap-x-2'>
+              {data?.socialLink ? data?.socialLink.map((item,i) => (
+                <a href={`${item?.link}`} className='flex items-center gap-x-2' key={i}>
                 <div>
                   <Link2 size={20}/>
                 </div>

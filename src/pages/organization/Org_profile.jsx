@@ -87,8 +87,8 @@ const Org_profile = () => {
           <div className='flex flex-col w-full'>
             <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 h-full bg-[#f6f6f7] rounded-md w-full border border-solid border-[#f6f6f7] shadow hover:custom-border relative z-[100]'>
               <div className=' text-1xl font-semibold'>Social Links</div>
-              {data?.socialLinks ? data?.socialLinks.map((item)=>(
-                <a href={`${item?.link}`} className='flex items-center gap-x-2'>
+              {data?.socialLinks ? data?.socialLinks.map((item,i)=>(
+                <a href={`${item?.link}`} className='flex items-center gap-x-2' key={i}>
                   <div>
                     <Link2 size={20}/>
                   </div>

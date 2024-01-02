@@ -5,7 +5,7 @@ const Comments = ({avatar,name,content,date}) => {
     <div className='flex flex-col bg-[#f6f6f7] p-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
     shadow-md w-full hover:custom-border transition-all'>
       <div className='px-4 pt-4 pb-4'>
-        <div class="flex flex-row gap-1">
+        <div className="flex flex-row gap-1">
             <div className='me-3 flex min-w-[40px]'>
                 <img src={avatar} alt=""
                 className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
@@ -26,3 +26,5 @@ const Comments = ({avatar,name,content,date}) => {
 }
 
 export default Comments
+
+

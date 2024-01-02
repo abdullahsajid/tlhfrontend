@@ -7,12 +7,15 @@ import { useDispatch } from "react-redux";
 import { getCandidateProfile } from '../features/getProfile/getCpService'
 import { getOrganizationProfile } from '../features/getProfile/getOrgpService'
 import { getAllProfiles } from '../features/CandidateProfile/getProfiles/UsersProfileService'
+import { loginUserPost } from '../features/candidatePost/getAuthPost/loginUserPostService'
+
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCandidateProfile());
     dispatch(getOrganizationProfile());
     dispatch(getAllProfiles())
+    dispatch(loginUserPost())
   }, [dispatch]);
   return (
     <div className='flex gap-x-7'>
@@ -20,7 +23,6 @@ const Home = () => {
             <CreatePost/>
             <Posts link={"https://avatars.githubusercontent.com/u/96902562?v=4"} name={'Muhammad Umair'} postImg={'https://www.veeforu.com/wp-content/uploads/2023/07/youtube-banner-background-futuristic-2048x1152-1-1024x576.jpg'}/>
             <Posts link={"https://avatars.githubusercontent.com/u/77003390?v=4"} name={'Abdullah Sajid'} postImg={'https://images.pexels.com/photos/1181325/pexels-photo-1181325.jpeg'}/>
-            
         </div>
         <div className='relative'>
           <div className='w-80 pt-6 flex flex-col gap-y-4 sticky top-14 z-10'>

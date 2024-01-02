@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { candidatePost } from '../../features/candidatePost/postService'
 import toast from 'react-hot-toast'
-import { getCandidateProfile } from '../../features/getProfile/getCpService'
+import { loginUserPost } from '../../features/candidatePost/getAuthPost/loginUserPostService'
 
 const CreatePost = () => {
   const dispatch = useDispatch()
@@ -48,7 +48,7 @@ const CreatePost = () => {
       })
       setContent('')
       setImgUrl(null)
-      dispatch(getCandidateProfile())
+      dispatch(loginUserPost())
     }else{
       toast.error("something went wrong try again!",{
         style:{

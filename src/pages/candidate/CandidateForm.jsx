@@ -304,8 +304,8 @@ const CandidateForm = ({handler}) => {
                     </div>
                     {data?.skill && <div className='px-3 py-1 text-xs'>Your skills*</div>}
                     <div className='px-3 py-1 flex gap-x-3'>
-                        {data?.skill && data?.skill?.map((item)=>(
-                            <div className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer'>{item.skill}</div>
+                        {data?.skill && data?.skill?.map((item,i)=>(
+                            <div className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' key={i}>{item.skill}</div>
                         ))}
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
