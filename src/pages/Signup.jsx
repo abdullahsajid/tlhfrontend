@@ -3,9 +3,11 @@ import {XSquare } from 'lucide-react'
 import { useDispatch } from 'react-redux'
 import { signUp } from '../features/Signup/signUpService'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = ({handler}) => {
     const dispatch = useDispatch()
+    const navigation = useNavigate()
     const[name,setName] = useState('')
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
@@ -16,11 +18,42 @@ const Signup = ({handler}) => {
 
 
 
-    const handlerSubmit = (e) => {
+    const handlerSubmit = async (e) => {
         e.preventDefault()
+        if(emailError || passwordError){
+          toast.error("Fill correct fields!",{
+            style:{
+              backgroundColor:'#f6f6f7',
+              border:'3px solid #fff',
+              boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          },
+        })
+          return 
+        }
+        if(email == '' || password == ''){
+              toast.error("Fill all Fields!",{
+                style:{
+                  backgroundColor:'#f6f6f7',
+                  border:'3px solid #fff',
+                  boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              },
+            })
+            return 
+        }
+        
         if(password === confirmPassword){
-            const user = dispatch(signUp({email,password,name}))
-            if(user){
+            const user = await dispatch(signUp({email,password,name}))
+            console.log(user)
+            if(user?.payload?.data?.success === false){
+              toast.error(`${user.payload.data.message}`,{ 
+                style:{
+                  backgroundColor:'#f6f6f7',
+                  border:'3px solid #fff',
+                  boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              }})
+              return
+            }
+            else if(user){
                 setName('')
                 setPassword('')
                 setEmail('')
@@ -32,8 +65,9 @@ const Signup = ({handler}) => {
                     border:'3px solid #fff',
                     boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }})
+                
             }else{
-                toast.error("something Wrong!",{
+                toast.error("something Wrong",{
                     style:{
                       backgroundColor:'#f6f6f7',
                       border:'3px solid #fff',
@@ -42,7 +76,13 @@ const Signup = ({handler}) => {
                 })
             }
         }else{
-            console.log("something went wrong!")
+          toast.error("password not match",{
+            style:{
+              backgroundColor:'#f6f6f7',
+              border:'3px solid #fff',
+              boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+          }
+        })
         }
     }
 

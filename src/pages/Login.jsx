@@ -17,13 +17,37 @@ const Login = ({handler}) => {
     const handleLogin = async (e) => {
         e.preventDefault()
         if(emailError || passwordError){
+            toast.error("Fill correct fields!",{
+              style:{
+                backgroundColor:'#f6f6f7',
+                border:'3px solid #fff',
+                boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            },
+          })
             return 
           }
         if(email == '' || password == ''){
+              toast.error("Fill all Fields!",{
+                style:{
+                  backgroundColor:'#f6f6f7',
+                  border:'3px solid #fff',
+                  boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              },
+            })
             return 
         }
         const user = await dispatch(login({email,password}))
-        if(user){
+      
+        if(user?.payload?.data?.success === false){
+            toast.error(`${user.payload.data.message}`,{ 
+              style:{
+                backgroundColor:'#f6f6f7',
+                border:'3px solid #fff',
+                boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+            }})
+            return
+        }
+        else if(user?.payload?.data?.id){
             handler()
             toast.success("Login Successfully!",{ 
               style:{
@@ -75,11 +99,11 @@ shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
                     <span className='flex justify-center items-center custom-bg-lg to-blue-500 text-white p-[3px] rounded-md font-bold shadow-md'>Tech</span>
                     <span className='font-semibold'>LinkHub</span>
                 </div>
-                <div class="flex basis-1/2 self-stretch items-end shrink"></div>
+                <div className="flex basis-1/2 self-stretch items-end shrink"></div>
             </div>
             <div className='flex flex-col relative z-0 px-20'>
                 <div className='my-5 flex justify-center items-center'>
-                    <h1 class="text-3xl font-bold">Sign in</h1>
+                    <h1 className="text-3xl font-bold">Sign in</h1>
                 </div>
                 <div className='px-3 py-3 flex flex-col gap-y-2'>
                     <label htmlFor="email" className='font-semibold'>Email:</label>
