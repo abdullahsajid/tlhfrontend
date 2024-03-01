@@ -29,30 +29,30 @@ const Sidebar = () => {
                     icon: Home,
                     endpoint: '/home'
                 },
-                {
-                    id: 1,
-                    label: "Jobs",
-                    icon: ClipboardList,
-                    endpoint: '/'
-                },
+                // {
+                //     id: 1,
+                //     label: "Jobs",
+                //     icon: ClipboardList,
+                //     endpoint: '/'
+                // },
                 {
                     id: 2,
                     label: "Organization",
                     icon: Building2,
                     endpoint: '/organization_profile'
                 },
-                {
-                    id: 3,
-                    label: "Notifications",
-                    icon: Bell,
-                    endpoint: '/'
-                },
-                {
-                    id: 4,
-                    label: "Create job",
-                    icon: UserRoundPlus,
-                    endpoint: '/'
-                }
+                // {
+                //     id: 3,
+                //     label: "Notifications",
+                //     icon: Bell,
+                //     endpoint: '/'
+                // },
+                // {
+                //     id: 4,
+                //     label: "Create job",
+                //     icon: UserRoundPlus,
+                //     endpoint: '/'
+                // }
             ]);
         }
         else if (loginUser?.token) {
@@ -69,12 +69,12 @@ const Sidebar = () => {
                     icon: ClipboardList,
                     endpoint: '/'
                 },
-                {
-                    id: 3,
-                    label: "Notifications",
-                    icon: Bell,
-                    endpoint: '/'
-                }
+                // {
+                //     id: 3,
+                //     label: "Notifications",
+                //     icon: Bell,
+                //     endpoint: '/'
+                // }
             ]);
         } else {
             setSidebarData([
