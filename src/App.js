@@ -1,38 +1,24 @@
-import { useEffect, useState } from "react";
+import React, {lazy, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css"
-import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/sidebar/SIdebar";
-import CandidateForm from "./pages/candidate/CandidateForm";
-import Home from "./pages/Home";
-import Profile from "./pages/candidate/Profile";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import Org_profile from "./pages/organization/Org_profile";
-import OrgForm from "./pages/organization/OrgForm";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Auth from "./auth/ProtectAuth";
-import Dummy from "./components/DummyData";
-import { useDispatch, useSelector } from "react-redux";
-import { getCandidateProfile } from "./features/getProfile/getCpService";
-import { getOrganizationProfile } from "./features/getProfile/getOrgpService";
-import PostContainer from "./pages/posts/PostContainer";
-import { getAllProfiles } from "./features/CandidateProfile/getProfiles/UsersProfileService";
+const Landing = lazy(() => import("./pages/Landing"));
+const Home = lazy(() => import("./pages/Home"));
+const Profile = lazy(() => import("./pages/candidate/Profile"));
+const Org_profile = lazy(() => import("./pages/organization/Org_profile"));
+const Auth = lazy(() => import("./auth/ProtectAuth"));
+const Dummy = lazy(() => import("./components/DummyData"));
+const PostContainer = lazy(() => import("./pages/posts/PostContainer"));
+
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const [showEditPanel, setShowEditPanel] = useState(false);
-  const [showOption, setShowOptions] = useState(false);
+  
+  
   const {loginUser} = useSelector((state) => state.login)
 
-  const handleShowPanel = (val) => {
-    setShowEditPanel(val);
-    setShowOptions(false);
-  };
-
-  const handleShowOptions = () => {
-    setShowOptions(!showOption);
-  };
+  
 
   // useEffect(() => {
   //   dispatch(getCandidateProfile());
@@ -54,47 +40,18 @@ function App() {
 
   return (
     <>
-      <div
-        className={`fixed inset-x-0 h-full ${
-          showEditPanel === 0 ||
-          showEditPanel === 1 ||
-          showEditPanel === 2 ||
-          showEditPanel === 3
-            ? "backdrop-blur"
-            : ""
-        }`}
-      >
-        {showEditPanel === 0 && <CandidateForm handler={handleShowPanel} />}
-        {showEditPanel === 1 && <OrgForm handler={handleShowPanel} />}
-        {showEditPanel === 2 && <Signup handler={handleShowPanel} />}
-        {showEditPanel === 3 && <Login handler={handleShowPanel} />}
-      </div>
-      <div className="h-full">
-        <div className="h-[60px] fixed inset-y-0 z-[110] w-full">
-          <Navbar
-            handler={handleShowPanel}
-            showBar={handleShowOptions}
-            showOption={showOption}
-          />
-        </div>
-        <div className="max-w-[90rem] mx-auto h-full">
-          <div className="hidden md:flex pt-[63px] w-64 flex-col fixed inset-y-0 z-50 h-full">
-            <Sidebar />
-          </div>
-          <div className="md:pl-64 pt-[60px] h-full flex w-full">
-            <Routes>
-              <Route path="/" element={<Dummy />} />
-                <Route path="/home" element={<Auth><Home /></Auth>} />
-                <Route path={`/${loginUser?.data?.name}`} element={<Auth><Profile/></Auth>} />
-                <Route path="/organization_profile" element={<Auth><Org_profile/></Auth>} />
-                <Route path="/post" element={<Auth><PostContainer/></Auth>} />
-            </Routes>
-          </div>
-        </div>
-      </div>
+      <React.Suspense fallback={<div>loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Dummy />} />
+          <Route path="/landingpage" element={<Landing/>}/>
+          <Route path="/home" element={<Auth><Home /></Auth>} />
+          <Route path={`/${loginUser?.data?.name}`} element={<Auth><Profile/></Auth>} />
+          <Route path="/organization_profile" element={<Auth><Org_profile/></Auth>} />
+          <Route path="/post" element={<Auth><PostContainer/></Auth>} />
+        </Routes>
+      </React.Suspense>
     </>
   );
 }
 
 export default App;
-

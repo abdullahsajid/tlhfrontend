@@ -1,10 +1,10 @@
 import React, { useEffect, useState} from 'react'
 import {GripHorizontal,Cog,BadgePlus,LogOut } from "lucide-react" 
-import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
 const cookie = new Cookies()
+
 const Navbar = ({handler,showOption,showBar}) => {
     const token = cookie.get('token')
     const [isAuth,setAuth] = useState(false)

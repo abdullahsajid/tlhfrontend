@@ -17,5 +17,25 @@
         background-color: rgba(34, 34, 34, 0.65);;
         z-index: 999;
     }
+    .custom-text-border{
+        --text-border-width: 2px;
+        -webkit-text-stroke-color: #000;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-fill-color: #fff;
+    }
+    .custom-shadow{
+        box-shadow: 5px 5px 0px #141414;
+    }
+    .custom-card-border{
+        background: radial-gradient(ellipse at 40% 0, #bf398910 0, #0000 75%), radial-gradient(ellipse at 60% 0, #096bde10 0, #0000 75%);
+        border: max(1px, 0.0625rem, 1px) solid #30363d;
+    }
+    .custom__bg{
+        background: radial-gradient(ellipse at 40% 0, #bf398910 0, #0000 75%), radial-gradient(ellipse at 60% 0, #096bde10 0, #0000 75%);
+    }
 }
 
+::selection {
+    color: #fff;
+    background: #151819;
+}
