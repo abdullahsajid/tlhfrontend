@@ -1,12 +1,13 @@
 import React from 'react'
 
 const Hero = () => {
+
     return (
         <div className='mx-auto px-4 w-full max-w-[1440px] py-6'>
             <div className='grid grid-cols-2 max-sm:grid-cols-1'>
                 <div className='flex flex-col'>
-                    <div>
-                        <h1 className='!text-[clamp(52px,_7.45vw,_70px)] xl:text-[clamp(52px,_7.8vw,_70px)] text-shadow-gray font-bold
+                    <div className='max-sm:flex max-sm:justify-center'>
+                        <h1 className='!text-[clamp(38px,_7.45vw,_70px)] xl:text-[clamp(52px,_7.8vw,_70px)] text-shadow-gray font-bold
                         leading-tight'>
                             <span>Find career that</span><br />
                             <span>Fits your ambitions</span><br />
@@ -44,7 +45,7 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-                <div className='flex item-center justify-center'>
+                <div className='flex item-center justify-center items-center'>
                     <img src="./hero.png" />
                 </div>
             </div>

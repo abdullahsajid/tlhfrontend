@@ -8,7 +8,7 @@ const FeedbackCard = () => {
                     <img src="./butt.jpg" className='w-[40px] h-[40px] object-cover rounded-full' />
                 </div>
                 <div className='flex flex-col'>
-                    <h1 className='text-[17px] font-bold'>Butt Sahab</h1>
+                    <h1 className='text-[17px] font-bold'>Ali</h1>
                     <span className='text-[14px]'>Frontend Dev</span>
                 </div>
             </div>
