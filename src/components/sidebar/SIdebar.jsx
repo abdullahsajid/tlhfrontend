@@ -101,6 +101,7 @@ const Sidebar = () => {
     useEffect(() => {
         loginUser?.token ? setToggleUser(true) : setToggleUser(false)
     },[loginUser,toggleUser])
+    // {`/${loginUser?.data?.name}`} 
   return (
     <div className='h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm '>
         <div className='flex justify-between flex-col w-full h-full p-3 pl-0'>
@@ -110,7 +111,7 @@ const Sidebar = () => {
                     active={items.id === active} onActive={()=>handlerActive(items.id)} endpoint={items.endpoint} />
                 ))}
             </div>
-            {toggleUser && <Link to={`/${loginUser?.data?.name}`} className='flex flex-row items-center bg-[#f6f6f7] px-3 py-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
+            {toggleUser && <Link to={`/profile`} className='flex flex-row items-center bg-[#f6f6f7] px-3 py-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
             shadow-lg w-full hover:custom-border transition-all'>
                 <div className='mr-3 min-w-[40px]'>
                     {fakeLoading ? <Skeleton style={{width:'2.5rem', height:'2.5rem', borderRadius:"0.375rem", border:"3px solid #fff"}}/> : data?.avatar_url ? 

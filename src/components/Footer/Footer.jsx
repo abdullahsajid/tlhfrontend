@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Linkedin, Instagram, Twitter } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ handler }) => {
     const [toggleBr, setToggleBr] = useState(false)
     useEffect(() => {
         if (window.innerWidth < 500) {
             setToggleBr(!toggleBr)
         }
     }, [])
+   
     return (
         <div className='bg-[#010101] m-2 rounded-md transition-all hover:custom-shadow mt-4'>
             <div className='mx-auto px-4 w-full max-w-[1440px] py-6 custom__bg'>
@@ -22,8 +23,10 @@ const Footer = () => {
                             but every step brings you closer to achieving your dreams
                         </span>
                         <div className='flex gap-2 mt-5'>
-                            <button className='text-[#fff] border border-[#00AA76] bg-[#00AA76] py-1 px-3 rounded-md transition-all hover:text-[#00AA76] hover:bg-[#010101]'>Login</button>
-                            <button className='text-[#00AA76] border border-[#00AA76] py-1 px-3 rounded-md transition-all hover:text-[#fff] hover:bg-[#00AA76]'>Register</button>
+                            <button className='text-[#fff] border border-[#00AA76] bg-[#00AA76] py-1 px-3 rounded-md transition-all hover:text-[#00AA76] hover:bg-[#010101]'
+                                onClick={() => handler(1)}>Login</button>
+                            <button className='text-[#00AA76] border border-[#00AA76] py-1 px-3 rounded-md transition-all hover:text-[#fff] hover:bg-[#00AA76]'
+                                onClick={() => handler(0)}>Register</button>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import { commentCandidate } from '../../features/Comments/candidateComment/candC
 import Comments from './Comments'
 import toast from 'react-hot-toast'
 import { getCommentCandidate } from '../../features/Comments/candidateComment/getComments/getCommentService'
+import { Input } from '../../components/ui/input'
 
 const CommentContainer = ({id,avatar}) => {
     const [comment,setComment] = useState('')
@@ -58,7 +59,7 @@ const CommentContainer = ({id,avatar}) => {
                     </div>
                     <div className='flex justify-between items-center grow'>
                         <div className='shrink grow w-full'>
-                            <input type="text" className='w-full outline-none bg-[#fff] py-2 px-1 border border-solid border-[#f6f6f7] shadow-md rounded-sm'
+                            <Input type="text" className='w-full outline-none bg-[#fff] py-2 px-1 border border-solid border-[#f6f6f7] shadow-md rounded-sm'
                             placeholder='Reply here!'value={comment} onChange={(e) => setComment(e.target.value)}/>
                         </div>
                         <div className='ms-2'>

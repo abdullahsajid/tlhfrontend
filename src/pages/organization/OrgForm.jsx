@@ -7,6 +7,8 @@ import { getOrganizationProfile } from '../../features/getProfile/getOrgpService
 import Skeleton from 'react-loading-skeleton'
 import toast from 'react-hot-toast'
 import { updateOpService } from '../../features/organizationProfile/updateOrgProfile/updateOpService'
+import { Input } from 'components/ui/input'
+import { Textarea } from 'components/ui/textarea'
 
 const OrgForm = ({handler}) => {
     const dispatch = useDispatch()
@@ -166,7 +168,7 @@ const OrgForm = ({handler}) => {
                         <div className='flex justify-center items-center w-full h-full absolute top-0 z-[100]'>
                             <div className='flex flex-row justify-center items-center'>
                                 <label htmlFor="imageInput"  className='flex justify-center items-center' style={{backdropFilter:'blur(10px)', backgroundColor: 'rgba(15, 20, 25, 0.75)', minWidth: '44px', minHeight: '44px', borderRadius: '999px' }}>
-                                    <input type="file"
+                                    <Input type="file"
                                         style={{display:"none"}} 
                                         accept='image/*'
                                         id='imageInput'
@@ -183,7 +185,7 @@ const OrgForm = ({handler}) => {
                                 <label htmlFor="avatarInput"  className='flex justify-center items-center' style={{backdropFilter:'blur(4px)', backgroundColor: 'rgba(15, 20, 25, 0.75)', minWidth: '34px', minHeight: '34px', borderRadius: '999px' }}>
                                     <ImagePlus size={18} color='white'/>
                                 </label>
-                                <input type="file"
+                                <Input type="file"
                                         className='absolute'
                                         style={{ width: '0.1px', height: '0.1px', zIndex: '-1', opacity: '0',display:'none' }} 
                                         accept='image/*'
@@ -202,7 +204,7 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="name" className='font-semibold'>Name:</label>
-                        <input 
+                        <Input 
                             type="text" 
                             id='name' 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
@@ -212,7 +214,7 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="industry" className='font-semibold'>Industry:</label>
-                        <input 
+                        <Input 
                             type="text" 
                             id='industry' 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
@@ -222,7 +224,7 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="email" className='font-semibold'>Email:</label>
-                        <input 
+                        <Input 
                             type="email" 
                             id='email' 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300' 
@@ -232,7 +234,7 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="link" className='font-semibold'>Website link:</label>
-                        <input 
+                        <Input 
                             type="text" 
                             id='link' 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300' 
@@ -242,7 +244,7 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="location" className='font-semibold'>Location:</label>
-                        <input 
+                        <Input 
                             type="text" 
                             id='location' 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300' 
@@ -252,30 +254,30 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="bio" className='font-semibold'>Bio:</label>
-                        <textarea 
+                        <Textarea 
                             id="bio" 
                             rows="2" 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                             value={Bio}
                             onChange={(e)=>setBio(e.target.value)}
-                        ></textarea>
+                        />
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="about" className='font-semibold'>About:</label>
-                        <textarea 
+                        <Textarea 
                             id="about" 
                             rows="2" 
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                             value={about}
                             onChange={(e)=>setAbout(e.target.value)}
-                        ></textarea>
+                        />
                     </div>
                     <div className='px-3 py-1'>
                         <hr className='border-solid border-2 border-slate-300' />
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="skills" className='font-semibold'>Add Socials Name:</label>
-                        <input 
+                        <Input 
                             type="text" 
                             id='skills' 
                             className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300' 
@@ -285,7 +287,7 @@ const OrgForm = ({handler}) => {
                     </div>
                     <div className='px-3 py-3 flex flex-col gap-y-2'>
                         <label htmlFor="skills" className='font-semibold'>Add Socials Link:</label>
-                        <input 
+                        <Input 
                             type="text" 
                             id='skills' 
                             className='px-2 py-2 rounded-md shadow-md outline-none border-solid border-2 border-slate-300' 

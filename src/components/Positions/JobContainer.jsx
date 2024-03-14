@@ -12,7 +12,7 @@ const JobContainer = () => {
                 <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-3 mt-5'>
                     <PositionCard
                         img={'./butt.jpg'}
-                        name={'Butt Sahab'}
+                        name={'Hamza Sadiq'}
                         time={'30 min'}
                         city={'Islamabad, Pakistan'}
                         timing={'full time'}

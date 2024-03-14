@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import {XSquare } from 'lucide-react' 
 import { useDispatch, useSelector } from 'react-redux'
-import toast, { LoaderIcon } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import { login } from '../features/Login/loginService'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { Input } from '../components/ui/input'
 
 const Login = ({handler}) => {
     const navigate = useNavigate()
@@ -107,7 +108,7 @@ shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
                 </div>
                 <div className='px-3 py-3 flex flex-col gap-y-2'>
                     <label htmlFor="email" className='font-semibold'>Email:</label>
-                    <input type="email"
+                    <Input type="email"
                         id='email' 
                         className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                         value={email}
@@ -118,7 +119,7 @@ shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
                 </div>
                 <div className='px-3 py-3 flex flex-col gap-y-2'>
                     <label htmlFor="Password" className='font-semibold'>Password</label>
-                    <input 
+                    <Input 
                         type='password'
                         id="Password" 
                         className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'

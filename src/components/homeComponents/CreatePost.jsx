@@ -5,6 +5,7 @@ import Skeleton from 'react-loading-skeleton'
 import { candidatePost } from '../../features/candidatePost/postService'
 import toast from 'react-hot-toast'
 import { loginUserPost } from '../../features/candidatePost/getAuthPost/loginUserPostService'
+import { Textarea } from '../ui/textarea'
 
 const CreatePost = () => {
   const dispatch = useDispatch()
@@ -79,12 +80,12 @@ const CreatePost = () => {
           }
         </div>
         <div className='w-full flex grow'>
-          <textarea  cols="30" rows="1" placeholder='whats in your mind?'
+          <Textarea  cols="30" rows="1" placeholder='whats in your mind?'
           className='flex justify-center items-center p-2 rounded-md border-none outline-none w-full'
           value={content}
           onChange={(e)=>setContent(e.target.value)}
-          >
-          </textarea>
+          />
+          
         </div>
       </div>
       {url &&
