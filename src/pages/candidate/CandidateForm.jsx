@@ -8,8 +8,8 @@ import Skeleton from 'react-loading-skeleton'
 import toast from 'react-hot-toast'
 import { getCandidateProfile } from '../../features/getProfile/getCpService'
 import { updateProfileService } from '../../features/CandidateProfile/updateProfile/updateProfileService'
-import { Input } from 'components/ui/input'
-import { Textarea } from 'components/ui/textarea'
+import { Input } from 'src/components/ui/input'
+import { Textarea } from 'src/components/ui/textarea'
 
 const CandidateForm = ({ handler }) => {
     const dispatch = useDispatch()

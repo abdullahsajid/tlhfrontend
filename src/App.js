@@ -17,8 +17,8 @@ const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/candidate/Profile"));
 const Org_profile = lazy(() => import("./pages/organization/Org_profile"));
 const PostContainer = lazy(() => import("./pages/posts/PostContainer"));
-const CandidateForm = lazy(() => import("./pages/candidate/CandidateForm"))
-const OrgForm = lazy(() => import('./pages/organization/OrgForm'))
+const CandidateForm = lazy(() => import("./pages/candidate/CandidateForm"));
+const OrgForm = lazy(() => import("./pages/organization/OrgForm"));
 
 function App() {
   // useEffect(() => {
@@ -100,33 +100,38 @@ function App() {
     const handleShowOptions = () => {
       setShowOptions(!showOption);
     };
-    
+
     return (
       <>
-
         <div
           className={`fixed inset-x-0 h-full ${
             showEditPanel === 0 ||
             showEditPanel === 1 ||
             showEditPanel === 2 ||
             showEditPanel === 3
-              ? "backdrop-blur"
+              ? "backdrop-blur !z-[9999]"
               : ""
           }`}
         >
           {showEditPanel === 0 && (
-            <React.Suspense 
-            fallback={<div className="flex justify-center items-center w-full h-screen">
-              <Loader />
-              </div>}>
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
               <CandidateForm handler={handleShowPanel} />
             </React.Suspense>
           )}
           {showEditPanel === 1 && (
-            <React.Suspense 
-              fallback={<div className="flex justify-center items-center w-full h-screen">
-                <Loader />
-              </div>}>
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
               <OrgForm handler={handleShowPanel} />
             </React.Suspense>
           )}
@@ -147,16 +152,16 @@ function App() {
             </React.Suspense>
           )} */}
         </div>
-        <div className="h-full">
-          <div className="h-[60px] fixed inset-y-0 z-[110] w-full">
+        <div className="h-full bg-[#F2F2F2]">
+          <div className="h-[60px] fixed inset-y-0 z-[110] w-full pt-[10px] backdrop-blur !bg-[#F2F2F2]">
             <Navbar
               handler={handleShowPanel}
               showBar={handleShowOptions}
               showOption={showOption}
             />
           </div>
-          <div className="max-w-[90rem] mx-auto h-full">
-            <div className="hidden md:flex pt-[63px] w-64 flex-col fixed inset-y-0 z-50 h-full">
+          <div className="max-w-[90rem] mx-auto h-full bg-[#F2F2F2]">
+            <div className="hidden md:flex pt-[73px] w-64 flex-col fixed inset-y-0 z-50 h-full">
               <Sidebar />
             </div>
             <div className="md:pl-64 pt-[60px] h-full flex w-full">
@@ -242,7 +247,13 @@ function App() {
           path: "profile",
           element: (
             <Auth>
-              <React.Suspense fallback={<div className="flex justify-center items-center w-full h-screen"><Loader /></div>}>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
                 <Profile />
               </React.Suspense>
             </Auth>

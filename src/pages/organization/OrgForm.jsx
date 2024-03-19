@@ -7,8 +7,8 @@ import { getOrganizationProfile } from '../../features/getProfile/getOrgpService
 import Skeleton from 'react-loading-skeleton'
 import toast from 'react-hot-toast'
 import { updateOpService } from '../../features/organizationProfile/updateOrgProfile/updateOpService'
-import { Input } from 'components/ui/input'
-import { Textarea } from 'components/ui/textarea'
+import { Input } from 'src/components/ui/input'
+import { Textarea } from 'src/components/ui/textarea'
 
 const OrgForm = ({handler}) => {
     const dispatch = useDispatch()
