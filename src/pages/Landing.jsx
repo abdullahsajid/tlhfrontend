@@ -42,14 +42,13 @@ const Landing = () => {
             <div className={`bg-[#D9D0FF] m-2 rounded-md transition-all hover:custom-shadow ${(showEditPanel === 0) ||
                 (showEditPanel === 1) ? 'mt-0' : ''}`}>
                 <Nav />
-                <Hero />
+                <Hero handler={handleShowPanel} />
             </div>
             <Activity />
             <Procedure />
             <JobContainer />
             <Feedback />
             <Footer handler={handleShowPanel} />
-
         </>
     )
 }

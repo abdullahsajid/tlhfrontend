@@ -14,7 +14,11 @@ import ProfilesSlice from "../features/CandidateProfile/getProfiles/profilesSlic
 import getCandCommentSlice  from "../features/Comments/candidateComment/getComments/getCommentSlice";
 import getPostCandidateLikeSlice  from "../features/candidatePost/CPostLike/getPostLikeSlice";
 import loginCandidatePostSlice  from "../features/candidatePost/getAuthPost/loginUserPostSlice";
-
+import getResHeaderSlice from "src/features/Resume/ResumeHeader/ResHeaderSlice";
+import getResumeContact from "src/features/Resume/ResumeContact/ResContactSlice";
+import getResExpSlice from "src/features/Resume/ResumeExp/ResExpSlice";
+import getResEduSlice  from "src/features/Resume/ResumeEdu/ResEduGetSlice";
+import getResPersonalProjSlice from "src/features/Resume/ResumePerProj/ResPerlProjSlice";
 const loginUser = localStorage.getItem('loginUser') ?
         JSON.parse(localStorage.getItem('loginUser')) : null
 
@@ -41,7 +45,12 @@ export const store = configureStore({
         userProfiles:ProfilesSlice,
         getComments:getCandCommentSlice,
         getLike:getPostCandidateLikeSlice,
-        post:loginCandidatePostSlice
+        post:loginCandidatePostSlice,
+        getResHeader:getResHeaderSlice,
+        getResContact:getResumeContact,
+        getResExp:getResExpSlice,
+        getResEdu:getResEduSlice,
+        getResProj:getResPersonalProjSlice
     },
     preloadedState:initialState
 })

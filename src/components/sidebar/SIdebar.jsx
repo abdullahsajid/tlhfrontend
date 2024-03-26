@@ -41,6 +41,12 @@ const Sidebar = () => {
                     icon: Building2,
                     endpoint: '/organization_profile'
                 },
+                {
+                    id: 3,
+                    label: "Create Resume",
+                    icon: Building2,
+                    endpoint: '/createResume'
+                },
                 // {
                 //     id: 3,
                 //     label: "Notifications",
@@ -103,8 +109,8 @@ const Sidebar = () => {
     }, [loginUser, toggleUser])
     // {`/${loginUser?.data?.name}`} 
     return (
-        <div className='h-full border-r flex flex-col overflow-y-auto bg-[#F2F2F2] shadow-md' 
-        style={{boxShadow:'9px 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'}}>
+        <div className='h-full border-r flex flex-col overflow-y-auto bg-[#F2F2F2] shadow-md'
+            style={{ boxShadow: '9px 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}>
             <div className='flex justify-between flex-col w-full h-full p-3 pl-0'>
                 <div className='flex flex-col gap-y-2'>
                     {sidebarData.map((items, i) => (

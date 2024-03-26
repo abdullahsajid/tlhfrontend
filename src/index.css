@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face{
+    font-family: interRoman;
+    src: url(../public/fonts/Inter-roman.var.woff2);
+}
+*{
+    font-family: interRoman;
+}
 @layer utilities{
     .custom-bg-lg{
         background: linear-gradient(72.47deg,rgb(115,103,240) 22.16%,rgba(115,103,204,.7) 76.47%)!important;
@@ -13,9 +20,7 @@
         border-color: rgb(115,103,240);
     }
     .backdrop-blur {
-        backdrop-filter: blur(4px);
-        background-color: rgba(34, 34, 34, 0.65);;
-        z-index: 999;
+        background-color: rgba(91, 112, 131, 0.4);
     }
     .custom-text-border{
         --text-border-width: 2px;
@@ -33,9 +38,26 @@
     .custom__bg{
         background: radial-gradient(ellipse at 40% 0, #bf398910 0, #0000 75%), radial-gradient(ellipse at 60% 0, #096bde10 0, #0000 75%);
     }
+    .resumeColor{
+        color: hsl(220 8.9% 46.1%);
+    }
+    .resumeTag{
+        background-color: hsl(220 14.3% 95.9% / .6);
+    }
 }
 
 ::selection {
     color: #fff;
     background: #151819;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #818181;
+    border-radius: 3px solid #818181;
+    border-radius: 16px;
+}
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-track{
+    background: #F2F2F2;
 }

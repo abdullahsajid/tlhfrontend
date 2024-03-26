@@ -2,7 +2,7 @@ import React from 'react'
 import * as moment from 'moment';
 
 const Comments = ({ avatar, name, content, date }) => {
-  console.log("test time", moment(date, "YYYYMMDD").fromNow());
+
   return (
     <div className='flex flex-col bg-[#FFF] p-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
     shadow-md w-full hover:custom-border transition-all'>

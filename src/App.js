@@ -4,6 +4,7 @@ import {
   Outlet,
   createBrowserRouter,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./App.css";
@@ -19,6 +20,8 @@ const Org_profile = lazy(() => import("./pages/organization/Org_profile"));
 const PostContainer = lazy(() => import("./pages/posts/PostContainer"));
 const CandidateForm = lazy(() => import("./pages/candidate/CandidateForm"));
 const OrgForm = lazy(() => import("./pages/organization/OrgForm"));
+const Resume = lazy(() => import("./pages/Resume/Resume"));
+const MyResume = lazy(() => import("./pages/Resume/MyResume"));
 
 function App() {
   // useEffect(() => {
@@ -87,6 +90,8 @@ function App() {
     const [showOption, setShowOptions] = useState(false);
     const { loginUser } = useSelector((state) => state.login);
     const navigate = useNavigate();
+    const currentPath = useLocation().pathname;
+    
     useEffect(() => {
       if (loginUser?.token) {
         return navigate("/home");
@@ -104,12 +109,12 @@ function App() {
     return (
       <>
         <div
-          className={`fixed inset-x-0 h-full ${
+          className={`${
             showEditPanel === 0 ||
             showEditPanel === 1 ||
             showEditPanel === 2 ||
             showEditPanel === 3
-              ? "backdrop-blur !z-[9999]"
+              ? "fixed inset-x-0 h-full backdrop-blur !z-[9999]"
               : ""
           }`}
         >
@@ -135,24 +140,8 @@ function App() {
               <OrgForm handler={handleShowPanel} />
             </React.Suspense>
           )}
-          {/* {showEditPanel === 2 && (
-            <React.Suspense 
-              fallback={<div className="flex justify-center items-center w-full h-screen">
-                <Loader />
-              </div>}>
-              <Signup handler={handleShowPanel} />
-            </React.Suspense>
-          )}
-          {showEditPanel === 3 && (
-            <React.Suspense 
-              fallback={<div className="flex justify-center items-center w-full h-screen">
-                <Loader />
-              </div>}>
-              <Login handler={handleShowPanel} />
-            </React.Suspense>
-          )} */}
         </div>
-        <div className="h-full bg-[#F2F2F2]">
+        <div className="bg-[#F2F2F2] min-h-screen">
           <div className="h-[60px] fixed inset-y-0 z-[110] w-full pt-[10px] backdrop-blur !bg-[#F2F2F2]">
             <Navbar
               handler={handleShowPanel}
@@ -161,10 +150,12 @@ function App() {
             />
           </div>
           <div className="max-w-[90rem] mx-auto h-full bg-[#F2F2F2]">
-            <div className="hidden md:flex pt-[73px] w-64 flex-col fixed inset-y-0 z-50 h-full">
-              <Sidebar />
-            </div>
-            <div className="md:pl-64 pt-[60px] h-full flex w-full">
+            {currentPath !== '/myresume' && (
+              <div className="hidden md:flex pt-[73px] w-64 flex-col fixed inset-y-0 z-50 h-full">
+                <Sidebar />
+              </div>
+            )}
+            <div className={`md:pl-64 pt-[60px] h-full flex w-full ${currentPath === '/myresume' && "!pl-0 !pt-0"}`}>
               <Outlet />
             </div>
           </div>
@@ -255,6 +246,38 @@ function App() {
                 }
               >
                 <Profile />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+        {
+          path: "createResume",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <Resume />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+        {
+          path: "myresume",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <MyResume />
               </React.Suspense>
             </Auth>
           ),
