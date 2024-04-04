@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Like from '../../components/Posts/Like'
 import { candidatePostLike } from '../../features/candidatePost/CPostLike/postLikeService'
@@ -21,6 +21,7 @@ const SpecificPost = ({ name, avatar, postImg, content, time, like, postId }) =>
       console.log("something wrong!")
     }
   }
+  
 
   return (
     <>

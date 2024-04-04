@@ -97,6 +97,7 @@ function App() {
         return navigate("/home");
       }
     }, []);
+    
     const handleShowPanel = (val) => {
       setShowEditPanel(val);
       setShowOptions(false);
@@ -114,7 +115,7 @@ function App() {
             showEditPanel === 1 ||
             showEditPanel === 2 ||
             showEditPanel === 3
-              ? "fixed inset-x-0 h-full backdrop-blur !z-[9999]"
+              ? "fixed inset-x-0 h-full custom-bg-op !z-[9999]"
               : ""
           }`}
         >

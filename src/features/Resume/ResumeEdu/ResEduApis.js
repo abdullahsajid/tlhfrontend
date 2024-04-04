@@ -1,0 +1,81 @@
+import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import Cookies from "universal-cookie";
+const cookie = new Cookies();
+
+export const ResEduApi = createApi({
+    reducerPath:'resEduApi',
+    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    tagTypes:['resEduApi'],
+    endpoints:(builder)=>({
+        getResEdu:builder.query({
+            query:()=>{
+                const token = cookie.get("token");
+                return{
+                    url:`candidate/getEdu`,
+                    method:'GET',
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                    credentials:'include'
+                }
+            },
+            providesTags:['resEduApi']
+        }),
+        postResEdu:builder.mutation({
+            query:(data)=>{
+                const token = cookie.get("token");
+                return{
+                    url:`candidate/resumeEdu`,
+                    method:'POST',
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                    credentials:'include',
+                    body:data
+                }
+            },
+            invalidatesTags:['resEduApi']
+        }),
+        updateResEdu:builder.mutation({
+            query:(data)=>{
+                const token = cookie.get("token");
+                return{
+                    url:`candidate/updateEdu/${data.id}`,
+                    method:'PUT',
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                    credentials:'include',
+                    body:data
+                }
+            },
+            invalidatesTags:['resEduApi']
+        }),
+        deleteResEdu:builder.mutation({
+            query:(data)=>{
+                const token = cookie.get("token");
+                return{
+                    url:`candidate/deleteEdu/${data.id}`,
+                    method:'DELETE',
+                    headers:{
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                    credentials:'include',
+                    body:data
+                }
+            },
+            invalidatesTags:['resEduApi']
+        })
+    })
+})
+
+export const {useGetResEduQuery,usePostResEduMutation,useUpdateResEduMutation,useDeleteResEduMutation} = ResEduApi
+

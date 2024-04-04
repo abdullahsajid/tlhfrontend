@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 const Resume = () => {
+
     return (
         <div className='py-6 px-10 transition-all w-full'>
             <div className='flex flex-col'>

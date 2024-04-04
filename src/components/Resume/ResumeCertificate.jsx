@@ -1,77 +1,74 @@
 import React, { useEffect, useState } from 'react'
-import { ChevronsRight } from 'lucide-react'
 import ContentEditable from 'react-contenteditable'
-import { BadgePlus } from 'lucide-react'
+import { ChevronsRight,BadgePlus } from 'lucide-react'
 import { Button } from 'src/components/ui/button'
 import toast from 'react-hot-toast'
-import { useGetResProjQuery,usePostResProjMutation,useUpdateResProjMutation,useDeleteResProjMutation } from 'src/features/Resume/ResumePerProj/ResProjApis'
 import BtnLoader from 'src/components/Loader/BtnLoader'
-
-const ResumeProj = () => {
-    const [isEditable, setIsEditable] = useState(false)
-    const [projects, setProject] = useState([])
+import { useGetResCertQuery,usePostResCertMutation,useDeleteResCertMutation,useUpdateResCertMutation } from 'src/features/Resume/ResumeCertificate/ResCertApis'
+const ResumeCertificate = () => {
+    const {data} = useGetResCertQuery()
+    const [postResCert] = usePostResCertMutation()
+    const [updateResCert] = useUpdateResCertMutation()
+    const[Certificate,setCertificates] = useState([])
+    const[isEditable,setIsEditable] = useState(false)
     const [updateLoading, setUpdateLoading] = useState([])
     const [deleteLoading, setDeleteLoading] = useState([])
-    const { data } = useGetResProjQuery()
-    const [postResProj] = usePostResProjMutation()
-    const [updateResProj] = useUpdateResProjMutation()
-    const [deleteResProj] = useDeleteResProjMutation()
 
     useEffect(() => {
-        if (data && data?.data?.length > 0) {
-            setProject(data?.data)
+        if(data && data?.data?.length > 0){
+            setCertificates(data?.data)
             setUpdateLoading(new Array(data?.data?.length).fill(false))
             setDeleteLoading(new Array(data?.data?.length).fill(false))
-        } else {
-            setProject([
+        }else{
+            setCertificates([
                 {
-                    proj_name: "",
-                    proj_description: "",
-                    proj_link: ""
+                    cert_name: "",
+                    cert_description: "",
+                    cert_link: ""
                 }
             ])
         }
-    }, [data])
+    },[data])
 
-    const addProject = () => {
-        setProject([...projects, {
-            proj_name: "",
-            proj_description: "",
-            proj_link: ""
+    const addCertificate = () => {
+        setCertificates([...Certificate,{
+            cert_name: "",
+            cert_description: "",
+            cert_link: ""
         }])
     }
 
-    const handleProgramNameChange = (e, index) => {
-        const newProject = [...projects]
-        newProject[index] = {
-            ...newProject[index],
-            proj_name: e.target.value
+    const handleCertificateNameChange = (e,index) => {
+        const newCertificate = [...Certificate]
+        newCertificate[index] = {
+            ...newCertificate[index],
+            cert_name: e.target.value
         }
-        setProject(newProject)
+        setCertificates(newCertificate)
     }
 
-    const handlerDescriptionChange = (e, index) => {
-        const newProject = [...projects]
-        newProject[index] = {
-            ...newProject[index],
-            proj_description: e.target.value
+    const handleCertificateLinkChange = (e,index) => {
+        const newCertificate = [...Certificate]
+        newCertificate[index] ={
+            ...newCertificate[index],
+            cert_link: e.target.value
         }
-        setProject(newProject)
+        setCertificates(newCertificate)
     }
 
-    const handlerPortfolioLinkChange = (e, index) => {
-        const newProject = [...projects]
-        newProject[index] = {
-            ...newProject[index],
-            proj_link: e.target.value
+    const handlerCertificateDesChange = (e,index) => {
+        const newCertificate = [...Certificate]
+        newCertificate[index] = {
+            ...newCertificate[index],
+            cert_description: e.target.value
         }
-        setProject(newProject)
+        setCertificates(newCertificate)
     }
 
-    const handlerResProj = async (e, index) => {
+    const handlerResCertificate = async (e,index) => {
         e.preventDefault()
-        const { proj_name, proj_description, proj_link } = projects[index]
-        if (proj_name === '' && proj_description === '' && proj_link === '') {
+        const { cert_name,cert_description,cert_link } = Certificate[index]
+        if (cert_name === '' && cert_description === '' && cert_link === '') {
             toast.error("please fill all fields!", {
                 style: {
                     backgroundColor: '#f6f6f7',
@@ -81,10 +78,10 @@ const ResumeProj = () => {
             })
             return
         } else {
-            let allData = { proj_description, proj_name, proj_link }
-            const data = await postResProj(allData)
+            let allData = {cert_name, cert_description, cert_link}
+            const data = await postResCert(allData)
             if (data) {
-                toast.success("Resume Experience added!", {
+                toast.success("Resume Certificate added!", {
                     style: {
                         backgroundColor: '#f6f6f7',
                         border: '3px solid #fff',
@@ -105,10 +102,10 @@ const ResumeProj = () => {
         }
     }
 
-    const handlerResProjUpdate = async (e, index,id) => {
+    const handlerResCertificateUpdate = async (e,index,id) => {
         e.preventDefault()
-        const { proj_name, proj_description, proj_link } = projects[index]
-        if (proj_name === '' && proj_description === '' && proj_link === '') {
+        const { cert_name,cert_description,cert_link } = Certificate[index]
+        if (cert_name === '' && cert_description === '' && cert_link === '') {
             toast.error("please fill all fields!", {
                 style: {
                     backgroundColor: '#f6f6f7',
@@ -121,8 +118,8 @@ const ResumeProj = () => {
             let updateLoad = [...updateLoading]
             updateLoad[index] = true
             setUpdateLoading(updateLoad)
-            let allData = {id, proj_description, proj_name, proj_link }
-            const data = await updateResProj(allData)
+            let allData = {id, cert_name, cert_description, cert_link}
+            const data = await updateResCert(allData)
             if (data) {
                 toast.success("Updated!", {
                     style: {
@@ -147,15 +144,15 @@ const ResumeProj = () => {
         }
     }
 
-    const handlerResProjDelete = async (e, index,id) => {
+    const handlerResCertificateDelete = async (e,index,id) => {
         e.preventDefault()
         let updateLoad = [...deleteLoading]
         updateLoad[index] = true
         setDeleteLoading(updateLoad)
             let allData = {id}
-            const data = await deleteResProj(allData)
+            const data = await updateResCert(allData)
             if (data) {
-                toast.success("deleted!", {
+                toast.success("Deleted!", {
                     style: {
                         backgroundColor: '#f6f6f7',
                         border: '3px solid #fff',
@@ -177,13 +174,13 @@ const ResumeProj = () => {
             }
     }
 
-    return (
-        <>
-            <div className='flex flex-col gap-2'>
-                <div className='text-2xl font-bold mb-1 pl-10'>
-                    Projects
-                </div>
-                {projects.map((proj, index) => (
+  return (
+    <>
+    <div className='flex flex-col'>
+        <div className='text-2xl font-bold mb-1 pl-10'>
+            Certificates
+        </div>
+        {Certificate.map((cert, index) => (
                     <>
                         <div className='flex flex-col'>
                             <div className='flex items-center pl-3'>
@@ -193,59 +190,59 @@ const ResumeProj = () => {
                                 <ContentEditable
                                     tagName='a'
                                     className={`font-semibold  outline-none  ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
-                                    html={proj.proj_name}
-                                    onChange={(e) => handleProgramNameChange(e, index)}
-                                    placeholder='Your Project name'
+                                    html={cert.cert_name}
+                                    onChange={(e) => handleCertificateNameChange(e, index)}
+                                    placeholder='Your Certificate name'
                                     onFocus={() => setIsEditable(!isEditable)}
                                 />
                             </div>
                             <div className='mt-1 pl-10'>
                                     <ContentEditable
                                         className={`font-semibold  outline-none  ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
-                                        html={proj.proj_link}
-                                        onChange={(e) => handlerPortfolioLinkChange(e, index)}
-                                        placeholder='Your Project link'
+                                        html={cert.cert_link}
+                                        onChange={(e) => handleCertificateLinkChange(e, index)}
+                                        placeholder='Certificate Link'
                                     />
                             </div>
                             <div className='mt-1 pl-10'>
                                 <ContentEditable
                                     className={`outline-none w-full  ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
-                                    html={proj.proj_description}
-                                    onChange={(e) => handlerDescriptionChange(e, index)}
-                                    placeholder='tell them about project Experience'
+                                    html={cert.cert_description}
+                                    onChange={(e) => handlerCertificateDesChange(e, index)}
+                                    placeholder='tell them about Course Experience'
                                     onFocus={() => setIsEditable(!isEditable)}
                                 />
                             </div>
                         </div>
                         {(isEditable && data?.data?.length === 0) &&
                             <div className='w-full flex items-end justify-end mt-3 pl-10'>
-                                <Button className="h-[32px]" onClick={(e) => handlerResProj(e, index)}>
+                                <Button className="h-[32px]" onClick={(e) => handlerResCertificate(e,index)}>
                                     Save
                                 </Button>
                             </div>
                         }
-                        {(isEditable && data?.data?.length > 0 && !proj.res_proj_id) &&
+                        {(isEditable && data?.data?.length > 0 && !cert.certifacte_id) &&
                             <div className='w-full flex items-end justify-end mt-3 pl-10'>
-                                <Button className="h-[32px]" onClick={(e) => handlerResProj(e, index)}>
+                                <Button className="h-[32px]" onClick={(e) => handlerResCertificate(e,index)}>
                                     Save
                                 </Button>
                             </div>
                         }
                         <div className='flex items-end justify-end gap-2'>
-                            {(isEditable && data?.data?.length > 0 && proj.res_proj_id) &&
+                            {(isEditable && data?.data?.length > 0 && cert.certifacte_id) &&
                                 <div className='flex mt-3'>
                                     <Button className={`h-[32px] ${updateLoading[index] && "opacity-5 w-[81px]"}`}
                                         disabled={updateLoading[index]}
-                                        onClick={(e) => handlerResProjUpdate(e, index, proj.res_proj_id)}>
+                                        onClick={(e) => handlerResCertificateUpdate(e, index, cert.certifacte_id)}>
                                         {updateLoading[index] ? <BtnLoader /> : 'Update'}
                                     </Button>
                                 </div>
                             }
-                            {(isEditable && data?.data?.length > 0 && proj.res_proj_id) &&
+                            {(isEditable && data?.data?.length > 0 && cert.certifacte_id) &&
                                 <div className='flex mt-3'>
                                     <Button className={`h-[32px] ${deleteLoading[index] && "opacity-5 w-[81px]"}`}
                                         disabled={deleteLoading[index]}
-                                        onClick={(e) => handlerResProjDelete(e, index, proj.res_proj_id)}
+                                        onClick={(e) => handlerResCertificateDelete(e, index, cert.certifacte_id)}
                                         variant="destructive"
                                     >
                                         {deleteLoading[index] ? <BtnLoader /> : 'Delete'}
@@ -254,18 +251,19 @@ const ResumeProj = () => {
                             }
                         </div>
                     </>
-                ))}
-            </div>
-            {isEditable &&
+        ))}
+    </div>
+        {isEditable &&
                 <div className='w-full flex mt-3 pl-10'>
-                    <div className='flex items-center w-full cursor-pointer' onClick={addProject}>
+                    <div className='flex items-center w-full cursor-pointer' onClick={addCertificate}>
                         <BadgePlus />
                         <hr className='border border-[#000] border-solid w-full' />
                     </div>
                 </div>
-            }
-        </>
-    )
+        }
+    </>
+  )
 }
 
-export default ResumeProj
+export default ResumeCertificate
+

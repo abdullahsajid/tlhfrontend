@@ -22,6 +22,9 @@
     .backdrop-blur {
         background-color: rgba(91, 112, 131, 0.4);
     }
+    .custom-bg-op{
+        background-color: rgba(91, 112, 131, 0.4);
+    }
     .custom-text-border{
         --text-border-width: 2px;
         -webkit-text-stroke-color: #000;
@@ -60,4 +63,9 @@
 }
 ::-webkit-scrollbar-track{
     background: #F2F2F2;
+}
+
+[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: #000;
 }
