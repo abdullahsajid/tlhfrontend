@@ -17,7 +17,7 @@ const ResumeInterest = () => {
             setInterest(data?.data[0]?.interest_name)
         } else {
             setInterest([
-                { interest: 'Interest Name' }
+                { interest: '' }
             ])
         }
     }, [data])
@@ -124,7 +124,7 @@ const ResumeInterest = () => {
     }
 
     const addInterest = () => {
-        setInterest([...Interests, { interest: 'Interest Name' }])
+        setInterest([...Interests, { interest: '' }])
     }
 
     return (
@@ -136,13 +136,14 @@ const ResumeInterest = () => {
                 <div className='flex gap-2 flex-wrap'>
                     {isLoading ? <div className='flex items-center justify-center w-full'><Loader /></div> :
                         Interests.map((int, index) => (
+                            <div key={index}>
                             <>
-                                <div className={`flex gap-1 items-center border border-solid border-[#000] rounded-md text-sm px-[3px] py-[2px] outline-none text-[#000] ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
+                                <div  className={`flex gap-1 items-center border border-solid border-[#000] rounded-md text-sm px-[3px] py-[2px] outline-none text-[#000] ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
                                     onFocus={() => setIsEditable(!isEditable)}>
                                     <ContentEditable
                                         html={int.interest}
                                         onChange={(e) => handlerInterestChange(e, index)}
-                                        placeholder='Interest Name'
+                                        placeholder='Your Interest'
 
                                     />
                                     {isEditable && <X size={"15px"}
@@ -151,6 +152,7 @@ const ResumeInterest = () => {
                                     />}
                                 </div>
                             </>
+                            </div>
                         ))}
                 </div>
                 {(isEditable && data?.data?.length === 0) &&

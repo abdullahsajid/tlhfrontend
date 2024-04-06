@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-
+import { ArrowUpRight } from 'lucide-react';
 const ResumeHeader = lazy(() => import("../../components/Resume/ResumeHeader"))
 const ResumeContact = lazy(() => import("../../components/Resume/ResumeContact"))
 const WorkExp = lazy(() => import("../../components/Resume/WorkExp"))
@@ -16,7 +16,12 @@ const MyResume = () => {
         <>
             <div className='py-6 px-10 pt-24 transition-all w-full flex flex-col justify-center items-center'>
                 <div className='w-[1182px] mx-auto flex flex-col gap-2'>
-                    <div className='font-bold text-2xl'>Create/Resume</div>
+                    <div className='flex justify-between'>
+                        <div className='font-bold text-2xl'>Create/Resume</div>
+                        <div className='border border-solid border-[#000] rounded-md flex justify-center items-center w-[30px]'>
+                            <ArrowUpRight />
+                        </div>
+                    </div>
                     <div className='border border-[#000] border-solid rounded-lg px-10 py-3'>
                         <ResumeHeader />
                     </div>

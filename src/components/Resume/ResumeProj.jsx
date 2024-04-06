@@ -184,6 +184,7 @@ const ResumeProj = () => {
                     Projects
                 </div>
                 {projects.map((proj, index) => (
+                    <div key={index}>
                     <>
                         <div className='flex flex-col'>
                             <div className='flex items-center pl-3'>
@@ -254,6 +255,7 @@ const ResumeProj = () => {
                             }
                         </div>
                     </>
+                    </div>
                 ))}
             </div>
             {isEditable &&

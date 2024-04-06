@@ -186,8 +186,9 @@ const ResumeEdu = () => {
                     Education
                 </div>
                 {education.map((edu, index) => (
+                    <div key={index}>
                     <>
-                        <div key={index} className='mt-3'>
+                        <div className='mt-3'>
                             <div className='flex items-center justify-between gap-2'>
                                 <div className='flex items-center pl-3'>
                                     <div className='mr-2'>
@@ -263,6 +264,7 @@ const ResumeEdu = () => {
                             }
                         </div>
                     </>
+                    </div>
                 ))}
             </div>
             {isEditable &&

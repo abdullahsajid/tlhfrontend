@@ -181,6 +181,7 @@ const ResumeCertificate = () => {
             Certificates
         </div>
         {Certificate.map((cert, index) => (
+            <div key={index}>
                     <>
                         <div className='flex flex-col'>
                             <div className='flex items-center pl-3'>
@@ -251,6 +252,7 @@ const ResumeCertificate = () => {
                             }
                         </div>
                     </>
+            </div>
         ))}
     </div>
         {isEditable &&

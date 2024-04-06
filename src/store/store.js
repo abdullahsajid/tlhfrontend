@@ -25,6 +25,7 @@ import { ResExpApi } from "src/features/Resume/ResumeExp/ResExpApis";
 import { ResEduApi } from "src/features/Resume/ResumeEdu/ResEduApis";
 import { resumeProjApi } from "src/features/Resume/ResumePerProj/ResProjApis";
 import { ResCertApi } from "src/features/Resume/ResumeCertificate/ResCertApis";
+import { templateApi } from "src/features/Resume/SelectTemplate/templateApis";
 
 const loginUser = localStorage.getItem("loginUser")
   ? JSON.parse(localStorage.getItem("loginUser"))
@@ -65,10 +66,11 @@ export const store = configureStore({
     [ResEduApi.reducerPath]: ResEduApi.reducer,
     [resumeProjApi.reducerPath]: resumeProjApi.reducer,
     [ResCertApi.reducerPath]: ResCertApi.reducer,
+    [templateApi.reducerPath]: templateApi.reducer,
   },
   middleware: (middle) => [...middle(),
      resSkillApi.middleware, interestApi.middleware, langApi.middleware, ResHeaderApi.middleware, contactApi.middleware,
-      ResExpApi.middleware, ResEduApi.middleware, resumeProjApi.middleware, ResCertApi.middleware
+      ResExpApi.middleware, ResEduApi.middleware, resumeProjApi.middleware, ResCertApi.middleware, templateApi.middleware
   ],
   preloadedState: initialState,
 });

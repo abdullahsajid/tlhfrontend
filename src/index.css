@@ -69,3 +69,7 @@
     content: attr(placeholder);
     color: #000;
 }
+.skill_placeholder[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: #fff;
+}

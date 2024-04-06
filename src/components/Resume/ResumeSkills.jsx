@@ -17,7 +17,7 @@ const ResumeSkills = () => {
             setSkills(data?.data[0]?.skill_name)
         } else {
             setSkills([
-                { skill: 'Skill Name' }
+                { skill: '' }
             ])
         }
     }, [data])
@@ -32,7 +32,7 @@ const ResumeSkills = () => {
     }
 
     const addSkills = () => {
-        setSkills([...skill, { skill: 'Skill Name' }])
+        setSkills([...skill, { skill: '' }])
     }
 
     const handlerResSkill = async (e) => {
@@ -134,7 +134,9 @@ const ResumeSkills = () => {
                     Skills
                 </div>
                 <div className='flex gap-2 ml-10'>
-                    {isLoading ? <div className='flex items-center justify-center w-full'><Loader/></div> : skill.map((skill, index) => (
+                    {isLoading ? <div className='flex items-center justify-center w-full'><Loader/></div> : 
+                    skill.map((skill, index) => (
+                        <div key={index}>
                         <>
                             <div className={`flex gap-1 items-center border border-solid border-[#fff] rounded-md text-sm px-[3px] py-[2px] outline-none text-[#fff] ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
                                 onFocus={() => setIsEditable(!isEditable)}>
@@ -142,7 +144,7 @@ const ResumeSkills = () => {
                                     html={skill.skill}
                                     onChange={(e) => handleSkillChange(e, index)}
                                     placeholder='Skill Name'
-
+                                    className='skill_placeholder'
                                 />
                                 {isEditable && <X size={"15px"}
                                     className='hover:bg-[rgba(247,249,249,0.1)] hover:rounded-md cursor-pointer'
@@ -150,6 +152,7 @@ const ResumeSkills = () => {
                                 />}
                             </div>
                         </>
+                        </div>
                     ))}
                 </div>
                 {(isEditable && data?.data?.length === 0) &&

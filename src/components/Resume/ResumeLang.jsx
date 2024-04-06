@@ -18,7 +18,7 @@ const ResumeLang = () => {
             setLang(data?.data[0]?.lang_name)
         } else {
             setLang([
-                { language: 'Interest Name' }
+                { language: '' }
             ])
         }
     }, [data])
@@ -125,24 +125,25 @@ const ResumeLang = () => {
     }
 
     const addLang = () => {
-        setLang([...lang, { language: 'add language' }])
+        setLang([...lang, { language: '' }])
     }
     return (
         <>
             <div className='flex flex-col gap-2'>
                 <div className='text-2xl font-bold text-[#000]'>
-                    Interests
+                    Languages
                 </div>
                 <div className='flex gap-2 flex-wrap'>
                     {isLoading ? <div className='flex items-center justify-center w-full'><Loader /></div> :
                         lang.map((lg, index) => (
+                            <div key={index}>
                             <>
                                 <div className={`flex gap-1 items-center border border-solid border-[#000] rounded-md text-sm px-[3px] py-[2px] outline-none text-[#000] ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
                                     onFocus={() => setIsEditable(!isEditable)}>
                                     <ContentEditable
                                         html={lg.language}
                                         onChange={(e) => handlerLangChange(e, index)}
-                                        placeholder='Language Name'
+                                        placeholder='add language'
 
                                     />
                                     {isEditable && <X size={"15px"}
@@ -151,6 +152,7 @@ const ResumeLang = () => {
                                     />}
                                 </div>
                             </>
+                            </div>
                         ))}
                 </div>
                 {(isEditable && data?.data?.length === 0) &&

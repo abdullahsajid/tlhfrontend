@@ -1,3 +1,4 @@
+'use strict'
 import React, { useEffect } from 'react'
 import CreatePost from '../components/homeComponents/CreatePost'
 import Posts from '../components/homeComponents/Posts'

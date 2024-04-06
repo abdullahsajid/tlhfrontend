@@ -195,8 +195,9 @@ const WorkExp = () => {
                     Work Experience
                 </div>
                 {experience.map((exp, index) => (
+                    <div key={index}>
                     <>
-                        <div key={exp.id} className='mt-3'>
+                        <div className='mt-3'>
                             <div className='flex items-center justify-between gap-2'>
                                 <div className='flex items-center pl-3'>
                                     <div className='mr-2'>
@@ -280,6 +281,7 @@ const WorkExp = () => {
                             }
                         </div>
                     </>
+                    </div>
                 ))}
             </div>
 
