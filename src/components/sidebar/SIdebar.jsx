@@ -20,6 +20,7 @@ const Sidebar = () => {
         }, 2000)
     }, [])
 
+
     useEffect(() => {
         if (org.data && org.data.id && loginUser?.token) {
             setSidebarData([
@@ -40,12 +41,6 @@ const Sidebar = () => {
                     label: "Organization",
                     icon: Building2,
                     endpoint: '/organization_profile'
-                },
-                {
-                    id: 3,
-                    label: "Create Resume",
-                    icon: Building2,
-                    endpoint: '/createResume'
                 },
                 // {
                 //     id: 3,
@@ -74,6 +69,12 @@ const Sidebar = () => {
                     label: "Jobs",
                     icon: ClipboardList,
                     endpoint: '/'
+                },
+                {
+                    id: 2,
+                    label: "Create Resume",
+                    icon: Building2,
+                    endpoint: '/createResume'
                 },
                 // {
                 //     id: 3,

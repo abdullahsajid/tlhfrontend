@@ -11,9 +11,9 @@ const ResumeContact = () => {
     const [postContact] = usePostContactMutation()
     const [updateContact] = useUpdateContactMutation()
     const [isEditable, setIsEditable] = useState(false)
-    const [contact_address, setAddress] = useState(data?.[0]?.contact_address || "Your Address")
-    const [contact_email, setEmail] = useState(data?.[0]?.contact_email || "Your Email")
-    const [contact_phone, setPhone] = useState(data?.[0]?.contact_phone || "Your phone no")
+    const [contact_address, setAddress] = useState('')
+    const [contact_email, setEmail] = useState("")
+    const [contact_phone, setPhone] = useState("")
     const [updateLoading, setUpdateLoading] = useState(false)
 
     const handlerResContact = async (e) => {

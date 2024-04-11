@@ -1,61 +1,43 @@
 import React, { lazy } from 'react'
-import { ArrowUpRight } from 'lucide-react';
-const ResumeHeader = lazy(() => import("../../components/Resume/ResumeHeader"))
-const ResumeContact = lazy(() => import("../../components/Resume/ResumeContact"))
-const WorkExp = lazy(() => import("../../components/Resume/WorkExp"))
-const ResumeEdu = lazy(() => import("../../components/Resume/ResumeEdu"))
-const ResumeProj = lazy(() => import("../../components/Resume/ResumeProj"))
-const ResumeCertificate = lazy(() => import("../../components/Resume/ResumeCertificate"))
-const ResumeSkills = lazy(() => import("../../components/Resume/ResumeSkills"))
-const ResumeInterest = lazy(() => import("../../components/Resume/ResumeInterest"))
-const ResumeLang = lazy(() => import("../../components/Resume/ResumeLang"))
+import { useParams } from 'react-router-dom'
+import { useGetAllResourceQuery } from 'src/features/Resume/getResume/getRes'
+const Header = lazy(() => import('../../components/Resume/myresume/Header'))
+const Skills = lazy(() => import('../../components/Resume/myresume/Skills'))
+const Experience = lazy(() => import('../../components/Resume/myresume/Experience'))
+const Education = lazy(() => import('../../components/Resume/myresume/Education'))
+const Projects = lazy(() => import('../../components/Resume/myresume/Projects'))
+const Certificate = lazy(() => import('../../components/Resume/myresume/Certificate'))
+const Languages = lazy(() => import('../../components/Resume/myresume/Languages'))
+const Interests = lazy(() => import('../../components/Resume/myresume/Interests'))
 
 const MyResume = () => {
+  const { name } = useParams()
+  const { data, isLoading, isError } = useGetAllResourceQuery({ name })
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    return (
-        <>
-            <div className='py-6 px-10 pt-24 transition-all w-full flex flex-col justify-center items-center'>
-                <div className='w-[1182px] mx-auto flex flex-col gap-2'>
-                    <div className='flex justify-between'>
-                        <div className='font-bold text-2xl'>Create/Resume</div>
-                        <div className='border border-solid border-[#000] rounded-md flex justify-center items-center w-[30px]'>
-                            <ArrowUpRight />
-                        </div>
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg px-10 py-3'>
-                        <ResumeHeader />
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg px-10 py-3'>
-                        <ResumeContact />
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3 bg-[#313C4E]'>
-                        <ResumeSkills />
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
-                        <WorkExp />
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
-                        <ResumeEdu />
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
-                        <ResumeProj />
-                    </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
-                        <ResumeCertificate />
-                    </div>
-                    <div className='grid grid-cols-2 gap-2'>
-                        <div className=' border border-[#000] border-solid rounded-lg px-10 py-3'>
-                            <ResumeInterest />
-                        </div>
-                        <div className=' border border-[#000] border-solid rounded-lg px-10 py-3'>
-                            <ResumeLang />
-                        </div>
-                    </div>
-                </div>
-            </div>
+  if (isError) {
+    return <div>Something went wrong!</div>;
+  }
 
-        </>
-    )
+
+  return (
+    <div className='container mx-auto relative p-16'>
+      <div className='mx-auto max-w-2xl'>
+        <Header data={data?.data?.[0]} />
+        <Skills data={data?.data?.[0]} />
+        <Experience data={data?.data?.[0]} />
+        <Education data={data?.data?.[0]} />
+        <Projects data={data?.data?.[0]} />
+        <Certificate data={data?.data?.[0]} />
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+          <Languages data={data?.data?.[0]} />
+          <Interests data={data?.data?.[0]} />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default MyResume

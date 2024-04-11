@@ -82,7 +82,7 @@ const WorkExp = () => {
     const handlerResExp = async (e, index) => {
         e.preventDefault()
         const { job_title, job_type, company_name, description } = experience[index]
-        if (!job_title.trim() || !job_type.trim() || !company_name.trim() || !description.trim()) {
+        if (!job_title.trim() && !job_type.trim() && !company_name.trim() && !description.trim()) {
             toast.error("please fill all fields!", {
                 style: {
                     backgroundColor: '#f6f6f7',
@@ -119,42 +119,31 @@ const WorkExp = () => {
     const handlerResExpUpdate = async (e, index, id) => {
         e.preventDefault()
         const { job_title, job_type, company_name, description } = experience[index]
-        if (!job_title.trim() || !job_type.trim() || !company_name.trim() || !description.trim()) {
-            toast.error("please fill all fields!", {
+        let updateLoad = [...updateLoading]
+        updateLoad[index] = true
+        setUpdateLoading(updateLoad)
+        let allData = { id, job_title, job_type, company_name, description }
+        const data = await updateResExp(allData)
+        if (data) {
+            toast.success("Resume Experience updated!", {
                 style: {
                     backgroundColor: '#f6f6f7',
                     border: '3px solid #fff',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setIsEditable(false)
+            updateLoad[index] = false
+            setUpdateLoading(updateLoad)
             return
         } else {
-            let updateLoad = [...updateLoading]
-            updateLoad[index] = true
-            setUpdateLoading(updateLoad)
-            let allData = { id, job_title, job_type, company_name, description }
-            const data = await updateResExp(allData)
-            if (data) {
-                toast.success("Resume Experience updated!", {
-                    style: {
-                        backgroundColor: '#f6f6f7',
-                        border: '3px solid #fff',
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-                    }
-                })
-                setIsEditable(false)
-                updateLoad[index] = false
-                setUpdateLoading(updateLoad)
-                return
-            } else {
-                toast.error("something went wrong try again!", {
-                    style: {
-                        backgroundColor: '#f6f6f7',
-                        border: '3px solid #fff',
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-                    }
-                })
-            }
+            toast.error("something went wrong try again!", {
+                style: {
+                    backgroundColor: '#f6f6f7',
+                    border: '3px solid #fff',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
         }
     }
 

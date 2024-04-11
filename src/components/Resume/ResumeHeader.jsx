@@ -15,11 +15,12 @@ const ResumeHeader = () => {
   const { data, isLoading } = useGetResHeaderQuery()
   const [postResHeader] = usePostResHeaderMutation()
   const [updateResHeader] = useUpdateResHeaderMutation()
-  const [name, setName] = useState(data?.data?.[0]?.name || "Your name");
-  const [title, setTitle] = useState(data?.data?.[0]?.title || "your title")
-  const [description, setDescription] = useState(data?.data?.[0]?.description || "short desacription about yourself")
-  const [img, setAvatar] = useState(data?.data?.[0]?.img)
+  const [name, setName] = useState('');
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [img, setAvatar] = useState('')
   const [updateLoading, setUpdateLoading] = useState(false)
+
   const handleAvatarImg = (e) => {
     const selectfile = e.target.files[0]
     const reader = new FileReader()
@@ -114,6 +115,7 @@ const ResumeHeader = () => {
     }
   }, [data])
 
+
   return (
     <>
       {isLoading ?
@@ -170,7 +172,7 @@ const ResumeHeader = () => {
       </div> */}
             </div>
             {(isEditable && data?.data?.length === 0) &&
-              <div className='w-full flex mt-5'>
+              <div className='w-full flex justify-end mt-5'>
                 <Button className="h-[32px]" onClick={handlerResHeader}>
                   Save
                 </Button>

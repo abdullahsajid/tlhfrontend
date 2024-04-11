@@ -162,7 +162,7 @@ const ResumeSkills = () => {
                         </Button>
                     </div>
                 }
-                {(isEditable && data?.data[0]?.skill_name.length > 0) &&
+                {(isEditable && data?.data[0]?.skill_name.length > 0 || data?.data[0]?.skill_name.length === 0) &&
                     <div className='w-full flex items-end justify-end mt-3 pl-10'>
                         <Button className="h-[32px] " onClick={handlerUpdateResSkill}>
                             update

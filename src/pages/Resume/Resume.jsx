@@ -12,7 +12,7 @@ const Resume = () => {
         e.preventDefault()
         let allData = { template_name: `${data}` }
         const res = await postTemplate(allData)
-        
+
         if (res?.data?.data?.length > 0) {
             toast.success("You have been selected template!", {
                 style: {
@@ -41,8 +41,8 @@ const Resume = () => {
                 <div className='grid grid-cols-3 gap-3 mt-5 px-5'>
                     <div className='border-2 border-solid rounded-lg border-[#111] p-5 relative transition-all'
                         onClick={(e) => handlerSelectTemplate(e, 'minimal')}>
-                        <img src="./template.png" alt="template-1" className='aspect-square' />
-                        <div className='absolute inset-0 flex justify-center items-center rounded-lg hover:backdrop-blur-sm transition-all'>
+                        <img src="./minimal.png" alt="template-1" className='aspect-square rounded-lg cursor-pointer' />
+                        <div className='absolute inset-0 flex justify-center items-center rounded-lg hover:backdrop-blur-sm transition-all cursor-pointer'>
                             <div className='hover:bg-[#111] rounded'>
                                 <Plus className='hover:text-[#fff]' />
                             </div>

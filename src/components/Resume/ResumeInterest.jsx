@@ -12,6 +12,7 @@ const ResumeInterest = () => {
     const [updateInterest] = useUpdateInterestMutation()
     const [postInterest] = usePostInterestMutation()
 
+
     useEffect(() => {
         if (data?.data[0]?.interest_name && data?.data[0]?.interest_name.length > 0) {
             setInterest(data?.data[0]?.interest_name)
@@ -127,6 +128,7 @@ const ResumeInterest = () => {
         setInterest([...Interests, { interest: '' }])
     }
 
+
     return (
         <>
             <div className='flex flex-col gap-2'>
@@ -155,14 +157,14 @@ const ResumeInterest = () => {
                             </div>
                         ))}
                 </div>
-                {(isEditable && data?.data?.length === 0) &&
+                {(isEditable && data?.data?.length === 0 ) &&
                     <div className='w-full flex items-end justify-end mt-3 pl-10'>
                         <Button className="h-[32px] " onClick={handlerResInterest}>
                             Save
                         </Button>
                     </div>
                 }
-                {(isEditable && data?.data[0]?.interest_name.length > 0) &&
+                {(isEditable && data?.data[0]?.interest_name.length > 0 || data?.data[0]?.interest_name.length === 0) &&
                     <div className='w-full flex items-end justify-end mt-3 pl-10'>
                         <Button className="h-[32px] " onClick={handlerUpdateResInterest}>
                             update

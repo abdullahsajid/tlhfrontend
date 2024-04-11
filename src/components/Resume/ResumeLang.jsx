@@ -127,6 +127,8 @@ const ResumeLang = () => {
     const addLang = () => {
         setLang([...lang, { language: '' }])
     }
+
+
     return (
         <>
             <div className='flex flex-col gap-2'>
@@ -155,14 +157,14 @@ const ResumeLang = () => {
                             </div>
                         ))}
                 </div>
-                {(isEditable && data?.data?.length === 0) &&
+                {(isEditable && data?.data?.length === 0 ) &&
                     <div className='w-full flex items-end justify-end mt-3 pl-10'>
                         <Button className="h-[32px] " onClick={handlerResLang}>
                             Save
                         </Button>
                     </div>
                 }
-                {(isEditable && data?.data[0]?.lang_name.length > 0) &&
+                {(isEditable && data?.data[0]?.lang_name.length > 0 || data?.data[0]?.lang_name.length === 0) &&
                     <div className='w-full flex items-end justify-end mt-3 pl-10'>
                         <Button className="h-[32px] " onClick={handlerUpdateResLang}>
                             update

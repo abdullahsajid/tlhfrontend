@@ -52,7 +52,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                                         <div><BadgePlus size={18} /></div>
                                         <div>Edit organization</div>
                                     </div>
-                                    <Link to={'/myresume'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
+                                    <Link to={'/edit/resume'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
                                         border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => showBar()}>
                                         <div><BadgePlus size={18} /></div>
                                         <div>my resume</div>
