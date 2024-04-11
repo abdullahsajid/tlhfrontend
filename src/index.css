@@ -73,3 +73,6 @@
     content: attr(placeholder);
     color: #fff;
 }
+.bg-resume{
+    background: url('../public/grad-bg.jpg') no-repeat center center/cover;
+}

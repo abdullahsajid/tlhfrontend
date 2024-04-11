@@ -37,10 +37,16 @@ const Sidebar = () => {
                 //     endpoint: '/'
                 // },
                 {
-                    id: 2,
+                    id: 1,
                     label: "Organization",
                     icon: Building2,
                     endpoint: '/organization_profile'
+                },
+                {
+                    id: 2,
+                    label: "Create Resume",
+                    icon: Building2,
+                    endpoint: '/createResume'
                 },
                 // {
                 //     id: 3,
