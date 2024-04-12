@@ -2,6 +2,7 @@ import React, { lazy } from 'react'
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useGetAllResourceQuery } from 'src/features/Resume/getResume/getRes';
 const ResumeHeader = lazy(() => import("../../components/Resume/ResumeHeader"))
 const ResumeContact = lazy(() => import("../../components/Resume/ResumeContact"))
 const WorkExp = lazy(() => import("../../components/Resume/WorkExp"))
@@ -13,15 +14,21 @@ const ResumeInterest = lazy(() => import("../../components/Resume/ResumeInterest
 const ResumeLang = lazy(() => import("../../components/Resume/ResumeLang"))
 
 const EditResume = () => {
-    const {data} = useSelector((state) => state.login.loginUser)
-    
+    const { data } = useSelector((state) => state.login.loginUser)
+    const resp = useGetAllResourceQuery({ name: data?.name })
     return (
         <>
             <div className='py-6 px-10 pt-24 transition-all w-full flex flex-col justify-center items-center'>
                 <div className='w-[1182px] mx-auto flex flex-col gap-2'>
-                    <div className='flex justify-between'>
-                        <div className='font-bold text-2xl'>Create/Resume</div>
-                        <Link to={`/resume/${data.name}`} className='border border-solid border-[#000] rounded-md flex justify-center items-center w-[30px]' target='_blank'>
+                    <div className='flex justify-between items-center'>
+                        <div className='font-bold text-2xl flex flex-col'>
+                            <div>
+                                Create/Resume
+                            </div>
+                            {resp?.data?.data?.[0]?.resumeTemplate?.[0].template_name &&
+                                <div className='font-mono text-sm font-extrabold'>Selected Template: {resp?.data?.data?.[0]?.resumeTemplate?.[0].template_name}</div>}
+                        </div>
+                        <Link to={`/resume/${data.name}`} className='border border-solid border-[#000] rounded-md flex justify-center items-center w-[30px] h-[30px]' target='_blank'>
                             <ArrowUpRight />
                         </Link>
                     </div>

@@ -24,7 +24,38 @@ export const templateApi = createApi({
       },
       invalidatesTags: ["template"],
     }),
+    updateTemplate: builder.mutation({
+      query: (data) => {
+        const token = cookie.get('token')
+        return {
+          url: `candidate/updateTemplate`,
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true,
+          credentials: 'include',
+          body: data
+        }
+      },
+      invalidatesTags:['template']
+    }),
+    getTemplate:builder.query({
+      query:({name}) => {
+          return {
+              url:`candidate/myResume/${name}`,
+              method:'GET',
+              headers:{
+                  'Content-Type':'application/json'
+              },
+              withCredentials:true,
+              credentials:'include'
+          }
+      },
+      providesTags:['template']
+    })
   }),
 });
 
-export const { usePostTemplateMutation } = templateApi;
+export const { usePostTemplateMutation,useUpdateTemplateMutation,useGetTemplateQuery } = templateApi;

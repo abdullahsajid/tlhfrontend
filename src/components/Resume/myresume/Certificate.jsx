@@ -40,7 +40,7 @@ const Certificate = ({ data, templateSty }) => {
                             Certificate
                         </span>
                     </div>
-                    <div className='flex'>
+                    <div className='flex flex-col gap-2'>
                         {data?.resCertificate.map((item, index) => (
                             <div className='flex flex-row mt-2 gap-2' key={index}>
                                 <div className='mt-2'>

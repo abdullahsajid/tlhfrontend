@@ -43,36 +43,42 @@ const Header = ({ data, templateSty }) => {
                         {data?.resumeHeader?.[0]?.description && <div className='text-[#575757] text-sm font-extrabold font-serif mt-1'>{data?.resumeHeader?.[0]?.description}</div>}
                     </div>
                 </div>
-                <div className='flex flex-col bg-[#2D343C] p-5 gap-3 rounded-md w-[230px]'>
-                    {data?.resContact?.[0]?.email &&
-                        <div className='flex gap-2'>
-                            <a href={`mailto:${data?.resContact?.[0]?.email}`}
+                {(data?.resContact?.[0]?.email || data?.resContact?.[0]?.phone || data?.resContact?.[0]?.address) && (
+                    <div className='flex flex-col bg-[#2D343C] p-5 gap-3 rounded-md w-[230px]'>
+                        {data?.resContact?.[0]?.email &&
+                            <div className='flex gap-2'>
+                                <a href={`mailto:${data?.resContact?.[0]?.email}`}
+                                    className='text-[#666666] text-sm font-serif flex items-center gap-2'>
+                                    <span className='border p-1 rounded-md bg-[#fff]'>
+                                        <Mail size={'15px'} className='text-[#2D343C]' />
+                                    </span>
+                                    <span className='text-[#fff] font-serif overflow-hidden whitespace-nowrap max-w-[180px] overflow-ellipsis'>
+                                        {data?.resContact?.[0]?.email}
+                                    </span>
+                                </a>
+                            </div>
+                        }
+                        {data?.resContact?.[0]?.phone &&
+                            <a href={`tel:+${data?.resContact?.[0]?.phone}`}
                                 className='text-[#666666] text-sm font-serif flex items-center gap-2'>
                                 <span className='border p-1 rounded-md bg-[#fff]'>
-                                    <Mail size={'15px'} className='text-[#2D343C]' />
+                                    <Phone size={'15px'} className='text-[#2D343C]' />
                                 </span>
-                                <span className='text-[#fff] font-serif'>{data?.resContact?.[0]?.email}</span>
-                            </a>
-                        </div>
-                    }
-                    {data?.resContact?.[0]?.phone &&
-                        <a href={`tel:+${data?.resContact?.[0]?.phone}`}
-                            className='text-[#666666] text-sm font-serif flex items-center gap-2'>
-                            <span className='border p-1 rounded-md bg-[#fff]'>
-                                <Phone size={'15px'} className='text-[#2D343C]' />
-                            </span>
-                            <span className='text-[#fff] font-serif'>{data?.resContact?.[0]?.phone}</span>
-                        </a>}
-                    {data?.resContact?.[0]?.address &&
-                        <div className='text-[#666666] text-sm font-serif flex items-center gap-2 mt-1 font-bold'>
-                            <span className='border p-1 rounded-md bg-[#fff]'>
-                                <Home size={'15px'} className='text-[#2D343C]' />
-                            </span>
-                            <span className='text-[#fff] font-serif'>
-                                {data?.resContact?.[0]?.address}
-                            </span>
-                        </div>}
-                </div>
+                                <span className='text-[#fff] font-serif overflow-hidden whitespace-nowrap max-w-[180px] overflow-ellipsis'>
+                                    {data?.resContact?.[0]?.phone}
+                                </span>
+                            </a>}
+                        {data?.resContact?.[0]?.address &&
+                            <div className='text-[#666666] text-sm font-serif flex items-center gap-2 mt-1 font-bold'>
+                                <span className='border p-1 rounded-md bg-[#fff]'>
+                                    <Home size={'15px'} className='text-[#2D343C]' />
+                                </span>
+                                <span className='text-[#fff] font-serif overflow-hidden whitespace-nowrap max-w-[180px] overflow-ellipsis'>
+                                    {data?.resContact?.[0]?.address}
+                                </span>
+                            </div>}
+                    </div>
+                )}
             </div>
         )
     }

@@ -92,13 +92,13 @@ function App() {
     const { loginUser } = useSelector((state) => state.login);
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
-    
+
     useEffect(() => {
       if (loginUser?.token) {
         return navigate("/home");
       }
     }, []);
-    
+
     const handleShowPanel = (val) => {
       setShowEditPanel(val);
       setShowOptions(false);
@@ -107,6 +107,8 @@ function App() {
     const handleShowOptions = () => {
       setShowOptions(!showOption);
     };
+
+    console.log("%cJust Read the Instructions", "font-size: 20px; color: red;");
 
     return (
       <>
@@ -152,12 +154,16 @@ function App() {
             />
           </div>
           <div className="max-w-[90rem] mx-auto h-full bg-[#F2F2F2]">
-            {currentPath !== '/edit/resume' && (
+            {currentPath !== "/edit/resume" && (
               <div className="hidden md:flex pt-[73px] w-64 flex-col fixed inset-y-0 z-50 h-full">
                 <Sidebar />
               </div>
             )}
-            <div className={`md:pl-64 pt-[60px] h-full flex w-full ${currentPath === '/edit/resume' && "!pl-0 !pt-0"}`}>
+            <div
+              className={`md:pl-64 pt-[60px] h-full flex w-full ${
+                currentPath === "/edit/resume" && "!pl-0 !pt-0"
+              }`}
+            >
               <Outlet />
             </div>
           </div>
@@ -287,18 +293,19 @@ function App() {
       ],
     },
     {
-      path:"resume/:name",
+      path: "resume/:name",
       element: (
         <React.Suspense
-        fallback={
-          <div className="flex justify-center items-center w-full h-screen">
-            <Loader />
-          </div>
-        }>
+          fallback={
+            <div className="flex justify-center items-center w-full h-screen">
+              <Loader />
+            </div>
+          }
+        >
           <MyResume />
         </React.Suspense>
-      )
-    }
+      ),
+    },
   ]);
   return <RouterProvider router={router} />;
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Computer, ArrowUpRight } from 'lucide-react';
 
 const Projects = ({ data, templateSty }) => {
-    console.log(data?.resProj);
+
     if (templateSty == 'minimal') {
         return (
             data?.resProj ? (
@@ -41,7 +41,7 @@ const Projects = ({ data, templateSty }) => {
                             Projects
                         </span>
                     </div>
-                    <div className='flex'>
+                    <div className='flex flex-col gap-2 mt-2'>
                         {data?.resProj.map((item, index) => (
                             <div className='flex flex-col px-3 py-1' key={index}>
                                 <div className='font-semibold tracking-tight text-base text-[#fff]'>

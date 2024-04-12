@@ -76,3 +76,7 @@
 .bg-resume{
     background: url('../public/grad-bg.jpg') no-repeat center center/cover;
 }
+.bg-tone{
+    backdrop-filter: blur(26px);
+    background-color: rgba(255, 255, 255, .3);
+}
