@@ -39,7 +39,7 @@ const Landing = () => {
                 {showEditPanel === 1 && (
                     <Login handler={handleShowPanel} />)}
             </div>
-            <div className={`bg-[#D9D0FF] m-2 rounded-md transition-all hover:custom-shadow ${(showEditPanel === 0) ||
+            <div className={`bg-[#D9D0FF] m-2 rounded-md  hover:custom-shadow ${(showEditPanel === 0) ||
                 (showEditPanel === 1) ? 'mt-0' : ''}`}>
                 <Nav />
                 <Hero handler={handleShowPanel} />

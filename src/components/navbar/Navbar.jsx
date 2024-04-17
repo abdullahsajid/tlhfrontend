@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GripHorizontal, Cog, BadgePlus, LogOut } from "lucide-react"
+import { GripHorizontal, Cog, BadgePlus, LogOut, NotepadTextDashed } from "lucide-react"
 import Cookies from 'universal-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
@@ -11,6 +11,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
     const [isAuth, setAuth] = useState(false)
     const dispatch = useDispatch()
     const { loginUser } = useSelector((state) => state.login)
+
     const logoutHandler = async () => {
         await dispatch(logout())
         cookie.remove()
@@ -40,23 +41,25 @@ const Navbar = ({ handler, showOption, showBar }) => {
                         </div>
                         {showOption && (
                             <div className='relative w-max transition-all'>
-                                <div className='absolute -left-5 top-20 custom-position-center w-max bg-[#FFF]
-                                    px-3 py-1 rounded-md shadow-md z-50 flex flex-col transition-all'>
-                                    <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
+                                <div className={`absolute -left-5 ${(loginUser.data.name === 'admin007') ? "top-12" : "top-20"} custom-position-center w-max bg-[#FFF]
+                                    px-3 py-1 rounded-md shadow-md z-50 flex flex-col transition-all`}>
+                                    {(loginUser.data.name === 'admin007') ? '' :
+                                        <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
                                         border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => handler(0)}>
-                                        <div><Cog size={18} /></div>
-                                        <div>Edit profile</div>
-                                    </div>
-                                    <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
+                                            <div><Cog size={18} /></div>
+                                            <div>Edit profile</div>
+                                        </div>}
+                                    {(loginUser.data.name === 'admin007') ? '' : <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
                                         border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => handler(1)}>
                                         <div><BadgePlus size={18} /></div>
                                         <div>Edit organization</div>
-                                    </div>
-                                    <Link to={'/edit/resume'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
+                                    </div>}
+                                    {(loginUser.data.name === 'admin007') ? '' :
+                                        <Link to={'/edit/resume'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
                                         border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => showBar()}>
-                                        <div><BadgePlus size={18} /></div>
-                                        <div>my resume</div>
-                                    </Link>
+                                            <div><NotepadTextDashed size={18} /></div>
+                                            <div>my resume</div>
+                                        </Link>}
                                     <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 rounded-md hover:bg-[#F2F2F2] transition-all'
                                         onClick={logoutHandler}>
                                         <div><LogOut size={18} /></div>

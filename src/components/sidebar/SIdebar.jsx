@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import SidebarItems from './SidebarItems'
-import { Home, Building2, Bell, ClipboardList, UserRoundPlus } from 'lucide-react'
+import { Home, Building2, Bell, ClipboardList, NotebookText } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
@@ -45,7 +45,7 @@ const Sidebar = () => {
                 {
                     id: 2,
                     label: "Create Resume",
-                    icon: Building2,
+                    icon: NotebookText,
                     endpoint: '/createResume'
                 },
                 // {

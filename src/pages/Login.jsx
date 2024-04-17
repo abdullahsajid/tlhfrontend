@@ -38,7 +38,7 @@ const Login = ({handler}) => {
             return 
         }
         const user = await dispatch(login({email,password}))
-      
+        
         if(user?.payload?.data?.success === false){
             toast.error(`${user.payload.data.message}`,{ 
               style:{
@@ -56,7 +56,10 @@ const Login = ({handler}) => {
                 border:'3px solid #fff',
                 boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }})
-            navigate('/home')
+            if(user.payload.data.name === 'admin007'){
+              navigate('/admin')  
+            }else{
+            navigate('/home')}
         }else{
             toast.error("credentials wrong!",{
                 style:{

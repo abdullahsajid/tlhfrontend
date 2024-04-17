@@ -23,6 +23,10 @@ const OrgForm = lazy(() => import("./pages/organization/OrgForm"));
 const Resume = lazy(() => import("./pages/Resume/Resume"));
 const EditResume = lazy(() => import("./pages/Resume/EditResume"));
 const MyResume = lazy(() => import("./pages/Resume/MyResume"));
+const AdminLayout = lazy(() => import("./layout/AdminLayout"));
+const Admin = lazy(() => import("./pages/Admin/Admin"));
+const QuizCategory = lazy(() => import("./pages/Admin/QuizCategory"));
+const CreateQuestion = lazy(() => import("./pages/Admin/CreateQuestion"));
 
 function App() {
   // useEffect(() => {
@@ -94,10 +98,16 @@ function App() {
     const currentPath = useLocation().pathname;
 
     useEffect(() => {
-      if (loginUser?.token) {
-        return navigate("/home");
+      if (loginUser.data.name === "admin007"){
+        return navigate("/admin");
+      }else{
+        if (loginUser?.token) {
+          return navigate("/home");
+        }
       }
     }, []);
+
+    console.log(loginUser);
 
     const handleShowPanel = (val) => {
       setShowEditPanel(val);
@@ -108,7 +118,7 @@ function App() {
       setShowOptions(!showOption);
     };
 
-    console.log("%cJust Read the Instructions", "font-size: 20px; color: red;");
+    //console.log("%cJust Read the Instructions", "font-size: 20px; color: red;");
 
     return (
       <>
@@ -305,6 +315,61 @@ function App() {
           <MyResume />
         </React.Suspense>
       ),
+    },
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      errorElement: <div>Something went wrong!</div>,
+      children: [
+        {
+          path: "/admin",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <Admin />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+        {
+          path: "createquiz",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <QuizCategory />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+        {
+          path: "createQues",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <CreateQuestion />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+      ],
     },
   ]);
   return <RouterProvider router={router} />;
