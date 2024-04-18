@@ -30,12 +30,6 @@ const Sidebar = () => {
                     icon: Home,
                     endpoint: '/home'
                 },
-                // {
-                //     id: 1,
-                //     label: "Jobs",
-                //     icon: ClipboardList,
-                //     endpoint: '/'
-                // },
                 {
                     id: 1,
                     label: "Organization",
@@ -48,18 +42,12 @@ const Sidebar = () => {
                     icon: NotebookText,
                     endpoint: '/createResume'
                 },
-                // {
-                //     id: 3,
-                //     label: "Notifications",
-                //     icon: Bell,
-                //     endpoint: '/'
-                // },
-                // {
-                //     id: 4,
-                //     label: "Create job",
-                //     icon: UserRoundPlus,
-                //     endpoint: '/'
-                // }
+                {
+                    id: 3,
+                    label: "Skill Assessment",
+                    icon: NotebookText,
+                    endpoint: '/skilltype'   
+                }
             ]);
         }
         else if (loginUser?.token) {
@@ -82,12 +70,12 @@ const Sidebar = () => {
                     icon: Building2,
                     endpoint: '/createResume'
                 },
-                // {
-                //     id: 3,
-                //     label: "Notifications",
-                //     icon: Bell,
-                //     endpoint: '/'
-                // }
+                {
+                    id: 3,
+                    label: "Skill Assessment",
+                    icon: NotebookText,
+                    endpoint: '/skilltype'   
+                }
             ]);
         } else {
             setSidebarData([
@@ -126,7 +114,7 @@ const Sidebar = () => {
                     ))}
                 </div>
                 {toggleUser && <Link to={`/profile`} className='flex flex-row items-center bg-[#FFF] px-3 py-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
-            shadow-lg w-full hover:custom-border transition-all'>
+                    shadow-lg w-full hover:custom-border transition-all'>
                     <div className='mr-3 min-w-[40px]'>
                         {fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} /> : data?.avatar_url ?
                             <img src={`${data?.avatar_url}`} alt="" className='w-12 h-10 rounded-md object-cover' /> : <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} />}

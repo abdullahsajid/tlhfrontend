@@ -26,7 +26,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
     return (
         <div className='p-3 px-5 border-solid border-b-2 border-slate-300 bg-[#FFF] max-w-[90rem] mx-auto rounded-[32px] transition-all'>
             <div className='flex justify-between items-center transition-all'>
-                <Link to={'/home'} className='flex gap-1 justify-center items-center'>
+                <Link to={`${(loginUser.data.name === 'admin007') ? '/admin' : '/home'}`} className='flex gap-1 justify-center items-center'>
                     <span className='flex justify-center items-center custom-bg-lg to-blue-500 text-white p-[3px] rounded-[0.20rem] font-bold shadow-md'>Tech</span>
                     <span className='font-semibold'>LinkHub</span>
                 </Link>

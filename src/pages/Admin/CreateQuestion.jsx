@@ -3,7 +3,7 @@ import ContentEditable from 'react-contenteditable'
 import { Input } from '../../components/ui/input'
 import { BadgePlus } from 'lucide-react'
 import { Button } from '../../components/ui/button'
-import { useLocation,useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useCreateQuestionMutation } from 'src/features/skillAssessment/AssessmentApis'
 import toast from 'react-hot-toast'
 
@@ -58,10 +58,15 @@ const CreateQuestion = () => {
     setQuestion(updateCorrectOption)
   }
 
-
   const handlerQuestion = async (e) => {
     e.preventDefault()
-    if (question === '') {
+    let validate = question.every((item) => {
+      return item.question !== ''
+        && item.options.every((option) => option.option !== '')
+        && item.answer !== ''
+        && item.skill_id !== ''
+    })
+    if (validate === false) {
       toast.error("please fill all fields!", {
         style: {
           backgroundColor: '#f6f6f7',
@@ -72,7 +77,7 @@ const CreateQuestion = () => {
       return
     } else {
       let assessmentQues = { questionsData: question }
-      const {data} = await createQuestion(assessmentQues)
+      const { data } = await createQuestion(assessmentQues)
       if (data.data.length > 0) {
         toast.success("Assessment created successfully", {
           style: {
@@ -93,8 +98,6 @@ const CreateQuestion = () => {
       }
     }
   }
-
-  console.log(question);
 
 
   return (

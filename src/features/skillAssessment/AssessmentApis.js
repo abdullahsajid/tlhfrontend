@@ -10,34 +10,87 @@ export const skillAssessmentApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-            url: "organization/createSkillType",
-            method: "POST",
-            headers:{
-                Authorization: `Bearer ${token}`,
-                'Content-Type':'application/json'
-            },
-            withCredentials:true,
-            credentials:'include',
-            body:data
-      }},
+          url: "organization/createSkillType",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
+          body: data,
+        };
+      },
     }),
     createQuestion: builder.mutation({
-        query: (data) => {
-            const token = cookie.get("token")
-            return {
-                url:'organization/createQuestion',
-                method:'POST',
-                headers:{
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type':'application/json'
-                },
-                withCredentials:true,
-                credentials:'include',
-                body:data
-            }
-        }
-    })
+      query: (data) => {
+        const token = cookie.get("token");
+        return {
+          url: "organization/createQuestion",
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
+          body: data,
+        };
+      },
+    }),
+    retrieveSkillType: builder.query({
+      query: () => {
+        const token = cookie.get("token");
+        return {
+          url: "organization/getSkillType",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
+        };
+      },
+    }),
+    retrieveMcqs: builder.query({
+      query: (data) => {
+        const token = cookie.get("token");
+        return {
+          url: `organization/getmcqs/${data.id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
+        };
+      },
+    }),
+    calculateResult: builder.mutation({
+      query: (data) => {
+        const token = cookie.get("token");
+        return {
+          url: "organization/calculateScore",
+          method: "POST",
+          headers:{
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
+          body: data
+        };
+      },
+    }),
   }),
 });
 
-export const {useCreateAssessmentMutation,useCreateQuestionMutation} = skillAssessmentApi
+export const {
+  useCreateAssessmentMutation,
+  useCreateQuestionMutation,
+  useRetrieveSkillTypeQuery,
+  useRetrieveMcqsQuery,
+  useCalculateResultMutation
+} = skillAssessmentApi;

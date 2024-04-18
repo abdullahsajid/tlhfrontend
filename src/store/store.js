@@ -16,6 +16,7 @@ import getPostCandidateLikeSlice from "../features/candidatePost/CPostLike/getPo
 import loginCandidatePostSlice from "../features/candidatePost/getAuthPost/loginUserPostSlice";
 import getResumeContact from "src/features/Resume/ResumeContact/ResContactSlice";
 import getResSkillSlice from "src/features/Resume/ResumeSkill/ResSkillSlice";
+import AssessmentSlice from "src/features/skillAssessment/AssessmentSlice";
 import { resSkillApi } from "src/features/Resume/ResumeSkill/ResSkillApis";
 import { interestApi } from "src/features/Resume/ResumeInterests/interestApis";
 import { langApi } from "src/features/Resume/ResumeLanguage/langApis";
@@ -59,6 +60,7 @@ export const store = configureStore({
     post: loginCandidatePostSlice,
     getResContact: getResumeContact,
     getResSkill: getResSkillSlice,
+    assessment: AssessmentSlice,
     [resSkillApi.reducerPath]: resSkillApi.reducer,
     [interestApi.reducerPath]: interestApi.reducer,
     [langApi.reducerPath]: langApi.reducer,

@@ -27,6 +27,11 @@ const AdminLayout = lazy(() => import("./layout/AdminLayout"));
 const Admin = lazy(() => import("./pages/Admin/Admin"));
 const QuizCategory = lazy(() => import("./pages/Admin/QuizCategory"));
 const CreateQuestion = lazy(() => import("./pages/Admin/CreateQuestion"));
+const SkillType = lazy(() => import("./pages/skillAssessment/SkillType"));
+const Mcqs = lazy(() => import("./components/Assessment/Mcqs"));
+const ResultAssessment = lazy(() =>
+  import("src/components/Assessment/ResultAssessment")
+);
 
 function App() {
   // useEffect(() => {
@@ -94,20 +99,19 @@ function App() {
     const [showEditPanel, setShowEditPanel] = useState(false);
     const [showOption, setShowOptions] = useState(false);
     const { loginUser } = useSelector((state) => state.login);
+    const togglePanel = useSelector((state) => state.assessment.togglePanel)
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 
     useEffect(() => {
-      if (loginUser.data.name === "admin007"){
+      if (loginUser.data.name === "admin007") {
         return navigate("/admin");
-      }else{
+      } else {
         if (loginUser?.token) {
           return navigate("/home");
         }
       }
     }, []);
-
-    console.log(loginUser);
 
     const handleShowPanel = (val) => {
       setShowEditPanel(val);
@@ -152,6 +156,17 @@ function App() {
               }
             >
               <OrgForm handler={handleShowPanel} />
+            </React.Suspense>
+          )}
+          {togglePanel && (
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
+              <ResultAssessment />
             </React.Suspense>
           )}
         </div>
@@ -296,6 +311,38 @@ function App() {
                 }
               >
                 <EditResume />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+        {
+          path: "skilltype",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <SkillType />
+              </React.Suspense>
+            </Auth>
+          ),
+        },
+        {
+          path: "mcqs/:id",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <Mcqs />
               </React.Suspense>
             </Auth>
           ),
