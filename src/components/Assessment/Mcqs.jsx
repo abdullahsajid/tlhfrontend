@@ -81,7 +81,7 @@ const Mcqs = () => {
         <>
             <div className='py-6 px-10 transition-all w-full flex flex-col gap-3 mt-5'>
                 {data?.data[0]?.mcqsQues?.map((item, index) => (
-                    <div className='flex flex-col bg-[#fff] p-3 rounded-lg'>
+                    <div className='flex flex-col bg-[#fff] p-3 rounded-lg' key={index}>
                         <div className='font-bold pl-5 mb-3 text-base'>Question {index + 1}</div>
                         <div className='flex flex-row items-center'>
                             <div className='font-extrabold text-base'>{index + 1}. </div>

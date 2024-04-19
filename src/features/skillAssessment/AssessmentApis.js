@@ -5,6 +5,7 @@ const cookie = new Cookies();
 export const skillAssessmentApi = createApi({
   reducerPath: "skillAssessmentApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  tagTypes: ["SkillAssessment"],
   endpoints: (builder) => ({
     createAssessment: builder.mutation({
       query: (data) => {
@@ -83,7 +84,24 @@ export const skillAssessmentApi = createApi({
           body: data
         };
       },
+      invalidatesTags: ["SkillAssessment"],
     }),
+    getBadges: builder.query({
+      query : () => {
+        const token = cookie.get("token")
+        return {
+          url: 'organization/getBadge',
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+          credentials: "include",
+        }
+      },
+      providesTags: ["SkillAssessment"]
+    })
   }),
 });
 
@@ -92,5 +110,6 @@ export const {
   useCreateQuestionMutation,
   useRetrieveSkillTypeQuery,
   useRetrieveMcqsQuery,
-  useCalculateResultMutation
+  useCalculateResultMutation,
+  useGetBadgesQuery
 } = skillAssessmentApi;
