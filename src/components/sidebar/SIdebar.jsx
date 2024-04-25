@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import SidebarItems from './SidebarItems'
-import { Home, Building2, Bell, ClipboardList, NotebookText } from 'lucide-react'
+import { Home, Building2, Bell, ClipboardList, NotebookText,Layers  } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
@@ -47,6 +47,12 @@ const Sidebar = () => {
                     label: "Skill Assessment",
                     icon: NotebookText,
                     endpoint: '/skilltype'   
+                },
+                {
+                    id: 4,
+                    label: "Projects",
+                    icon: Layers,
+                    endpoint: '/projects'
                 }
             ]);
         }
@@ -75,6 +81,12 @@ const Sidebar = () => {
                     label: "Skill Assessment",
                     icon: NotebookText,
                     endpoint: '/skilltype'   
+                },
+                {
+                    id: 4,
+                    label: "Projects",
+                    icon: Layers,
+                    endpoint: '/projects'
                 }
             ]);
         } else {

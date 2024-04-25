@@ -13,7 +13,6 @@ import { loginUserPost } from '../features/candidatePost/getAuthPost/loginUserPo
 
 const Home = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getCandidateProfile());
     dispatch(getOrganizationProfile());

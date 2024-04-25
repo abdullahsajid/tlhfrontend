@@ -32,6 +32,8 @@ const Mcqs = lazy(() => import("./components/Assessment/Mcqs"));
 const ResultAssessment = lazy(() =>
   import("src/components/Assessment/ResultAssessment")
 );
+const Projects = lazy(() => import("./pages/Projects/SmallProject"));
+const ProjectDetails = lazy(() => import("./components/Project/ProjectDetails"));
 
 function App() {
   // useEffect(() => {
@@ -347,6 +349,38 @@ function App() {
             </Auth>
           ),
         },
+        {
+          path: "projects",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <Projects/>
+              </React.Suspense>
+            </Auth>
+          )
+        },
+        {
+          path: "projects/:id",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <ProjectDetails/>
+              </React.Suspense>
+            </Auth>
+          )
+        }
       ],
     },
     {
