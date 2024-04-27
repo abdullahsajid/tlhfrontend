@@ -34,7 +34,7 @@ const ResultAssessment = lazy(() =>
 );
 const Projects = lazy(() => import("./pages/Projects/SmallProject"));
 const ProjectDetails = lazy(() => import("./components/Project/ProjectDetails"));
-
+const CreateProject = lazy(() => import("./components/Project/CreateProject")); 
 function App() {
   // useEffect(() => {
   //   dispatch(getCandidateProfile());
@@ -146,7 +146,7 @@ function App() {
                 </div>
               }
             >
-              <CandidateForm handler={handleShowPanel} />
+              <CandidateForm handler={handleShowPanel} showEditPanel={showEditPanel} />
             </React.Suspense>
           )}
           {showEditPanel === 1 && (
@@ -158,6 +158,17 @@ function App() {
               }
             >
               <OrgForm handler={handleShowPanel} />
+            </React.Suspense>
+          )}
+          {showEditPanel === 2 && (
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
+              <CreateProject handler={handleShowPanel} />
             </React.Suspense>
           )}
           {togglePanel && (

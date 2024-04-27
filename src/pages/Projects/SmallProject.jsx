@@ -5,7 +5,7 @@ const ProjectCard = lazy(() => import('src/components/Project/ProjectCard'))
 
 const SmallProject = () => {
     const { data,isLoading } = useSummonAllProjectsQuery()
-    console.log(data);
+    
   return (
     <div className='py-6 px-10 transition-all w-full'>
         <div className='text-[25px] font-bold mt-3'>Projects</div>

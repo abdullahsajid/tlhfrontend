@@ -6,7 +6,7 @@ import * as moment from 'moment';
 const ProjectDetails = () => {
     const {id} = useParams()
     const {data} = useSummonProjectByIdQuery(id)
-    console.log(data);
+   
   return (
     <div className='py-6 px-10 transition-all w-full'>
         <div className='flex flex-col gap-2 mt-3'>

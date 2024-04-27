@@ -88,3 +88,18 @@
     -webkit-box-orient: vertical;
     white-space: normal;
 }
+.testform{
+    animation: modalIn 0.3s forwards;
+}
+
+
+@keyframes modalIn {
+    from {
+      transform: translateY(20%);
+    }
+    to {
+      transform: translateY(0);
+    }
+}
+
+
