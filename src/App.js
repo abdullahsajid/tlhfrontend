@@ -34,7 +34,9 @@ const ResultAssessment = lazy(() =>
 );
 const Projects = lazy(() => import("./pages/Projects/SmallProject"));
 const ProjectDetails = lazy(() => import("./components/Project/ProjectDetails"));
-const CreateProject = lazy(() => import("./components/Project/CreateProject")); 
+const CreateProject = lazy(() => import("./components/Project/CreateProject"));
+const PostedJobs = lazy(() => import("./components/Project/PostedJobs"));
+
 function App() {
   // useEffect(() => {
   //   dispatch(getCandidateProfile());
@@ -102,6 +104,7 @@ function App() {
     const [showOption, setShowOptions] = useState(false);
     const { loginUser } = useSelector((state) => state.login);
     const togglePanel = useSelector((state) => state.assessment.togglePanel)
+    const toggleUpdatePanel = useSelector((state) => state.assessment.updateJobPostPanel)
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 
@@ -125,7 +128,7 @@ function App() {
     };
 
     //console.log("%cJust Read the Instructions", "font-size: 20px; color: red;");
-
+  
     return (
       <>
         <div
@@ -133,7 +136,7 @@ function App() {
             showEditPanel === 0 ||
             showEditPanel === 1 ||
             showEditPanel === 2 ||
-            showEditPanel === 3
+            toggleUpdatePanel
               ? "fixed inset-x-0 h-full custom-bg-op !z-[9999]"
               : ""
           }`}
@@ -160,7 +163,7 @@ function App() {
               <OrgForm handler={handleShowPanel} />
             </React.Suspense>
           )}
-          {showEditPanel === 2 && (
+          {toggleUpdatePanel && (
             <React.Suspense
               fallback={
                 <div className="flex justify-center items-center w-full h-screen">
@@ -388,6 +391,22 @@ function App() {
                 }
               >
                 <ProjectDetails/>
+              </React.Suspense>
+            </Auth>
+          )
+        },
+        {
+          path: "postedjobs",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <PostedJobs/>
               </React.Suspense>
             </Auth>
           )

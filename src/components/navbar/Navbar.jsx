@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { GripHorizontal, Cog, BadgePlus, LogOut, NotepadTextDashed,HandCoins  } from "lucide-react"
+import { GripHorizontal, Cog, BadgePlus, LogOut, NotepadTextDashed,HandCoins,DatabaseZap} from "lucide-react"
 import Cookies from 'universal-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
 import { Link } from 'react-router-dom'
+import { setUpdateJobPostPanel,setJobPostedData } from 'src/features/skillAssessment/AssessmentSlice'
 const cookie = new Cookies()
 
 const Navbar = ({ handler, showOption, showBar }) => {
@@ -17,6 +18,29 @@ const Navbar = ({ handler, showOption, showBar }) => {
         cookie.remove()
         setAuth(false)
     }
+
+    const handlerStripe = (e) => {
+        fetch("http://localhost:8000/candidate/create-checkout-session", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              items: [{ name: "Business Coaching Session", price: 500, quantity: 1 }],
+            }),
+          })
+            .then((res) => {
+              if (res.ok) return res.json();
+              return res.json().then((json) => Promise.reject(json));
+            })
+            .then(({ url }) => {
+              window.location = url;
+            })
+            .catch((e) => {
+              console.error(e.error);
+            });
+    }
+        
 
     useEffect(() => {
         (loginUser) ? setAuth(true) : setAuth(false)
@@ -41,7 +65,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                         </div>
                         {showOption && (
                             <div className='relative w-max transition-all'>
-                                <div className={`absolute -left-5 ${(loginUser.data.name === 'admin007') ? "top-12" : "top-28"} custom-position-center w-max bg-[#FFF]
+                                <div className={`absolute -left-5 ${(loginUser.data.name === 'admin007') ? "top-12" : "top-32"} custom-position-center w-max bg-[#FFF]
                                     px-3 py-1 rounded-md shadow-md z-50 flex flex-col transition-all`}>
                                     {(loginUser.data.name === 'admin007') ? '' :
                                         <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
@@ -62,10 +86,29 @@ const Navbar = ({ handler, showOption, showBar }) => {
                                         </Link>}
                                     {(loginUser.data.name === 'admin007') ? '' :
                                         <Link to={'#'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
-                                        border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => handler(2)}>
+                                            border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' 
+                                            onClick={() => {
+                                                    dispatch(setUpdateJobPostPanel(true));
+                                                    dispatch(setJobPostedData(null))
+                                                    showBar()
+                                                }
+                                            }
+                                        >
                                             <div><HandCoins size={18} /></div>
-                                            <div>Post job</div>
+                                            <div>Create job</div>
                                         </Link>}
+                                    {(loginUser.data.name === 'admin007') ? '' :
+                                        <Link to={'/postedjobs'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
+                                        border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => showBar()}>
+                                            <div><DatabaseZap size={18} /></div>
+                                            <div>posted job</div>
+                                        </Link>}
+                                    {(loginUser.data.name === 'admin007') ? '' :
+                                        <Link to={'#'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
+                                        border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => handlerStripe()}>
+                                            <div><DatabaseZap size={18} /></div>
+                                            <div>stripe test</div>
+                                        </Link>}  
                                     <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 rounded-md hover:bg-[#F2F2F2] transition-all'
                                         onClick={logoutHandler}>
                                         <div><LogOut size={18} /></div>

@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { XSquare,X } from 'lucide-react'
-import ContentEditable from 'react-contenteditable'
 import { Input } from '../../components/ui/input'
-import { useCreateProjectMutation } from 'src/features/Projects/getProjectsApis'
+import { useCreateProjectMutation,useUpdateProjectMutation,useSummonProjectByIdQuery} from 'src/features/Projects/getProjectsApis'
 import toast from 'react-hot-toast'
+import { useDispatch, useSelector } from 'react-redux'
+import {setUpdateJobPostPanel} from 'src/features/skillAssessment/AssessmentSlice'
 
 const CreateProject = ({handler}) => {
+    const dispatch = useDispatch()
     const [createProject] = useCreateProjectMutation()
+    const [updateProject] = useUpdateProjectMutation()
+    const updateData = useSelector((state) => state.assessment.jobPostDetails)
+    //console.log(updateData);
+    //const {data,isLoading} = useSummonProjectByIdQuery(updateData?.project_id)
+    //console.log("data",data.data);
     const [project,setProjects] = useState({
         title:'',
         description:'',
@@ -55,7 +62,7 @@ const CreateProject = ({handler}) => {
     const handleCreateProject = async () => {
         const {data} = await createProject(project)
         if(data.success === true){
-            handler()
+            dispatch(setUpdateJobPostPanel(false))
         }else{
             toast.error("something went wrong try again!", {
                 style: {
@@ -66,6 +73,36 @@ const CreateProject = ({handler}) => {
             })
         }
     }
+
+    const handlerUpdate = async () => {
+        project.id = updateData?.project_id
+        const {data} = await updateProject(project)
+        if(data.success === true){
+            dispatch(setUpdateJobPostPanel(false))
+        }else{
+            toast.error("something went wrong try again!", {
+                style: {
+                  backgroundColor: '#f6f6f7',
+                  border: '3px solid #fff',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                }
+            })
+        }
+    }
+
+   useEffect(() => {
+         if(updateData){
+              setProjects({
+                    title:updateData?.project_title,
+                    description:updateData?.project_description,
+                    skills:updateData?.project_skills,
+                    budget:updateData?.project_budget,
+                    status:updateData?.project_status,
+                    type:updateData?.project_type
+              })
+         }
+    },[updateData])
+ 
   return (
     <div className='fixed top-5 flex justify-center items-center w-screen h-full transition-all'>
         <div className='w-[600px] h-[550px] max-h-[90vh] min-h-[400px] flex flex-col bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7]
@@ -73,30 +110,30 @@ const CreateProject = ({handler}) => {
             <div className='shrink grow overflow-x-auto overflow-y-auto transition-all relative'>
                 <div className='flex justify-between w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
                     <div className='flex gap-x-2'>
-                        <div onClick={() => handler()} className='cursor-pointer'><XSquare /></div>
-                        <div className='flex font-semibold'>Create Job</div>
+                        <div onClick={() => dispatch(setUpdateJobPostPanel(false))} className='cursor-pointer'><XSquare /></div>
+                        <div className='flex font-semibold'>{updateData ? "Update Job" : "Create Job"}</div>
                     </div>
                     <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer'
-                        onClick={handleCreateProject}>
-                        Create
+                        onClick={updateData ? handlerUpdate : handleCreateProject}>
+                        {updateData ? "Update" : "Create"}
                     </div>
                 </div>
                 <div className='flex flex-col gap-y-3 px-5 py-3'>
                     <div className='flex flex-col gap-2'>
                         <div className='font-bold'>Project Title</div>
-                        <ContentEditable
+                        <Input
                             className='w-full rounded-md p-1 border-2 border-slate-300 shadow bg-[#F2F2F2]'
                             placeholder='Project Title'
-                            html={project.title ? project.title : ''}
+                            value={project?.title ? project?.title : ''}
                             onChange={(e) => handleProjectChange('title',e.target.value)}
                         />
                     </div>
                     <div className='flex flex-col gap-2'>
                         <div className='font-bold'>Project Description</div>
-                        <ContentEditable
+                        <Input
                             className='w-full rounded-md p-1 border-2 border-slate-300 shadow bg-[#F2F2F2]'
                             placeholder='Project description'
-                            html={project.description ? project.description : ''}
+                            value={project?.description ? project?.description : ''}
                             onChange={(e) => handleProjectChange('description',e.target.value)}
                         />
                     </div>
@@ -129,19 +166,19 @@ const CreateProject = ({handler}) => {
                     <div className='grid grid-cols-2 gap-2'>
                         <div className='flex flex-col gap-2'>
                             <div className='font-bold'>Budget</div>
-                            <ContentEditable
+                            <Input
                                 className='w-full rounded-md p-1 border-2 border-slate-300 shadow bg-[#F2F2F2]'
                                 placeholder='Budget'
-                                html={project.budget ? project.budget : ''}
+                                value={project?.budget ? project?.budget : ''}
                                 onChange={(e) => handleProjectChange('budget',e.target.value)}
                             />
                         </div>
                         <div className='flex flex-col gap-2'>
                             <div className='font-bold'>Status</div>
-                            <ContentEditable
+                            <Input
                                 className='w-full rounded-md p-1 border-2 border-slate-300 shadow bg-[#F2F2F2]'
                                 placeholder='Status'
-                                html={project.status ? project.status : ''}
+                                value={project?.status ? project?.status : ''}
                                 onChange={(e) => handleProjectChange('status',e.target.value)}
                             />
                         </div>
@@ -149,10 +186,10 @@ const CreateProject = ({handler}) => {
                     <div className='grid grid-cols-2'>
                         <div className='flex flex-col gap-2'>
                             <div className='font-bold'>Type</div>
-                            <ContentEditable
+                            <Input
                                 className='w-full rounded-md p-1 border-2 border-slate-300 shadow bg-[#F2F2F2]'
                                 placeholder='Type'
-                                html={project.type ? project.type : ''}
+                                value={project?.type ? project?.type : ''}
                                 onChange={(e) => handleProjectChange('type',e.target.value)}
                             />
                         </div>

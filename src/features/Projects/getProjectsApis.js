@@ -5,6 +5,7 @@ const cookie = new Cookies();
 export const getProjectsApis = createApi({
     reducerPath:'projectsApis',
     baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    tagTypes:['Projects'],
     endpoints:(builder) => ({
         createProject:builder.mutation({
             query: (data) => {
@@ -36,7 +37,8 @@ export const getProjectsApis = createApi({
                     credentials: 'include',
                     body: data,
                 }
-            }
+            },
+            invalidatesTags:['Projects']
         }),
         deleteProject:builder.mutation({
             query: (data) => {
@@ -51,7 +53,8 @@ export const getProjectsApis = createApi({
                     withCredentials:true,
                     credentials: 'include',
                 }
-            }
+            },
+            invalidatesTags:['Projects']
         }),
         summonAllProjects:builder.query({
             query: () => {
@@ -68,6 +71,22 @@ export const getProjectsApis = createApi({
                 }
             }
         }),
+        summonAllProjectsByUser:builder.query({
+            query: () => {
+                const token = cookie.get('token')
+                return {
+                    url : 'organization/summonAllProjectsByUser',
+                    method : 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                    credentials:'include'
+                }
+            },
+            providesTags:['Projects']
+        }),
         summonProjectById:builder.query({
             query: (id) => {
                 const token = cookie.get('token')
@@ -81,8 +100,24 @@ export const getProjectsApis = createApi({
                     withCredentials:true,
                     credentials:'include'
                 }
+            },
+            providesTags:['Projects']
+        }),
+        summonProfile:builder.query({
+            query: (id) => {
+                const token = cookie.get('token')
+                return {
+                    url : `candidate/getProfileById/${id}`,
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type':'application/json'
+                    },
+                    withCredentials:true,
+                    credentials:'include'
+                }
             }
-        })
+        }),
     })
 })
 
@@ -91,4 +126,6 @@ export const
 useUpdateProjectMutation,
 useDeleteProjectMutation,
 useSummonAllProjectsQuery,
-useSummonProjectByIdQuery} = getProjectsApis
+useSummonProjectByIdQuery,
+useSummonAllProjectsByUserQuery,
+useSummonProfileQuery} = getProjectsApis
