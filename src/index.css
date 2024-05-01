@@ -92,6 +92,22 @@
     animation: modalIn 0.3s forwards;
 }
 
+.txt-col{
+    color: hsla(217, 19%, 37%, 1);
+}
+.custom_wid{
+    width: calc(25% - 9px);
+}
+
+.custom-bg-login{
+    background: url('../public/cleanBg.jpg') no-repeat center center/cover;
+}
+.bg_cust{
+    background-color: rgba(122, 122, 122, 0.2);
+}
+.bd_color{
+    border-color: hsl(240 3.7% 15.9%) !important;
+}
 
 @keyframes modalIn {
     from {

@@ -36,6 +36,8 @@ const Projects = lazy(() => import("./pages/Projects/SmallProject"));
 const ProjectDetails = lazy(() => import("./components/Project/ProjectDetails"));
 const CreateProject = lazy(() => import("./components/Project/CreateProject"));
 const PostedJobs = lazy(() => import("./components/Project/PostedJobs"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));  
 
 function App() {
   // useEffect(() => {
@@ -187,7 +189,7 @@ function App() {
           )}
         </div>
         <div className="bg-[#F2F2F2] min-h-screen">
-          <div className="h-[60px] fixed inset-y-0 z-[110] w-full pt-[10px] backdrop-blur !bg-[#F2F2F2]">
+          <div className="h-[60px] fixed inset-y-0 z-[110] w-full pt-[5px] backdrop-blur !bg-[#F2F2F2]">
             <Navbar
               handler={handleShowPanel}
               showBar={handleShowOptions}
@@ -227,6 +229,36 @@ function App() {
           }
         >
           <Landing />
+        </React.Suspense>
+      ),
+    },
+    {
+      path: "/login",
+      errorElement: <div>Something went wrong!</div>,
+      element: (
+        <React.Suspense
+          fallback={
+            <div className="flex justify-center items-center w-full h-screen">
+              <Loader />
+            </div>
+          }
+        >
+          <Login/>
+        </React.Suspense>
+      ),
+    },
+    {
+      path: "/signup",
+      errorElement: <div>Something went wrong!</div>,
+      element: (
+        <React.Suspense
+          fallback={
+            <div className="flex justify-center items-center w-full h-screen">
+              <Loader />
+            </div>
+          }
+        >
+          <Signup/>
         </React.Suspense>
       ),
     },

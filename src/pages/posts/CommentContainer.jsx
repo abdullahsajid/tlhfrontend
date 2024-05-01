@@ -5,6 +5,7 @@ import Comments from './Comments'
 import toast from 'react-hot-toast'
 import { getCommentCandidate } from '../../features/Comments/candidateComment/getComments/getCommentService'
 import { Input } from '../../components/ui/input'
+import { Button } from 'src/components/ui/button'
 
 const CommentContainer = ({ id, avatar }) => {
     const [comment, setComment] = useState('')
@@ -49,8 +50,8 @@ const CommentContainer = ({ id, avatar }) => {
 
     return (
         <>
-            <div className='flex flex-col bg-[#FFF] p-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
-        shadow-md w-full hover:custom-border transition-all'>
+            <div className='flex flex-col bg-[#FFF] p-2 rounded-md gap-y-3 border-2 border-dashed border-[#f6f6f7] 
+        shadow-md w-full hover:border-[#383838] transition-all'>
                 <div className='px-4 pt-4 pb-4'>
                     <div className="flex items-center">
                         <div className='me-3 flex items-center min-w-[40px]'>
@@ -59,11 +60,11 @@ const CommentContainer = ({ id, avatar }) => {
                         </div>
                         <div className='flex justify-between items-center grow'>
                             <div className='shrink grow w-full'>
-                                <Input type="text" className='w-full outline-none bg-[#F2F2F2] py-2 px-1 border border-solid border-[#f6f6f7] shadow-md rounded-sm'
+                                <Input type="text" className='w-full outline-none bg-[#F2F2F2] py-2 px-1 border border-solid border-[#e5e7eb] rounded'
                                     placeholder='Reply here!' value={comment} onChange={(e) => setComment(e.target.value)} />
                             </div>
                             <div className='ms-2'>
-                                <button className='border-none outline-none px-3 py-1 rounded-md custom-bg-lg text-white' onClick={handleComment}>Reply</button>
+                                <Button className='border-none outline-none px-3 py-1 rounded-md text-white' onClick={handleComment}>Reply</Button>
                             </div>
                         </div>
                     </div>

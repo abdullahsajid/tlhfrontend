@@ -25,8 +25,8 @@ const SpecificPost = ({ name, avatar, postImg, content, time, like, postId }) =>
 
   return (
     <>
-      <div className='flex flex-col bg-[#FFF] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
-      shadow-md w-full hover:custom-border transition-all'>
+      <div className='flex flex-col bg-[#FFF] p-4 rounded-md gap-y-3 border-2 border-dashed border-[#f6f6f7] 
+      shadow-md w-full hover:border-[#383838] transition-all'>
         <div className='flex items-center'>
           <div>
             <img src={avatar} className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
@@ -43,14 +43,14 @@ const SpecificPost = ({ name, avatar, postImg, content, time, like, postId }) =>
           <div className='flex w-full'>
             {postImg &&
               <img src={postImg}
-                className='bg-center bg-no-repeat bg-cover rounded-md object-cover w-full h-[350px]' />
+                className='bg-center bg-no-repeat bg-cover rounded-md object-contain w-full h-[350px]' />
             }
           </div>
         </div>
 
         <div className='flex items-center gap-x-2'>
           <div className='text-sm font-bold border border-solid
-     border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500' onClick={() => handlerLike()}>
+          border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500' onClick={() => handlerLike()}>
             {likes?.length > 0 ? likes?.length : 0} like
           </div>
           <div className='text-sm font-bold border border-solid border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500'>{(comment?.length > 0) ? comment?.length : 0} comments</div>

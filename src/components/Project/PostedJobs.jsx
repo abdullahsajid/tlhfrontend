@@ -5,6 +5,7 @@ import ProjectCard from './ProjectCard'
 
 const PostedJobs = () => {
     const {data,isLoading} = useSummonAllProjectsByUserQuery()
+    const colorList = ['#e3dbfa','#fbe2f4','#ffe1cc','#d4f6ed']
   return (
     <div className='py-6 px-10 transition-all w-full'>
       <div className='flex flex-col'>
@@ -13,7 +14,7 @@ const PostedJobs = () => {
               <div className='grid grid-cols-2 gap-2'>
                   {isLoading ? <div><Loader/></div> : 
                       data?.data?.map((items, i) => (
-                          <ProjectCard key={i} render={true} details={items}/>
+                          <ProjectCard key={i} render={true} details={items} colorList={colorList}/>
                       ))
                   }
               </div>

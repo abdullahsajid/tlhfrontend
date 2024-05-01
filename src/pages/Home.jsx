@@ -27,7 +27,12 @@ const Home = () => {
       <div className='flex gap-x-7'>
         <div className='py-6 pl-16 max-sm:pl-8 w-[50rem] flex flex-col gap-y-2 relative z-[100]'>
           <CreatePost />
-          <Posts link={"https://avatars.githubusercontent.com/u/96902562?v=4"} name={'Muhammad Umair'} postImg={'https://www.veeforu.com/wp-content/uploads/2023/07/youtube-banner-background-futuristic-2048x1152-1-1024x576.jpg'} />
+          <Posts link={"https://avatars.githubusercontent.com/u/96902562?v=4"}
+                name={'Muhammad Umair'} 
+                postImg={'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/job-vacancy-ads-design-template-7a051e382b4a067fabb7ed0f6d3f6def_screen.jpg?ts=1622136055'} 
+                content={"Develop engaging and visually appealing content for social media platforms Create and curate multimedia content, including graphics, videos, and written posts."}
+                time={'2023-12-21 20:27:45.000000'}
+          />
           <Posts link={"https://avatars.githubusercontent.com/u/77003390?v=4"} name={'Abdullah Sajid'} postImg={'https://images.pexels.com/photos/1181325/pexels-photo-1181325.jpeg'} />
         </div>
         <div className='relative'>

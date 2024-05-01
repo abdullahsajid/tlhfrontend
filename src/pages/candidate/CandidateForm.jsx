@@ -212,7 +212,7 @@ const CandidateForm = ({ handler }) => {
                             <div onClick={() => handler()} className='cursor-pointer'><XSquare /></div>
                             <div className='flex font-semibold'>Edit Profile</div>
                         </div>
-                        <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer' onClick={data?.id ? updateProfile : handlerProfile}>{`${data?.id ? "Update" : "Save"}`}</div>
+                        <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer' onClick={data?.id ? updateProfile : handlerProfile}>{`${data?.id ? "Update" : "Save"}`}</div>
                     </div>
                     <div className='flex flex-col relative z-0'>
                         <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>
@@ -307,7 +307,7 @@ const CandidateForm = ({ handler }) => {
                         {data?.skill && <div className='px-3 py-1 text-xs'>Your skills*</div>}
                         <div className='px-3 py-1 flex gap-x-3'>
                             {data?.skill && data?.skill?.map((item, i) => (
-                                <div className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' key={i}>{item.skill}</div>
+                                <div className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' key={i}>{item.skill}</div>
                             ))}
                         </div>
                         <div className='px-3 py-3 flex flex-col gap-y-2'>
@@ -321,7 +321,7 @@ const CandidateForm = ({ handler }) => {
                             />
                         </div>
                         <div className='px-3 pb-2 flex justify-end'>
-                            <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' onClick={handlerSkill}>Add Skill</button>
+                            <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={handlerSkill}>Add Skill</button>
                         </div>
                         <div className='px-3 py-1'>
                             <hr className='border-solid border-2 border-slate-300' />
@@ -347,7 +347,7 @@ const CandidateForm = ({ handler }) => {
                             />
                         </div>
                         <div className='px-3 pb-2 flex justify-end'>
-                            <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' onClick={handlerSocialLink}>Add Link</button>
+                            <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={handlerSocialLink}>Add Link</button>
                         </div>
                     </div>
                 </div>

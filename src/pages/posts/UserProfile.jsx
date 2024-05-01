@@ -11,7 +11,7 @@ const UserProfile = ({ data }) => {
   }, [])
 
   return (
-    <div className='flex flex-col p-3 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow hover:custom-border w-full transition-all'>
+    <div className='flex flex-col p-3 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] shadow hover:border-[#383838] w-full transition-all'>
       <div className='flex flex-col '>
         <div className='w-full relative'>
           {fakeLoading ? <Skeleton style={{ width: '100%', height: "120px", borderRadius: '0.375rem', border: "3px solid #fff" }} /> : !(data?.banner_url) ?

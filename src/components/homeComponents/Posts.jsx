@@ -13,7 +13,6 @@ const Posts = ({ postId, name, link, postImg, content, time, data, comment, like
   const dispatch = useDispatch()
   const [fakeLoading, setFakeLoading] = useState(true)
 
-
   useEffect(() => {
     setTimeout(() => {
       setFakeLoading(false)
@@ -26,8 +25,8 @@ const Posts = ({ postId, name, link, postImg, content, time, data, comment, like
 
 
   return (
-    <div className='flex flex-col bg-[#FFF] p-4 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
-    shadow-md w-full hover:custom-border transition-all'>
+    <div className='flex flex-col bg-[#FFF] p-4 rounded-md gap-y-3 border-2 border-dashed border-[#f6f6f7] 
+    shadow-md w-full transition-all hover:border-[#383838]'>
       <div className='flex items-center'>
         <div>{fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: '0.375rem', border: "3px solid #fff" }} /> : (link != null && link !== '') ? <img src={`${link}`} className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
           : <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: '0.375rem', border: "3px solid #fff" }} />}
@@ -44,7 +43,7 @@ const Posts = ({ postId, name, link, postImg, content, time, data, comment, like
         <div className='flex w-full'>
           {postImg &&
             <img src={`${postImg}`}
-              className='bg-center bg-no-repeat bg-cover rounded-md object-cover w-full h-[350px]' />
+              className='bg-center bg-no-repeat bg-cover rounded-md object-contain w-full h-[350px]' />
           }
         </div>
       </div>

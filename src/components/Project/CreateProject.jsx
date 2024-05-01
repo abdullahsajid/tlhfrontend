@@ -113,7 +113,7 @@ const CreateProject = ({handler}) => {
                         <div onClick={() => dispatch(setUpdateJobPostPanel(false))} className='cursor-pointer'><XSquare /></div>
                         <div className='flex font-semibold'>{updateData ? "Update Job" : "Create Job"}</div>
                     </div>
-                    <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer'
+                    <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer'
                         onClick={updateData ? handlerUpdate : handleCreateProject}>
                         {updateData ? "Update" : "Create"}
                     </div>

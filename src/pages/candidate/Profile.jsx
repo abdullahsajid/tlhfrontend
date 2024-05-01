@@ -46,7 +46,7 @@ const Profile = () => {
             }
           </div>
 
-          <div className='flex w-[320px] absolute -right-32 z-[100] custom-position-center bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow-2xl hover:custom-border transition-all'>
+          <div className='flex w-[320px] absolute -right-32 z-[100] custom-position-center bg-[#FFF] rounded-md border border-dashed border-[#f6f6f7] shadow-2xl hover:border-[#383838] transition-all'>
             <div className='flex flex-col px-3 py-2 w-full'>
               <div className='text-base font-semibold'>Bio</div>
               <div className='text-sm w-full'>{fakeLoading ? <Skeleton width={"100%"} style={{ border: "3px solid #fff" }} count={3} />
@@ -61,7 +61,7 @@ const Profile = () => {
           </div>
           <div className='flex w-96 flex-wrap gap-3 '>
             {detail?.skill ? detail?.skill.map((item, i) => (
-              <div className='bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border' key={i}>
+              <div className='bg-[#FFF] rounded-md border-2 border-dashed shadow px-2 py-1 text-sm border-[#383838]' key={i}>
                 {fakeLoading ? <Skeleton width={80} style={{ border: "3px solid #fff" }} /> : !(item?.skill) ? <Skeleton width={80} style={{ border: "3px solid #fff" }} /> : item?.skill}
               </div>
             )) :
@@ -105,7 +105,7 @@ const Profile = () => {
 
           <div className='flex flex-col w-full'>
 
-            <div className='flex w-full mt-5 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] hover:custom-border shadow'>
+            <div className='flex w-full mt-5 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] hover:border-[#383838] shadow'>
               <div className='flex flex-col gap-y-2 px-3 py-2 w-full'>
                 <div className='text-base font-semibold'>About</div>
                 <div>{fakeLoading ? <Skeleton count={3} style={{ width: '100%', border: '3px solid #fff' }} /> : !(detail?.about) ?
@@ -113,7 +113,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className='flex w-full mt-5 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] hover:custom-border shadow relative z-[100]'>
+            <div className='flex w-full mt-5 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] hover:border-[#383838] shadow relative z-[100]'>
               <div className='flex flex-col gap-y-2 px-3 py-2 w-full'>
                 <div className='text-base font-semibold'>Education</div>
                 <div>{fakeLoading ? <Skeleton count={3} style={{ width: '100%', border: '3px solid #fff' }} /> :
@@ -121,7 +121,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className='flex w-full mt-5 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] hover:custom-border shadow relative z-[100]'>
+            <div className='flex w-full mt-5 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] hover:border-[#383838] shadow relative z-[100]'>
               <div className='flex flex-col gap-y-2 px-3 py-2 w-full'>
                 <div className='text-base font-semibold'>Experience</div>
                 <div>{fakeLoading ? <Skeleton count={3} style={{ width: '100%', border: '3px solid #fff' }} /> :
@@ -129,7 +129,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 bg-[#FFF] rounded-md w-full h-auto border border-solid border-[#f6f6f7] shadow hover:custom-border'>
+            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 bg-[#FFF] rounded-md w-full h-auto border-2 border-dashed border-[#f6f6f7] shadow hover:border-[#383838]'>
               <div className=' text-1xl font-semibold'>Social Links</div>
               {detail?.socialLink ? detail?.socialLink.map((item, i) => (
                 <a href={`${item?.link}`} className='flex items-center gap-x-2' key={i}>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = ({ handler }) => {
     const [toggleBr, setToggleBr] = useState(false)
@@ -23,10 +24,14 @@ const Footer = ({ handler }) => {
                             but every step brings you closer to achieving your dreams
                         </span>
                         <div className='flex gap-2 mt-5'>
-                            <button className='text-[#fff] border border-[#00AA76] bg-[#00AA76] py-1 px-3 rounded-md transition-all hover:text-[#00AA76] hover:bg-[#010101]'
-                                onClick={() => handler(1)}>Login</button>
-                            <button className='text-[#00AA76] border border-[#00AA76] py-1 px-3 rounded-md transition-all hover:text-[#fff] hover:bg-[#00AA76]'
-                                onClick={() => handler(0)}>Register</button>
+                            <button className='text-[#333] border border-[#101010] bg-[#F7F8F9] py-1 px-3 rounded-md transition-all'
+                            >
+                               <Link to={'/login'}>Login</Link> 
+                            </button>
+                            <button className='text-[#F7F8F9] border border-[#F7F8F9] py-1 px-3 rounded-md transition-all'
+                                >
+                                <Link to={'/signup'}>Register</Link>    
+                            </button>
                         </div>
                     </div>
                 </div>

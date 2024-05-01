@@ -30,7 +30,7 @@ const Org_profile = () => {
               <Skeleton style={{ width: '8rem', height: '8rem', borderRadius: '0.375rem', border: '2px solid #fff' }} /> :
               <img src={`${data?.avatar_url}`} className='w-32 h-32 rounded-md object-cover' />}
           </div>
-          <div className='flex max-w-xs w-[320px] absolute -right-32 z-[100] custom-position-center bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow-2xl hover:custom-border transition-all'>
+          <div className='flex max-w-xs w-[320px] absolute -right-32 z-[100] custom-position-center bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] shadow-2xl hover:border-[#383838] transition-all'>
             <div className='flex flex-col px-3 py-2 w-full'>
               <div className='text-[10px] pb-0 mb-0'>Created by</div>
               <div className='py-2 pt-0 flex gap-x-2'>
@@ -56,19 +56,19 @@ const Org_profile = () => {
             {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(data?.org_name) ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : data?.org_name}
           </div>
           <div className='flex w-96 flex-wrap gap-3 '>
-            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border'>
+            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
               <span><Building2 size={15} /></span>
               <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.industry) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.industry}</span>
             </div>
-            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border'>
+            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed  shadow px-2 py-1 text-sm border-[#383838]'>
               <span><MapPin size={15} /></span>
               <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.location) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.location}</span>
             </div>
-            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border'>
+            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
               <span><Mails size={15} /></span>
               <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.org_email) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.org_email}</span>
             </div>
-            <a href={`${data?.org_website ? data?.org_website : "#"}`} className='flex flex-row justify-center items-center gap-x-2 relative z-[100] bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] shadow px-2 py-1 text-sm custom-border'>
+            <a href={`${data?.org_website ? data?.org_website : "#"}`} className='flex flex-row justify-center items-center gap-x-2 relative z-[100] bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
               <span><Link2 size={15} /></span>
               <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.org_website) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.org_website}</span>
             </a>
@@ -77,7 +77,7 @@ const Org_profile = () => {
         </div>
 
         <div className='flex gap-x-3 w-full'>
-          <div className='flex w-full mt-5 ml-7 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] hover:custom-border shadow relative z-[100]'>
+          <div className='flex w-full mt-5 ml-7 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] hover:border-[#383838] shadow relative z-[100]'>
             <div className='flex flex-col gap-y-2 px-3 py-2 w-[650px]'>
               <div className='text-base font-semibold'>Posts</div>
               <div>{fakeLoading && <Skeleton count={3} width={"100%"} style={{ border: '2px solid #fff' }} />}</div>
@@ -85,7 +85,7 @@ const Org_profile = () => {
           </div>
 
           <div className='flex flex-col w-full'>
-            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 h-full bg-[#FFF] rounded-md w-full border border-solid border-[#FFF] shadow hover:custom-border relative z-[100]'>
+            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 h-full bg-[#FFF] rounded-md w-full border-2 border-dashed border-[#FFF] shadow hover:border-[#383838] relative z-[100]'>
               <div className=' text-1xl font-semibold'>Social Links</div>
               {data?.socialLinks ? data?.socialLinks.map((item, i) => (
                 <a href={`${item?.link}`} className='flex items-center gap-x-2' key={i}>
@@ -103,7 +103,7 @@ const Org_profile = () => {
                 </div>}
             </div>
 
-            <div className='flex  w-full mt-5 bg-[#FFF] rounded-md border border-solid border-[#f6f6f7] hover:custom-border shadow relative z-[100]'>
+            <div className='flex  w-full mt-5 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] hover:border-[#383838] shadow relative z-[100]'>
               <div className='flex flex-col gap-y-2 px-3 py-2 w-full'>
                 <div className='text-base font-semibold'>About</div>
                 <div>{fakeLoading ? <Skeleton count={3} width={"100%"} style={{ border: '2px solid #fff' }} /> : !(data?.about) ? <Skeleton width={"100%"} count={3} style={{ border: '2px solid #fff' }} /> : data?.about}</div>

@@ -156,7 +156,7 @@ const OrgForm = ({handler}) => {
                         <div onClick={()=>handler()} className='cursor-pointer'><XSquare/></div>
                         <div className='flex font-semibold'>Edit Organization</div>
                     </div>
-                    <div className='flex justify-center items-center custom-bg-lg px-2 rounded-sm text-white pb-[2px] cursor-pointer' onClick={data?.id ? updateProfile : handleOrgProfile}>{`${data?.id ? "Update":"Save"}`}</div>
+                    <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={data?.id ? updateProfile : handleOrgProfile}>{`${data?.id ? "Update":"Save"}`}</div>
                 </div>
                 <div className='flex flex-col relative z-0'>
                     <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>
@@ -296,7 +296,7 @@ const OrgForm = ({handler}) => {
                         />
                     </div>
                     <div className='px-3 pb-2 flex justify-end'>
-                        <button className='custom-bg-lg px-2 rounded-sm text-white cursor-pointer' onClick={socialLinkHandler}>Add Link</button>
+                        <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={socialLinkHandler}>Add Link</button>
                     </div>
                 </div>
             </div>

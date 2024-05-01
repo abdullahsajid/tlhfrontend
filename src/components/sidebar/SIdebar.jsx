@@ -10,6 +10,7 @@ const Sidebar = () => {
     const { loginUser } = useSelector((state) => state.login)
     const [toggleUser, setToggleUser] = useState(false)
     const [active, setActive] = useState(0)
+    const [profileBarToggle,setProfileBarToggle] = useState(false)
     const [sidebarData, setSidebarData] = useState([]);
     const { data } = useSelector((state) => state.candidateProfile.candidateProfile)
     const [fakeLoading, setFakeLoading] = useState(true)
@@ -109,6 +110,12 @@ const Sidebar = () => {
 
     const handlerActive = (id) => {
         setActive(id)
+        setProfileBarToggle(false)
+    }
+
+    const handlerProfileToggle = () => {
+        setActive(false)
+        setProfileBarToggle(!profileBarToggle)
     }
 
     useEffect(() => {
@@ -125,13 +132,15 @@ const Sidebar = () => {
                             active={items.id === active} onActive={() => handlerActive(items.id)} endpoint={items.endpoint} />
                     ))}
                 </div>
-                {toggleUser && <Link to={`/profile`} className='flex flex-row items-center bg-[#FFF] px-3 py-2 rounded-md gap-y-3 border border-solid border-[#f6f6f7] 
-                    shadow-lg w-full hover:custom-border transition-all'>
+                {toggleUser && <Link to={`/profile`} className={`flex flex-row items-center bg-[#FFF] px-3 py-2 rounded-md gap-y-3 border-2 hover:border-dashed border-[#f6f6f7] 
+                    shadow-lg w-full hover:border-[#383838] transition-all 
+                    ${profileBarToggle ? "bg-slate-900 !text-[#fff] hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90" : ""}`}
+                    onClick={handlerProfileToggle}>
                     <div className='mr-3 min-w-[40px]'>
                         {fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} /> : data?.avatar_url ?
                             <img src={`${data?.avatar_url}`} alt="" className='w-12 h-10 rounded-md object-cover' /> : <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} />}
                     </div>
-                    <div className='uppercase font-semibold w-full'>
+                    <div className='uppercase font-semibold w-full text-[14px]'>
                         {fakeLoading ? <Skeleton width={"100%"} style={{ border: "3px solid #fff" }} /> : data?.name ? data?.name : <Skeleton width={"100%"} style={{ border: "3px solid #fff" }} />}
                     </div>
                 </Link>}
