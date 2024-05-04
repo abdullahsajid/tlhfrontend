@@ -9,7 +9,7 @@ import { Button } from 'src/components/ui/button'
 import { Link } from 'react-router-dom'
 import RadialGradient from 'src/components/ui/RadialGradient'
 
-const Signup = ({ handler }) => {
+const Signup = () => {
   const dispatch = useDispatch()
   const navigation = useNavigate()
   const [name, setName] = useState('')
@@ -63,7 +63,6 @@ const Signup = ({ handler }) => {
         setPassword('')
         setEmail('')
         setConfirmPassword('')
-        handler()
         toast.success('successfully signUp move to login', {
           style: {
             backgroundColor: '#f6f6f7',
@@ -71,7 +70,7 @@ const Signup = ({ handler }) => {
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }
         })
-
+        navigation('/login')
       } else {
         toast.error("something Wrong", {
           style: {
