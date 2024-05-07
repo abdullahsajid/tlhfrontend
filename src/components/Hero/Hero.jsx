@@ -5,7 +5,7 @@ import AnimatedShinyText from 'src/components/ui/AnimatedShinyText'
 const Hero = ({ handler }) => {
 
     return (
-        <div className='mx-auto px-4 w-full max-w-[1440px] py-6 '>
+        <div className='mx-auto px-4 w-full max-w-[1440px] py-6' id="home">
             <div className='grid grid-cols-2 max-sm:grid-cols-1 gap-2 px-3'>
                 <div className='flex flex-col'>
                     <div className='max-sm:flex max-sm:justify-center'>

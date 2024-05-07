@@ -43,22 +43,22 @@ const Nav = ({handler}) => {
                     TechLinkHub
                 </div>
                 <div className='flex '>
-                    <div className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
+                    <a href='#home' className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
                     hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
                         Home
-                    </div>
-                    <div className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
-                    hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
-                        About us
-                    </div>
-                    <div className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
+                    </a>
+                    <a href='#feature' className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
                     hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
                         Features
-                    </div>
-                    <div className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
+                    </a>
+                    <a href='#explore' className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
+                    hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
+                        Explore
+                    </a>
+                    <a href='#testimonial' className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
                     hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
                         Testimonial
-                    </div>
+                    </a>
                 </div>
                 <div className='flex items-center'>
                     {/* <Button className='flex items-center justify-center px-7 py-4 font-bold text-lg text-[#000]

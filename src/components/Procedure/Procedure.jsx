@@ -10,7 +10,7 @@ const Procedure = () => {
         }
     },[])
     return (
-        <div className='bg-[#010101] m-2 rounded-md transition-all hover:custom-shadow mt-4'>
+        <div className='bg-[#010101] m-2 rounded-md transition-all hover:custom-shadow mt-4' id="feature">
             <div className='mx-auto px-4 w-full max-w-[1440px] py-6 pb-10 custom__bg'>
                 <div className='grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-5'>
                     <div className='flex flex-col max-sm:gap-4'>

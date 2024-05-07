@@ -27,7 +27,7 @@ const Landing = () => {
 
     return (
         <>
-            <div
+            {/* <div
                 className={` ${showEditPanel === 0 ||
                     showEditPanel === 1
                     ? "fixed inset-x-0 h-full backdrop-blur z-[9999]"
@@ -38,7 +38,7 @@ const Landing = () => {
                     <Signup handler={handleShowPanel} />)}
                 {showEditPanel === 1 && (
                     <Login handler={handleShowPanel} />)}
-            </div>
+            </div> */}
             <div className={`rounded-md  hover:custom-shadow ${(showEditPanel === 0) ||
                 (showEditPanel === 1) ? 'mt-0' : ''}`}>
                 <Nav handler={handleShowPanel} />

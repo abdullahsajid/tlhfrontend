@@ -64,7 +64,9 @@
 ::-webkit-scrollbar-track{
     background: #F2F2F2;
 }
-
+html {
+    scroll-behavior: smooth;
+}
 [placeholder]:empty::before {
     content: attr(placeholder);
     color: #000;

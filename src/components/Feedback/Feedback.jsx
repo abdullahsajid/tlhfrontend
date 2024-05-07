@@ -3,7 +3,7 @@ import FeedbackCard from './FeedbackCard'
 
 const Feedback = () => {
     return (
-        <div className='bg-[#ECEFF4] m-2 rounded-md transition-all hover:custom-shadow mt-4 border-2 border-[#676768]'>
+        <div className='bg-[#ECEFF4] m-2 rounded-md transition-all hover:custom-shadow mt-4 border-2 border-[#676768]' id="testimonial">
             <div className='mx-auto px-4 w-full max-w-[1440px] py-6'>
                 <div className='w-full flex flex-col gap-2 items-center justify-center'>
                     <h1 className='text-[36px] font-bold tracking-wide max-sm:text-[30px]'>TechLinkHub customer Feedback</h1>
