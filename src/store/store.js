@@ -31,6 +31,9 @@ import { getRes } from "src/features/Resume/getResume/getRes";
 import { skillAssessmentApi } from "src/features/skillAssessment/AssessmentApis";
 import { getProjectsApis } from "src/features/Projects/getProjectsApis";
 import { recommendApi } from "src/features/candidatePost/recommendation/recommendApis";
+import { usersLikes } from "src/features/candidatePost/CPostLike/getPostLikeService";
+import { userComment } from "src/features/Comments/candidateComment/getComments/getCommentService";
+import { orgApis } from "src/features/organizationApis/orgApis";
 
 const loginUser = localStorage.getItem("loginUser")
   ? JSON.parse(localStorage.getItem("loginUser"))
@@ -76,12 +79,16 @@ export const store = configureStore({
     [getRes.reducerPath]: getRes.reducer,
     [skillAssessmentApi.reducerPath] : skillAssessmentApi.reducer,
     [getProjectsApis.reducerPath]: getProjectsApis.reducer,
-    [recommendApi.reducerPath]:recommendApi.reducer
+    [recommendApi.reducerPath]:recommendApi.reducer,
+    [usersLikes.reducerPath]:usersLikes.reducer,
+    [userComment.reducerPath]:userComment.reducer,
+    [orgApis.reducerPath]:orgApis.reducer
   },
   middleware: (middle) => [...middle(),
      resSkillApi.middleware, interestApi.middleware, langApi.middleware, ResHeaderApi.middleware, contactApi.middleware,
       ResExpApi.middleware, ResEduApi.middleware, resumeProjApi.middleware, ResCertApi.middleware, templateApi.middleware,
-      getRes.middleware, skillAssessmentApi.middleware,getProjectsApis.middleware,recommendApi.middleware
+      getRes.middleware, skillAssessmentApi.middleware,getProjectsApis.middleware,recommendApi.middleware,usersLikes.middleware,
+      userComment.middleware,orgApis.middleware
   ],
   preloadedState: initialState,
 });

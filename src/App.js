@@ -38,6 +38,7 @@ const CreateProject = lazy(() => import("./components/Project/CreateProject"));
 const PostedJobs = lazy(() => import("./components/Project/PostedJobs"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));  
+const Org_job_form = lazy(() => import("./components/organization/Org_job_form"))
 
 function App() {
   // useEffect(() => {
@@ -107,6 +108,7 @@ function App() {
     const { loginUser } = useSelector((state) => state.login);
     const togglePanel = useSelector((state) => state.assessment.togglePanel)
     const toggleUpdatePanel = useSelector((state) => state.assessment.updateJobPostPanel)
+    const jobPanelToggle = useSelector((state) => state.assessment.jobPanelToggle)
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 
@@ -138,7 +140,8 @@ function App() {
             showEditPanel === 0 ||
             showEditPanel === 1 ||
             showEditPanel === 2 ||
-            toggleUpdatePanel
+            toggleUpdatePanel ||
+            jobPanelToggle
               ? "fixed inset-x-0 h-full custom-bg-op !z-[9999]"
               : ""
           }`}
@@ -185,6 +188,17 @@ function App() {
               }
             >
               <ResultAssessment />
+            </React.Suspense>
+          )}
+          {jobPanelToggle && (
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
+              <Org_job_form handler={handleShowPanel}/>
             </React.Suspense>
           )}
         </div>

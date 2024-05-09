@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link2, Building2, MapPin, Mails } from 'lucide-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
+import { SquarePlus } from 'lucide-react';
+import { setJobPanel } from 'src/features/skillAssessment/AssessmentSlice';
+
 const Org_profile = () => {
   const { data } = useSelector((state) => state.getOrgProfile.getOp)
   const userData = useSelector((state) => state.candidateProfile.candidateProfile)
   const [fakeLoading, setFakeLoading] = useState(true)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setTimeout(() => {
@@ -51,28 +55,35 @@ const Org_profile = () => {
           </div>
         </div>
 
-        <div className='flex flex-col gap-y-2 mt-20 ml-7'>
-          <div className='flex text-2xl font-semibold'>
-            {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(data?.org_name) ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : data?.org_name}
+        <div className='flex justify-between mt-20 ml-7'>
+          <div className='flex flex-col gap-y-2'>
+            <div className='flex text-2xl font-semibold'>
+              {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(data?.org_name) ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : data?.org_name}
+            </div>
+            <div className='flex w-96 flex-wrap gap-3 '>
+              <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
+                <span><Building2 size={15} /></span>
+                <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.industry) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.industry}</span>
+              </div>
+              <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed  shadow px-2 py-1 text-sm border-[#383838]'>
+                <span><MapPin size={15} /></span>
+                <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.location) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.location}</span>
+              </div>
+              <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
+                <span><Mails size={15} /></span>
+                <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.org_email) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.org_email}</span>
+              </div>
+              <a href={`${data?.org_website ? data?.org_website : "#"}`} className='flex flex-row justify-center items-center gap-x-2 relative z-[100] bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
+                <span><Link2 size={15} /></span>
+                <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.org_website) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.org_website}</span>
+              </a>
+            </div>
           </div>
-          <div className='flex w-96 flex-wrap gap-3 '>
-            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
-              <span><Building2 size={15} /></span>
-              <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.industry) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.industry}</span>
+          <div>
+            <div className='flex mt-5 mr-5 p-1 shadow-md cursor-pointer border rounded-md hover:bg-[#fff]'
+              onClick={() => dispatch(setJobPanel(true))}>
+              <SquarePlus/>
             </div>
-            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed  shadow px-2 py-1 text-sm border-[#383838]'>
-              <span><MapPin size={15} /></span>
-              <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.location) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.location}</span>
-            </div>
-            <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
-              <span><Mails size={15} /></span>
-              <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.org_email) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.org_email}</span>
-            </div>
-            <a href={`${data?.org_website ? data?.org_website : "#"}`} className='flex flex-row justify-center items-center gap-x-2 relative z-[100] bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>
-              <span><Link2 size={15} /></span>
-              <span>{fakeLoading ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : !(data?.org_website) ? <Skeleton width={200} style={{ border: '2px solid #fff' }} /> : data?.org_website}</span>
-            </a>
-
           </div>
         </div>
 

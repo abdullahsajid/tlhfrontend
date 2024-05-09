@@ -4,6 +4,7 @@ const initialState = {
     loading: false,
     togglePanel: false,
     updateJobPostPanel: false,
+    jobPanelToggle:false,
     jobPostDetails: [],
     resultRes:[]
 }
@@ -18,6 +19,9 @@ export const assessmentSlice = createSlice({
         setRes: (state,action) => {
             state.resultRes = action.payload
         },
+        setJobPanel: (state,action) => {
+            state.jobPanelToggle = action.payload
+        },
         setUpdateJobPostPanel: (state,action) => {
             state.updateJobPostPanel = action.payload
         },
@@ -28,4 +32,4 @@ export const assessmentSlice = createSlice({
 })
 
 export default assessmentSlice.reducer
-export const {setToggleItem,setRes,setUpdateJobPostPanel,setJobPostedData} = assessmentSlice.actions
+export const {setToggleItem,setRes,setUpdateJobPostPanel,setJobPostedData,setJobPanel} = assessmentSlice.actions

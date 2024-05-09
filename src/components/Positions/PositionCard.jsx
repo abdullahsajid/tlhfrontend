@@ -22,8 +22,8 @@ const PositionCard = ({img,name,time,city,timing,role,skills}) => {
             <div className='flex flex-col gap-1 mt-2'>
                 <h1 className='text-[17px] font-bold'>{role}</h1>
                 <div className='flex flex-wrap gap-2'>
-                    {skills?.programming.map((skill) => (
-                        <div className='border border-[#676768] rounded-lg px-2 py-1'>{skill}</div>
+                    {skills?.programming.map((skill,index) => (
+                        <div className='border border-[#676768] rounded-lg px-2 py-1'key={index}>{skill}</div>
                     ))}
                 </div>
             </div>

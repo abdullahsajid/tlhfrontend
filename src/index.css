@@ -47,6 +47,9 @@
     .resumeTag{
         background-color: hsl(220 14.3% 95.9% / .6);
     }
+    .dialogFade{
+        background-color: rgba(91, 112, 131, 0.4);
+    }
 }
 
 ::selection {

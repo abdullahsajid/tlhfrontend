@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import { loginUserPost } from '../../features/candidatePost/getAuthPost/loginUserPostService'
 import { Textarea } from '../ui/textarea'
 import { Button } from 'src/components/ui/button'
+import BtnLoader from 'src/components/Loader/BtnLoader'
 
 const CreatePost = () => {
   const dispatch = useDispatch()
@@ -15,6 +16,7 @@ const CreatePost = () => {
   const [fakeLoading, setFakeLoading] = useState(true)
   const [content, setContent] = useState('')
   const [url, setImgUrl] = useState(null)
+  const [btnLoader,setBtnLoader] = useState(false)
 
   const handlePostImg = (e) => {
     const selectfile = e.target.files[0]
@@ -39,6 +41,7 @@ const CreatePost = () => {
       })
       return
     }
+    setBtnLoader(true)
     const data = await dispatch(candidatePost({ content, url }))
     if (data) {
       toast.success("post added!", {
@@ -51,6 +54,7 @@ const CreatePost = () => {
       setContent('')
       setImgUrl(null)
       dispatch(loginUserPost())
+      setBtnLoader(false)
     } else {
       toast.error("something went wrong try again!", {
         style: {
@@ -105,8 +109,13 @@ const CreatePost = () => {
             <Image size={22} className='cursor-pointer' />
           </label>
         </div>
-        <div onClick={handlerPost}>
-          <Button className='px-3 py-1 text-white rounded-md h-9'>Post</Button>
+        <div >
+          <Button className={`px-3 py-1 text-white rounded-md h-9 ${btnLoader && "opacity-5"}`}
+            disabled={btnLoader}
+            onClick={handlerPost}
+          >
+            Post {btnLoader && <BtnLoader/>}
+          </Button>
         </div>
       </div>
     </div>

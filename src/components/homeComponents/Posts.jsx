@@ -9,10 +9,9 @@ import * as moment from 'moment';
 
 const Posts = ({ postId, name, link, postImg, content, time, data, comment, like }) => {
   const navigate = useNavigate()
-
   const dispatch = useDispatch()
   const [fakeLoading, setFakeLoading] = useState(true)
-
+  
   useEffect(() => {
     setTimeout(() => {
       setFakeLoading(false)
@@ -50,7 +49,8 @@ const Posts = ({ postId, name, link, postImg, content, time, data, comment, like
 
       <div className='flex items-center gap-x-2'>
         <Like postId={postId} like={like} />
-        <div className='text-sm font-bold border border-solid border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500'>{(comment?.length > 0) ? comment?.length : 0} comments</div>
+        <div className='text-sm font-bold border border-solid border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500'>
+          {(comment?.length > 0) ? comment?.length : 0} comments</div>
       </div>
     </div>
   )

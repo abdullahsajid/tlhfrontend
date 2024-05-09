@@ -101,7 +101,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                                             }
                                         >
                                             <div><HandCoins size={18} /></div>
-                                            <div>Create job</div>
+                                            <div>Create Project</div>
                                         </Link>}
                                     {(loginUser.data.name === 'admin007') ? '' :
                                         <Link to={'/postedjobs'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 

@@ -3,16 +3,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { commentCandidate } from '../../features/Comments/candidateComment/candCommService'
 import Comments from './Comments'
 import toast from 'react-hot-toast'
+import { useGetCommentsQuery,usePostCommentsMutation } from '../../features/Comments/candidateComment/getComments/getCommentService'
 import { getCommentCandidate } from '../../features/Comments/candidateComment/getComments/getCommentService'
 import { Input } from '../../components/ui/input'
 import { Button } from 'src/components/ui/button'
+import Loader from 'src/components/Loader/Loader'
+import BtnLoader from 'src/components/Loader/BtnLoader'
 
 const CommentContainer = ({ id, avatar }) => {
     const [comment, setComment] = useState('')
     const dispatch = useDispatch()
+    const [btnLoading,setBtnLoading] = useState(false)
+    const [postComments,{isLoading:commentLoad}] = usePostCommentsMutation()
     const profile = useSelector((state) => state.userProfiles?.profiles?.data)
-    const comments = useSelector((state) => state.getComments?.getComments?.data)
-
+    // const comments = useSelector((state) => state.getComments?.getComments?.data)
+    const {data,isLoading} = useGetCommentsQuery({id})
+    
     const handleComment = async () => {
         if (comment == '') {
             toast.error("please fill all fields!", {
@@ -24,7 +30,9 @@ const CommentContainer = ({ id, avatar }) => {
             })
             return
         } else {
-            const data = await dispatch(commentCandidate({ id, comment }))
+            setBtnLoading(true)
+            // let details = {id:id,comment:comment}
+            const data = await postComments({id,comment})
             if (data) {
                 setComment('')
                 toast.success("comment added", {
@@ -34,7 +42,7 @@ const CommentContainer = ({ id, avatar }) => {
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                     }
                 })
-                dispatch(getCommentCandidate({ id }))
+                setBtnLoading(false)
             } else {
                 toast.error("something went wrong try again!", {
                     style: {
@@ -44,7 +52,6 @@ const CommentContainer = ({ id, avatar }) => {
                     }
                 })
             }
-
         }
     }
 
@@ -64,13 +71,18 @@ const CommentContainer = ({ id, avatar }) => {
                                     placeholder='Reply here!' value={comment} onChange={(e) => setComment(e.target.value)} />
                             </div>
                             <div className='ms-2'>
-                                <Button className='border-none outline-none px-3 py-1 rounded-md text-white' onClick={handleComment}>Reply</Button>
+                                <Button className={`border-none outline-none px-3 py-1 rounded-md text-white ${btnLoading && "opacity-5"}`} 
+                                    disabled={btnLoading}
+                                    onClick={handleComment}
+                                >
+                                    Reply {btnLoading && <BtnLoader/>}
+                                </Button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {comments && comments?.comments?.map((value, i) => {
+            {isLoading ? <div  className='mt-5'><Loader/></div> : data?.data?.comments?.map((value, i) => {
                 const profileData = profile.find((val) => val?.user_id == value?.userId)
                 return <Comments content={value.comment}
                     date={value.createdAt}

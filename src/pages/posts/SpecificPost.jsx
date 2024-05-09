@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Like from '../../components/Posts/Like'
-import { candidatePostLike } from '../../features/candidatePost/CPostLike/postLikeService'
-import { getCandidatePostLike } from '../../features/candidatePost/CPostLike/getPostLikeService'
+import BtnLoader from 'src/components/Loader/BtnLoader'
+import { useGetUserLikeQuery,usePostUserLikeMutation} from 'src/features/candidatePost/CPostLike/getPostLikeService'
+import { useGetCommentsQuery } from 'src/features/Comments/candidateComment/getComments/getCommentService'
 import * as moment from 'moment';
 
 const SpecificPost = ({ name, avatar, postImg, content, time, like, postId }) => {
   const dispatch = useDispatch()
-  const comment = useSelector((state) => state.getComments?.getComments?.data?.comments)
-  const likes = useSelector((state) => state.getLike?.getPostLike?.data?.candLike)
-
+  // const comment = useSelector((state) => state.getComments?.getComments?.data?.comments)
+  // const likes = useSelector((state) => state.getLike?.getPostLike?.data?.candLike)
+  let id = postId
+  const {data:commentData} = useGetCommentsQuery({id})
+  
+  const {data,isLoading} = useGetUserLikeQuery({id:postId})
+  const [postUserLike] = usePostUserLikeMutation()
 
   const handlerLike = async () => {
     const id = postId
-    const data = await dispatch(candidatePostLike({ id }))
-    if (data) {
-      console.log("post Like!")
-      dispatch(getCandidatePostLike({ id }))
-    } else {
-      console.log("something wrong!")
-    }
+    const data = await postUserLike({ id })
+    // console.log(data);
   }
   
 
@@ -51,9 +51,11 @@ const SpecificPost = ({ name, avatar, postImg, content, time, like, postId }) =>
         <div className='flex items-center gap-x-2'>
           <div className='text-sm font-bold border border-solid
           border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500' onClick={() => handlerLike()}>
-            {likes?.length > 0 ? likes?.length : 0} like
+            {data?.data?.candLike?.length > 0 ? data?.data?.candLike?.length : 0} like
           </div>
-          <div className='text-sm font-bold border border-solid border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500'>{(comment?.length > 0) ? comment?.length : 0} comments</div>
+          <div className='text-sm font-bold border border-solid border-white bg-[#F2F2F2] px-2 rounded-sm cursor-pointer text-slate-500'>
+            {(commentData?.data?.comments?.length > 0) ? commentData?.data?.comments?.length : 0} comments
+            </div>
         </div>
       </div>
     </>
