@@ -3,14 +3,16 @@ import { Link2, Building2, MapPin, Mails } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { SquarePlus } from 'lucide-react';
-import { setJobPanel } from 'src/features/skillAssessment/AssessmentSlice';
+import { setJobPanel,setOrgPostToggle } from 'src/features/skillAssessment/AssessmentSlice';
+import { Button } from 'src/components/ui/button';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const Org_profile = () => {
   const { data } = useSelector((state) => state.getOrgProfile.getOp)
   const userData = useSelector((state) => state.candidateProfile.candidateProfile)
   const [fakeLoading, setFakeLoading] = useState(true)
   const dispatch = useDispatch()
-
+  const currentPath = useLocation().pathname
   useEffect(() => {
     setTimeout(() => {
       setFakeLoading(false)
@@ -79,24 +81,44 @@ const Org_profile = () => {
               </a>
             </div>
           </div>
-          <div>
-            <div className='flex mt-5 mr-5 p-1 shadow-md cursor-pointer border rounded-md hover:bg-[#fff]'
+          <div className='flex flex-col gap-2'>
+            <Button className='flex gap-2 mt-5 mr-5 px-2 py-1 shadow-md cursor-pointer border rounded-md h-9'
               onClick={() => dispatch(setJobPanel(true))}>
-              <SquarePlus/>
-            </div>
+              <SquarePlus size={'18px'}/> Create Job
+            </Button>
+            <Button className="flex px-2 py-1 mr-5 h-9 text-[14px] border rounded-md shadow-md"
+              onClick={() => dispatch(setOrgPostToggle(true))}
+            >
+              Create Post
+            </Button>
           </div>
         </div>
 
         <div className='flex gap-x-3 w-full'>
-          <div className='flex w-full mt-5 ml-7 bg-[#FFF] rounded-md border-2 border-dashed border-[#f6f6f7] hover:border-[#383838] shadow relative z-[100]'>
+          <div className='flex w-full mt-5 ml-7 bg-[#FFF] rounded-md border-2 border-[#f6f6f7] shadow relative z-[100]'>
             <div className='flex flex-col gap-y-2 px-3 py-2 w-[650px]'>
               <div className='text-base font-semibold'>Posts</div>
-              <div>{fakeLoading && <Skeleton count={3} width={"100%"} style={{ border: '2px solid #fff' }} />}</div>
+              <div className='flex flex-col gap-3'>
+                {/* {fakeLoading && <Skeleton count={3} width={"100%"} style={{ border: '2px solid #fff' }} />} */}
+                <div className='flex gap-2'>
+                  <Link to={'/orgProfile/orgpost'} className={`border-2 px-3 py-0.5 rounded-md hover:bg-slate-900/10 
+                  ${currentPath === '/orgProfile/orgpost' && "bg-slate-900/10"} `}>
+                    Post
+                  </Link>
+                  <Link to={'/orgProfile/orgjob'} className={`border-2 px-3 py-0.5 rounded-md hover:bg-slate-900/10
+                  ${currentPath === '/orgProfile/orgjob' && "bg-slate-900/10"}`}>
+                    Jobs
+                  </Link>
+                </div>
+                <div>
+                  <Outlet/>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className='flex flex-col w-full'>
-            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 h-full bg-[#FFF] rounded-md w-full border-2 border-dashed border-[#FFF] shadow hover:border-[#383838] relative z-[100]'>
+            <div className='flex flex-col px-3 py-2 gap-y-2 mt-5 h-auto bg-[#FFF] rounded-md w-full border-2 border-dashed border-[#FFF] shadow hover:border-[#383838] relative z-[100]'>
               <div className=' text-1xl font-semibold'>Social Links</div>
               {data?.socialLinks ? data?.socialLinks.map((item, i) => (
                 <a href={`${item?.link}`} className='flex items-center gap-x-2' key={i}>

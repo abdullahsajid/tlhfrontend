@@ -8,13 +8,13 @@ const Comments = ({ avatar, name, content, date }) => {
     shadow-md w-full hover:border-[#383838] transition-all'>
       <div className='px-4 pt-4 pb-4'>
         <div className="flex flex-row gap-1">
-          <div className='me-3 flex min-w-[40px]'>
+          {avatar && <div className='me-3 flex min-w-[40px]'>
             <img src={avatar} alt=""
               className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
-          </div>
+          </div>}
           <div className='flex flex-col'>
             <div className='flex flex-row items-center'>
-              <div className='text-sm font-bold mr-2'>{name}</div>
+              {name && <div className='text-sm font-bold mr-2'>{name}</div>}
               <div className='text-xs font-semibold flex items-center'>{moment(date)?.fromNow()}</div>
             </div>
             <div className='flex'>

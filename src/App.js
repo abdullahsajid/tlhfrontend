@@ -39,6 +39,10 @@ const PostedJobs = lazy(() => import("./components/Project/PostedJobs"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));  
 const Org_job_form = lazy(() => import("./components/organization/Org_job_form"))
+const OrgPostForm = lazy(() => import("./components/organization/OrgPost_form"))
+const OrgPosts = lazy(() => import("./components/organization/OrgPosts"))
+const OrgPostContainer = lazy(() => import("./components/organization/OrgPostContainer"))
+const Orgjobs = lazy(() => import('./components/organization/OrgJobs'))
 
 function App() {
   // useEffect(() => {
@@ -109,6 +113,8 @@ function App() {
     const togglePanel = useSelector((state) => state.assessment.togglePanel)
     const toggleUpdatePanel = useSelector((state) => state.assessment.updateJobPostPanel)
     const jobPanelToggle = useSelector((state) => state.assessment.jobPanelToggle)
+    const orgPostToggle = useSelector((state) => state.assessment.orgPostToggle)
+
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 
@@ -116,9 +122,9 @@ function App() {
       if (loginUser.data.name === "admin007") {
         return navigate("/admin");
       } else {
-        if (loginUser?.token) {
-          return navigate("/home");
-        }
+        // if (loginUser?.token) {
+        //   return navigate("/home");
+        // }
       }
     }, []);
 
@@ -141,7 +147,8 @@ function App() {
             showEditPanel === 1 ||
             showEditPanel === 2 ||
             toggleUpdatePanel ||
-            jobPanelToggle
+            jobPanelToggle || 
+            orgPostToggle
               ? "fixed inset-x-0 h-full custom-bg-op !z-[9999]"
               : ""
           }`}
@@ -198,7 +205,18 @@ function App() {
                 </div>
               }
             >
-              <Org_job_form handler={handleShowPanel}/>
+              <Org_job_form/>
+            </React.Suspense>
+          )}
+          {orgPostToggle && (
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
+              <OrgPostForm/>
             </React.Suspense>
           )}
         </div>
@@ -298,20 +316,43 @@ function App() {
           ),
         },
         {
-          path: "organization_profile",
-          element: (
-            <Auth>
-              <React.Suspense
-                fallback={
-                  <div className="flex justify-center items-center w-full h-screen">
-                    <Loader />
-                  </div>
-                }
-              >
-                <Org_profile />
-              </React.Suspense>
-            </Auth>
-          ),
+          path: "orgProfile",
+          element:<Auth>
+                    <React.Suspense
+                      fallback={
+                        <div className="flex justify-center items-center w-full h-screen">
+                          <Loader />
+                        </div>
+                      }
+                    >
+                      <Org_profile/>
+                    </React.Suspense>
+                  </Auth>,
+          errorElement: <div>Something went wrong!</div>,
+          children:[
+            {
+              path:'orgpost',
+              element: (
+                <Auth>
+                  <React.Suspense
+                      fallback={
+                        <div className="flex justify-center items-center w-full h-screen">
+                          <Loader />
+                        </div>
+                      }
+                    >
+                    <OrgPosts/>
+                  </React.Suspense>
+                </Auth>
+              )
+            },
+            {
+              path:'orgjob',
+              element: (
+                <Orgjobs/>
+              )
+            },
+          ]
         },
         {
           path: "post",
@@ -328,6 +369,22 @@ function App() {
               </React.Suspense>
             </Auth>
           ),
+        },
+        {
+          path:"orgposts/:id",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <OrgPostContainer />
+              </React.Suspense>
+            </Auth>
+          )
         },
         {
           path: "profile",

@@ -35,7 +35,7 @@ const Sidebar = () => {
                     id: 1,
                     label: "Organization",
                     icon: Building2,
-                    endpoint: '/organization_profile'
+                    endpoint: '/orgProfile/orgpost'
                 },
                 {
                     id: 2,

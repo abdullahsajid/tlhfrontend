@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { XSquare, ImagePlus } from 'lucide-react'
+import { X, ImagePlus } from 'lucide-react'
 import { candidateProfile } from '../../features/CandidateProfile/candidateProfileService'
 import { addCandidateSkills } from '../../features/getProfile/candidateSkills/addCsService'
 import { useDispatch, useSelector } from 'react-redux'
@@ -207,9 +207,9 @@ const CandidateForm = ({ handler }) => {
             <div className='min-w-[700px] max-w-[80vw] h-[650px] max-h-[90vh] min-h-[400px] flex flex-col bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7]
                 shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
                 <div className='shrink grow overflow-x-auto overflow-y-auto transition-all relative'>
-                    <div className='flex justify-between w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
-                        <div className='flex gap-x-2'>
-                            <div onClick={() => handler()} className='cursor-pointer'><XSquare /></div>
+                    <div className='flex items-center justify-between w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
+                        <div className='flex items-center gap-x-2'>
+                            <div onClick={() => handler()} className='cursor-pointer rounded-full p-1 hover:hoverbg'><X /></div>
                             <div className='flex font-semibold'>Edit Profile</div>
                         </div>
                         <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer' onClick={data?.id ? updateProfile : handlerProfile}>{`${data?.id ? "Update" : "Save"}`}</div>

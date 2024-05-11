@@ -50,6 +50,9 @@
     .dialogFade{
         background-color: rgba(91, 112, 131, 0.4);
     }
+    .hoverbg{
+        background-color: rgba(0, 0, 0, 0.08);
+    }
 }
 
 ::selection {

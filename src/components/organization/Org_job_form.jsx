@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { XSquare,X } from 'lucide-react'
+import { XSquare,X, FastForward } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setJobPanel } from 'src/features/skillAssessment/AssessmentSlice'
 import { useCreateJobMutation } from 'src/features/organizationApis/orgApis'
@@ -7,9 +7,11 @@ import { Input } from 'src/components/ui/input'
 import { Label } from 'src/components/ui/label'
 import { Textarea } from 'src/components/ui/textarea'
 import toast from 'react-hot-toast'
+import BtnLoader from 'src/components/Loader/BtnLoader'
 
-const Org_job_form = ({handler}) => {
+const Org_job_form = () => {
     const orgId = useSelector((state) => state.getOrgProfile.getOp.data)
+    const [btnLoader,setBtnLoader] = useState(false)
     const [createJob] = useCreateJobMutation()
     const dispatch = useDispatch()
     const [job,setJobs] = useState({
@@ -58,35 +60,51 @@ const Org_job_form = ({handler}) => {
         })
     }
     const handleCreateJob = async () => {
-        let id = orgId?.id
-        const detail = {id,job}
-        const {data} = await createJob(detail)
-        if(data.success === true){
-            dispatch(setJobPanel(false))
-        }else{
-            toast.error("something went wrong try again!", {
+        setBtnLoader(true)
+        if(!job.title.trim() || !job.category.trim() || !job.location.trim() || !job.type.trim() 
+            || !job.desc.trim() || !job.resp.trim() || !job.requirement.trim() || !job.qual.trim() || job.skill.length === 0){
+            toast.error("Field are required to fill!", {
                 style: {
-                  backgroundColor: '#f6f6f7',
-                  border: '3px solid #fff',
-                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    backgroundColor: '#f6f6f7',
+                    border: '3px solid #fff',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setBtnLoader(false)
+        }else{
+            let id = orgId?.id
+            const detail = {id,job}
+            const {data} = await createJob(detail)
+            if(data.success === true){
+                dispatch(setJobPanel(false))
+                setBtnLoader(false)
+            }else{
+                toast.error("something went wrong try again!", {
+                    style: {
+                    backgroundColor: '#f6f6f7',
+                    border: '3px solid #fff',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                    }
+                })
+            }
         }
     }
+    
   return (
     <div className='fixed top-5 flex justify-center items-center w-screen h-full transition-all'>
         <div className='w-[680px] h-[550px] max-h-[90vh] min-h-[400px] flex flex-col bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7]
             shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
                 <div className='shrink grow overflow-x-auto overflow-y-auto transition-all relative'>
-                    <div className='flex justify-between w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
-                        <div className='flex gap-x-2'>
-                            <div onClick={() => dispatch(setJobPanel(false))} className='cursor-pointer'><XSquare /></div>
-                            <div className='flex font-semibold'>Create Job</div>
+                    <div className='flex items-center justify-between w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
+                        <div className='flex items-center gap-x-2'>
+                            <div onClick={() => dispatch(setJobPanel(false))} className='cursor-pointer rounded-full p-1 hover:hoverbg'><X /></div>
+                            <div className='flex font-bold'>Create Job</div>
                         </div>
-                        <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer'
+                        <div className={`flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer ${btnLoader && "bg-slate-900/90"}`}
+                            disabled={btnLoader}
                             onClick={handleCreateJob}
                         >
-                            create
+                            create {btnLoader && <BtnLoader/>}
                         </div>
                     </div>
                     <div className='flex flex-col gap-y-3 px-5 py-3'>
