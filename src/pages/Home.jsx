@@ -63,7 +63,7 @@ const Home = () => {
         <div className='relative'>
           <div className='w-80 pt-6 flex flex-col gap-y-4 sticky top-14 z-10'>
             <ProfileDetail />
-            <ReleventUser />
+            {/* <ReleventUser /> */}
           </div>
         </div>
       </div>

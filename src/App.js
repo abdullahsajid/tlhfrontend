@@ -43,6 +43,9 @@ const OrgPostForm = lazy(() => import("./components/organization/OrgPost_form"))
 const OrgPosts = lazy(() => import("./components/organization/OrgPosts"))
 const OrgPostContainer = lazy(() => import("./components/organization/OrgPostContainer"))
 const Orgjobs = lazy(() => import('./components/organization/OrgJobs'))
+const SearchProfile = lazy(() => import('../src/pages/Search/SearchProfile'))
+const OrgSearchProfile = lazy(() => import('../src/pages/Search/OrgSearchProfile'))
+const SearchAllResult = lazy(() => import('../src/pages/Search/SearchAllResult'))
 
 function App() {
   // useEffect(() => {
@@ -349,7 +352,17 @@ function App() {
             {
               path:'orgjob',
               element: (
-                <Orgjobs/>
+                <Auth>
+                  <React.Suspense
+                      fallback={
+                        <div className="flex justify-center items-center w-full h-screen">
+                          <Loader />
+                        </div>
+                      }
+                    >
+                    <Orgjobs/>
+                  </React.Suspense>
+                </Auth>
               )
             },
           ]
@@ -510,6 +523,54 @@ function App() {
                 }
               >
                 <PostedJobs/>
+              </React.Suspense>
+            </Auth>
+          )
+        },
+        {
+          path:"profile/:name/:id",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <SearchProfile/>
+              </React.Suspense>
+            </Auth>
+          )
+        },
+        {
+          path:"organization/:name/:id",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <OrgSearchProfile/>
+              </React.Suspense>
+            </Auth>
+          )
+        },
+        {
+          path:"searchfeed/:name",
+          element: (
+            <Auth>
+              <React.Suspense
+                fallback={
+                  <div className="flex justify-center items-center w-full h-screen">
+                    <Loader />
+                  </div>
+                }
+              >
+                <SearchAllResult/>
               </React.Suspense>
             </Auth>
           )

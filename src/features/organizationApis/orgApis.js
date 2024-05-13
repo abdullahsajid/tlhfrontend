@@ -1,7 +1,6 @@
 import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import Cookies from "universal-cookie";
 const cookie = new Cookies();
-const token = cookie.get('token')
 
 export const orgApis = createApi({
     reducerPath:'orgapis',
@@ -10,6 +9,7 @@ export const orgApis = createApi({
     endpoints:(builder) => ({
         createJob:builder.mutation({
             query:(data) => {
+                const token = cookie.get('token')
                 return {
                     url:`organization/createJob/${data.id}`,
                     method: "POST",
@@ -26,6 +26,7 @@ export const orgApis = createApi({
         }),
         createOrgPost:builder.mutation({
             query:(data) => {
+                const token = cookie.get('token')
                 return{
                     url:`organization/orgPost/${data.id}`,
                     method:'POST',
@@ -42,6 +43,7 @@ export const orgApis = createApi({
         }),
         summonOrgPost:builder.query({
             query: ({id}) => {
+                const token = cookie.get('token')
                 return {
                     url:`organization/getPost/${id}`,
                     method:'GET',
@@ -57,6 +59,7 @@ export const orgApis = createApi({
         }),
         summonCommentById:builder.query({
             query: ({id}) => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/getCommentByid/${id}`,
                     method:'GET',
@@ -72,6 +75,7 @@ export const orgApis = createApi({
         }),
         summonLikeById:builder.query({
             query: ({id}) => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/getLikeByid/${id}`,
                     method:'GET',
@@ -87,6 +91,7 @@ export const orgApis = createApi({
         }),
         postLikeById:builder.mutation({
             query: ({id}) => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/postLike/${id}`,
                     method:'POST',
@@ -102,6 +107,7 @@ export const orgApis = createApi({
         }),
         retrievePostByid:builder.query({
             query: ({id}) => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/getPostByid/${id}`,
                     method:'GET',
@@ -116,6 +122,7 @@ export const orgApis = createApi({
         }),
         summonOrgProfile:builder.query({
             query: () => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/getallProfile`,
                     method:'GET',
@@ -130,6 +137,7 @@ export const orgApis = createApi({
         }),
         postComment:builder.mutation({
             query: ({id,comment}) => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/postComment/${id}`,
                     method:'POST',
@@ -146,6 +154,7 @@ export const orgApis = createApi({
         }),
         getJobs:builder.query({
             query: ({id}) => {
+                const token = cookie.get('token')
                 return {
                     url: `organization/getJob/${id}`,
                     method:'GET',

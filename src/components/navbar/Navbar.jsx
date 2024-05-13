@@ -3,16 +3,22 @@ import { GripHorizontal, Cog, BadgePlus, LogOut, NotepadTextDashed,HandCoins,Dat
 import Cookies from 'universal-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { setUpdateJobPostPanel,setJobPostedData } from 'src/features/skillAssessment/AssessmentSlice'
+import { useSearchResultQuery } from 'src/features/Search/searchApis'
+import { Input } from 'src/components/ui/input'
+import axios from 'axios'
+
 const cookie = new Cookies()
 
 const Navbar = ({ handler, showOption, showBar }) => {
     const token = cookie.get('token')
+    const navigation = useNavigate()
     const [isAuth, setAuth] = useState(false)
     const dispatch = useDispatch()
     const { loginUser } = useSelector((state) => state.login)
-
+    const [search,setSearch] = useState('')
+    const [searchPayload,setSearchPayload] = useState([])
     const logoutHandler = async () => {
         await dispatch(logout())
         cookie.remove()
@@ -41,7 +47,44 @@ const Navbar = ({ handler, showOption, showBar }) => {
             });
     }
         
+    const handlerSearch = (e) => {
+        setSearch(e.target.value)
+    }
+    
+    const fetchSearchData = async () => {
+        const token = cookie.get('token')
+        const res = await axios.get(`http://localhost:8000/candidate/search?q=${search}`,{
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        setSearchPayload(res?.data?.data)
+    }
 
+    const handlerProfileNavigator = (id,name,val) => {
+        if(val === 'profile'){
+            navigation(`/profile/${name}/${id}`)
+            setSearch('')
+        }else if(val === 'org_profile'){
+            navigation(`/organization/${name}/${id}`)
+            setSearch('')
+        }
+    }
+
+    const handlerAllProfileView = (search) => {
+        navigation(`/searchfeed/${search}`)
+        setSearch('')
+    }
+
+    useEffect(() => {
+        if(search !== ''){
+            fetchSearchData()
+        }
+    },[search])
+
+    // console.log(search);
+    // console.log("payload",searchPayload);
     useEffect(() => {
         (loginUser) ? setAuth(true) : setAuth(false)
     }, [loginUser])
@@ -56,12 +99,35 @@ const Navbar = ({ handler, showOption, showBar }) => {
                     <span className='flex justify-center items-center bg-[#f7f7f7] to-blue-500 text-[#000] p-[3px] rounded-[0.20rem] font-bold shadow-md'>Tech</span>
                     <span className='font-semibold text-[#fff]'>LinkHub</span>
                 </Link>
-                <div className='w-[35rem]'>
-                    <input type="text" 
+                <div className='w-[35rem] relative transition-all'>
+                    <Input type="text" 
                         className='w-full rounded-md px-2 py-1.5 border-2 bd_color bg-slate-900/90 hover:bg_cust 
                             shadow text-[#fff] focus:border-[#383838] focus:outline-none transition-all' 
-                            placeholder='Search Jobs...'
+                            placeholder='Search here...'
+                            value={search}
+                            onChange={handlerSearch}
+                            onKeyPress={(e) => {
+                                if(e.key === 'Enter'){
+                                    e.preventDefault()
+                                    handlerAllProfileView(search)
+                                }
+                            }}
                     />
+                    <div className={`bg-[#fff] w-full h-max absolute top-10 rounded-b-md shadow border-2 border-[#D0D0D0] p-3 transition-all d-none  ${search !== '' && "flex flex-col"}`}>
+                        {searchPayload.length === 0 ? <div className='flex items-center justify-center text-sm font-bold'>Not Found</div> :searchPayload?.map((item,index) => (
+                            <div className='flex items-center gap-2 hover:bg-[#eeeded] p-1 rounded-md transition-all cursor-pointer'key={index} onClick={() => handlerProfileNavigator(item?.id,item?.org_name,item?.source_table)}>
+                                <div className='flex'>
+                                    <img src={`${item?.avatar_url}`} className='w-[35px] h-[35px] object-cover rounded-full' style={{maxWidth:"none"}} />
+                                </div>
+                                <div className='flex flex-col'>
+                                    <div>{item?.org_name}</div>
+                                    <div className='text-xs searchTitleOver w-full' style={{textOverflow: 'ellipsis'}}>
+                                        {item?.description}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div>
                     {isAuth ? <div className='flex flex-col transition-all'>

@@ -34,7 +34,7 @@ import { recommendApi } from "src/features/candidatePost/recommendation/recommen
 import { usersLikes } from "src/features/candidatePost/CPostLike/getPostLikeService";
 import { userComment } from "src/features/Comments/candidateComment/getComments/getCommentService";
 import { orgApis } from "src/features/organizationApis/orgApis";
-
+import { getSearchApis } from "src/features/Search/searchApis";
 const loginUser = localStorage.getItem("loginUser")
   ? JSON.parse(localStorage.getItem("loginUser"))
   : null;
@@ -82,13 +82,14 @@ export const store = configureStore({
     [recommendApi.reducerPath]:recommendApi.reducer,
     [usersLikes.reducerPath]:usersLikes.reducer,
     [userComment.reducerPath]:userComment.reducer,
-    [orgApis.reducerPath]:orgApis.reducer
+    [orgApis.reducerPath]:orgApis.reducer,
+    [getSearchApis.reducerPath]:getSearchApis.reducer
   },
   middleware: (middle) => [...middle(),
      resSkillApi.middleware, interestApi.middleware, langApi.middleware, ResHeaderApi.middleware, contactApi.middleware,
       ResExpApi.middleware, ResEduApi.middleware, resumeProjApi.middleware, ResCertApi.middleware, templateApi.middleware,
       getRes.middleware, skillAssessmentApi.middleware,getProjectsApis.middleware,recommendApi.middleware,usersLikes.middleware,
-      userComment.middleware,orgApis.middleware
+      userComment.middleware,orgApis.middleware,getSearchApis.middleware
   ],
   preloadedState: initialState,
 });

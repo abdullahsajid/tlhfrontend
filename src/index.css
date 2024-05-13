@@ -96,6 +96,14 @@ html {
     -webkit-box-orient: vertical;
     white-space: normal;
 }
+.searchTitleOver{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
 .testform{
     animation: modalIn 0.3s forwards;
 }
