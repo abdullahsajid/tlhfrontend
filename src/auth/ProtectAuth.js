@@ -1,16 +1,18 @@
 import React from 'react'
 import Cookies from 'universal-cookie'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 const cookie = new Cookies()
 const Auth = ({children}) => {
-    const {loginUser} = useSelector((state)=> state.login)
+  const navigate = useNavigate()
+    // const {loginUser} = useSelector((state)=> state.login)
     // const {signUpUser} = useSelector((state) => state.signup)
-    if(loginUser){
-      return (loginUser?.token) ? children : <Navigate to={'/'}/>
+    let token = cookie.get('token')
+    if(token){
+      return (token) ? children : navigate('/')
     }
   
-    return <Navigate to={'/'}/>
+    return navigate('/')
 
 }
 

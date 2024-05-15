@@ -81,7 +81,7 @@ const Org_profile = () => {
               </a>
             </div>
           </div>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 items-end justify-end'>
             <Button className='flex gap-2 mt-5 mr-5 px-2 py-1 shadow-md cursor-pointer border rounded-md h-9'
               onClick={() => dispatch(setJobPanel(true))}>
               <SquarePlus size={'18px'}/> Create Job

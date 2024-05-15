@@ -32,7 +32,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              items: [{ name: "Apis integration", price: 500, quantity: 1 }],
+              items: [{ name: "Need Backend Developer", price: 100, quantity: 1 }],
             }),
           })
             .then((res) => {

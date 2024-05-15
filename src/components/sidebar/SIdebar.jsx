@@ -66,12 +66,6 @@ const Sidebar = () => {
                     endpoint: '/home'
                 },
                 {
-                    id: 1,
-                    label: "Jobs",
-                    icon: ClipboardList,
-                    endpoint: '/'
-                },
-                {
                     id: 2,
                     label: "Create Resume",
                     icon: Building2,
