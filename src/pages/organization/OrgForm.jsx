@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 import { updateOpService } from '../../features/organizationProfile/updateOrgProfile/updateOpService'
 import { Input } from 'src/components/ui/input'
 import { Textarea } from 'src/components/ui/textarea'
+import * as moment from 'moment';
 
 const OrgForm = ({handler}) => {
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const OrgForm = ({handler}) => {
     const[location,setLocation] = useState('')
     const[Bio,setBio] = useState('')
     const[about,setAbout] = useState('')
+    const[founded_date,setFounded] = useState('')
     const[banner,setBanner] = useState(null)
     const[avatar,setAvatar] = useState(null)
     const[socialName,setSocialName] = useState('')
@@ -49,7 +51,7 @@ const OrgForm = ({handler}) => {
 
     const handleOrgProfile = async (e) => {
         e.preventDefault()
-        const data = await dispatch(organizationProfile({name,industry,Email,weblink,location,Bio,banner,avatar,about}))
+        const data = await dispatch(organizationProfile({name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date}))
         if(data){
             handler()
             toast.success("profile added!",{
@@ -109,7 +111,7 @@ const OrgForm = ({handler}) => {
 
     const updateProfile = async (e) => {
         e.preventDefault()
-        const data = await dispatch(updateOpService({name,industry,Email,weblink,location,Bio,banner,avatar,about}))
+        const data = await dispatch(updateOpService({name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date}))
         if(data){
             handler()
             toast.success("update profile successfully!",{
@@ -143,6 +145,7 @@ const OrgForm = ({handler}) => {
             setBio(data?.description)
             setLocation(data?.location)
             setAbout(data?.about)
+            setFounded(data?.founded_date)
         }
     },[])
 
@@ -270,6 +273,16 @@ const OrgForm = ({handler}) => {
                             className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
                             value={about}
                             onChange={(e)=>setAbout(e.target.value)}
+                        />
+                    </div>
+                    <div className='px-3 py-3 flex flex-col gap-y-2'>
+                        <label htmlFor="about" className='font-semibold'>Founded Date: {founded_date && moment(founded_date).format('MMMM Do YYYY')}</label>
+                        <Input
+                            type='date'
+                            id="about"  
+                            className='px-2 py-2 rounded-md shadow-md outline-none w-full border-solid border-2 border-slate-300'
+                            value={founded_date}
+                            onChange={(e)=>setFounded(e.target.value)}
                         />
                     </div>
                     <div className='px-3 py-1'>

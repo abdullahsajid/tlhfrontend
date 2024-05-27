@@ -41,7 +41,7 @@ const Home = () => {
       <div className='flex gap-x-7'>
         <div className='py-6 pl-16 max-sm:pl-8 w-[50rem] flex flex-col gap-y-2 relative z-[100]'>
           <CreatePost />
-          {isLoading || data == undefined ? <div className='w-full h-full flex items-center justify-center'><Loader/></div> : 
+          {isLoading || (data && data) == undefined ? <div className='w-full h-full flex items-center justify-center'><Loader/></div> : 
             data?.map((item,index) => {
               const profile = userProfile?.find((val) => val?.user_id === item?.userPost_id) 
               const comments = allComment?.filter((val) => val?.IdPost === item?.post_id) 

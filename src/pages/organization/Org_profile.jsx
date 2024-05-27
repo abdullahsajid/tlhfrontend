@@ -6,6 +6,7 @@ import { SquarePlus } from 'lucide-react';
 import { setJobPanel,setOrgPostToggle } from 'src/features/skillAssessment/AssessmentSlice';
 import { Button } from 'src/components/ui/button';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import * as moment from 'moment';
 
 const Org_profile = () => {
   const { data } = useSelector((state) => state.getOrgProfile.getOp)
@@ -18,6 +19,7 @@ const Org_profile = () => {
       setFakeLoading(false)
     }, 2000)
   }, [])
+
 
   return (
     <div className='py-6 px-10 transition-all w-full'>
@@ -61,6 +63,10 @@ const Org_profile = () => {
           <div className='flex flex-col gap-y-2'>
             <div className='flex text-2xl font-semibold'>
               {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(data?.org_name) ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : data?.org_name}
+            </div>
+            <div className='text-[14px]'>
+              <span className='font-bold'>Founded: </span>
+              {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(data?.founded_date) ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : ( <span className='font-bold'>{moment(data?.founded_date).format('YYYY')}</span>)}
             </div>
             <div className='flex w-96 flex-wrap gap-3 '>
               <div className='flex flex-row justify-center items-center gap-x-2 bg-[#FFF] rounded-md border border-dashed shadow px-2 py-1 text-sm border-[#383838]'>

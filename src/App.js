@@ -1,4 +1,4 @@
-import React, { lazy, useState, useEffect } from "react";
+import React, { lazy, useState, useEffect, useMemo } from "react";
 import {
   RouterProvider,
   Outlet,
@@ -6,7 +6,9 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
+import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
 import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import Loader from "./components/Loader/Loader";
@@ -46,8 +48,12 @@ const Orgjobs = lazy(() => import('./components/organization/OrgJobs'))
 const SearchProfile = lazy(() => import('../src/pages/Search/SearchProfile'))
 const OrgSearchProfile = lazy(() => import('../src/pages/Search/OrgSearchProfile'))
 const SearchAllResult = lazy(() => import('../src/pages/Search/SearchAllResult'))
-
+const Message = lazy(() => import("./pages/Message"))
+const ChatPanel = lazy(() => import("./pages/ChatPanel"))
+const cookie = new Cookies()
 function App() {
+  
+  // const socket = useMemo(() => io('http://localhost:8001'),[])
   // useEffect(() => {
   //   dispatch(getCandidateProfile());
   //   dispatch(getOrganizationProfile());
@@ -109,7 +115,8 @@ function App() {
   //   </>
   // );
 
-  const Layout = () => {
+  
+  const Layout = () => {  
     const [showEditPanel, setShowEditPanel] = useState(false);
     const [showOption, setShowOptions] = useState(false);
     const { loginUser } = useSelector((state) => state.login);
@@ -117,17 +124,17 @@ function App() {
     const toggleUpdatePanel = useSelector((state) => state.assessment.updateJobPostPanel)
     const jobPanelToggle = useSelector((state) => state.assessment.jobPanelToggle)
     const orgPostToggle = useSelector((state) => state.assessment.orgPostToggle)
-
+    let token = cookie.get('token')
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 
     useEffect(() => {
-      if (loginUser.data.name === "admin007") {
+      if (loginUser?.data?.name === "admin007" && token) {
         return navigate("/admin");
       } else {
-        // if (loginUser?.token) {
-        //   return navigate("/home");
-        // }
+        if (!token) {
+          return navigate("/");
+        }
       }
     }, []);
 
@@ -140,7 +147,7 @@ function App() {
       setShowOptions(!showOption);
     };
 
-    //console.log("%cJust Read the Instructions", "font-size: 20px; color: red;");
+   
   
     return (
       <>
@@ -250,7 +257,7 @@ function App() {
       </>
     );
   };
-
+// const socket = "http://localhost:8001"
   const router = createBrowserRouter([
     {
       path: "/",
@@ -574,7 +581,39 @@ function App() {
               </React.Suspense>
             </Auth>
           )
-        }
+        },
+        {
+          path: "/message",
+          errorElement: <div>Something went wrong!</div>,
+          element: (
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
+              <Message/>
+            </React.Suspense>
+          ),
+          children: [
+            {
+              path: "/message/:id1/:id2",
+              errorElement: <div>Something went wrong!</div>,
+              element: (
+                <React.Suspense
+                  fallback={
+                    <div className="flex justify-center items-center w-full h-screen">
+                      <Loader />
+                    </div>
+                  }
+                >
+                  <ChatPanel/>
+                </React.Suspense>
+              ),
+            },
+          ]
+        },
       ],
     },
     {
@@ -593,7 +632,7 @@ function App() {
     },
     {
       path: "/admin",
-      element: <AdminLayout />,
+      element: <Auth><AdminLayout /></Auth>,
       errorElement: <div>Something went wrong!</div>,
       children: [
         {
