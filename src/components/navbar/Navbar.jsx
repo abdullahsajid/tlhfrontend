@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
 import { Link, useNavigate } from 'react-router-dom'
-import { setUpdateJobPostPanel,setJobPostedData } from 'src/features/skillAssessment/AssessmentSlice'
+import { setUpdateJobPostPanel,setJobPostedData,setPaymentToggle} from 'src/features/skillAssessment/AssessmentSlice'
 import { useSearchResultQuery } from 'src/features/Search/searchApis'
 import { Input } from 'src/components/ui/input'
 import axios from 'axios'
@@ -26,27 +26,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
         navigation('/')
     }
 
-    const handlerStripe = (e) => {
-        fetch("http://localhost:8000/candidate/create-checkout-session", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              items: [{ name: "Need Backend Developer", price: 100, quantity: 1 }],
-            }),
-          })
-            .then((res) => {
-              if (res.ok) return res.json();
-              return res.json().then((json) => Promise.reject(json));
-            })
-            .then(({ url }) => {
-              window.location = url;
-            })
-            .catch((e) => {
-              console.error(e.error);
-            });
-    }
+    
         
     const handlerSearch = (e) => {
         setSearch(e.target.value)
@@ -91,6 +71,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
     }, [loginUser])
 
 
+
     return (
         <div className='p-3 px-5 border-solid border-2 border-[#383838] bg-slate-900 hover:bg-slate-900/90 max-w-[90rem] mx-auto rounded-[32px] transition-all'
             style={{boxShadow:'inset 0 -1px 0 0 #333'}}
@@ -115,7 +96,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                             }}
                     />
                     <div className={`bg-[#fff] w-full h-max absolute top-10 rounded-b-md shadow border-2 border-[#D0D0D0] p-3 transition-all d-none  ${search !== '' && "flex flex-col"}`}>
-                        {searchPayload.length === 0 ? <div className='flex items-center justify-center text-sm font-bold'>Not Found</div> : searchPayload?.map((item,index) => (
+                        {searchPayload.length == 0 ? <div className='flex items-center justify-center text-sm font-bold'>Not Found</div> : searchPayload?.map((item,index) => (
                             <div className='flex items-center gap-2 hover:bg-[#eeeded] p-1 rounded-md transition-all cursor-pointer'key={index} onClick={() => handlerProfileNavigator(item?.id,item?.org_name,item?.source_table)}>
                                 <div className='flex'>
                                     <img src={`${item?.avatar_url}`} className='w-[35px] h-[35px] object-cover rounded-full' style={{maxWidth:"none"}} />
@@ -182,7 +163,10 @@ const Navbar = ({ handler, showOption, showBar }) => {
                                         </Link>}
                                     {(loginUser?.data?.name === 'admin007') ? '' :
                                         <Link to={'#'} className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 
-                                        border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => handlerStripe()}>
+                                        border-solid border-b-2 border-slate-300 rounded-md hover:bg-[#F2F2F2] transition-all' onClick={() => {
+                                            dispatch(setPaymentToggle(true))
+                                            showBar()
+                                        }}>
                                             <div><DatabaseZap size={18} /></div>
                                             <div>Payment</div>
                                         </Link>}  

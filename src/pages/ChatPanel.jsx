@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
 import { Button } from 'src/components/ui/button';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import socket from './scoket'
 import { useFetchAllMessagesQuery,useCreateMessagesMutation } from 'src/features/chats/chatApis';
 import { useSelector } from 'react-redux';
@@ -13,26 +13,31 @@ const ChatPanel = () => {
     const [message, setMessage] = useState([]);
     const [chatMess, setChatMess] = useState('');
     const param = useParams();
+    const location = useLocation()
+    // console.log(location.state.idsender,location.state.userId);
     let paramid = param.id1;
     let paramid2 = param.id2
-    const profileDetails = useSelector((state) => state.candidateProfile.candidateProfile.data)
     const userData = useSelector((state) => state.login.loginUser.data)
-    // console.log(userData);
     const {data,isLoading} = useFetchAllMessagesQuery(paramid)
     const [createMessages] = useCreateMessagesMutation()
-    // console.log(data);
 
     useEffect(() => {
         if(data && data?.data){
             setMessage(data?.data)
-            socket.emit('join chat',paramid2)
+            let roomId = getRoomId(location.state.idsender,location.state.userId)
+            socket.emit('join chat',roomId)
         }
-    },[data])
+    },[data,userData,paramid2])
     
     useEffect(() => {
         socket.emit('setup',userData)
         socket.on('connected',() => {
             console.log("socket connected!");
+        })
+
+        socket.on('message recieved',(recieve) => {
+            console.log("recieve:",recieve);
+            setMessage((pre) => [...pre,recieve])
         })
         // socket.on('receiveMess', (newMessage) => {
         //     setMessage((prevMessages) => [...prevMessages, {content:newMessage,profileinfo:{id:paramid2}}]);
@@ -40,34 +45,35 @@ const ChatPanel = () => {
         // });
         // setMessage(data?.data)
         return () => {
-            // socket.off('receiveMess');
+            socket.off('message recieved');
         };
-    }, []);
+    }, [userData]);
 
     const handleMessage = async (e) => {
         e.preventDefault();
-        // let userData = JSON.parse(localStorage.getItem('loginUser'));
         if(chatMess.trim() === ''){
             return
         }else{
             let messData = {sender_id:paramid2,content:chatMess,chat_id:paramid}
             const {data:resMess} = await createMessages(messData)
             let sendData = resMess?.data[0][0]
-            // console.log("sendData:",sendData);
-            socket.emit('new message', sendData);
+            let roomId = getRoomId(location.state.idsender,location.state.userId)
+            socket.emit('new message', {sendData,roomId});
             setChatMess('');
         }
     };
 
-    useEffect(() => {
-        socket.on('message recieved',(recieve) => {
-            console.log("recieve: ",recieve);
-            setMessage((pre) => [...pre,recieve])
-        })
-    },[])
+    // useEffect(() => {
+    //     socket.on('message recieved',(recieve) => {
+    //         console.log("recieve:",recieve);
+    //         setMessage((pre) => [...pre,recieve])
+    //     })
+    // },[])
 
-    // console.log("message: ",message);
-    // console.log("profileDetails: ",profileDetails);
+    const getRoomId = (user1, user2) => {
+        return [user1, user2].sort().join('_');
+    };
+
     return (
         <div className='flex flex-col justify-end h-full w-[50vw] shrink  overflow-x-hidden overflow-y-hidden transition-all'>
             <div className='flex flex-col gap-2 py-2 h-[80vh] shrink overflow-x-auto overflow-y-auto px-1 transition-all'>

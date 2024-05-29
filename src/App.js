@@ -50,6 +50,7 @@ const OrgSearchProfile = lazy(() => import('../src/pages/Search/OrgSearchProfile
 const SearchAllResult = lazy(() => import('../src/pages/Search/SearchAllResult'))
 const Message = lazy(() => import("./pages/Message"))
 const ChatPanel = lazy(() => import("./pages/ChatPanel"))
+const PaymentForm = lazy(() => import("../src/components/Payment/PaymentForm"))
 const cookie = new Cookies()
 function App() {
   
@@ -124,6 +125,7 @@ function App() {
     const toggleUpdatePanel = useSelector((state) => state.assessment.updateJobPostPanel)
     const jobPanelToggle = useSelector((state) => state.assessment.jobPanelToggle)
     const orgPostToggle = useSelector((state) => state.assessment.orgPostToggle)
+    const payToggle = useSelector((state) => state.assessment.paymentToggle)
     let token = cookie.get('token')
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
@@ -158,7 +160,8 @@ function App() {
             showEditPanel === 2 ||
             toggleUpdatePanel ||
             jobPanelToggle || 
-            orgPostToggle
+            orgPostToggle ||
+            payToggle
               ? "fixed inset-x-0 h-full custom-bg-op !z-[9999]"
               : ""
           }`}
@@ -227,6 +230,17 @@ function App() {
               }
             >
               <OrgPostForm/>
+            </React.Suspense>
+          )}
+          {payToggle && (
+            <React.Suspense
+              fallback={
+                <div className="flex justify-center items-center w-full h-screen">
+                  <Loader />
+                </div>
+              }
+            >
+              <PaymentForm/>
             </React.Suspense>
           )}
         </div>

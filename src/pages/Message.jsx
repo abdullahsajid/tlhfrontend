@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Input } from 'src/components/ui/input';
 import {Outlet, useNavigate, useParams } from 'react-router-dom';
 import socket from './scoket';
 import { useRetrieveChatsQuery } from 'src/features/chats/chatApis';
@@ -7,11 +6,8 @@ import Loader from 'src/components/Loader/Loader';
 import { useSelector } from 'react-redux';
 
 const Message = () => {
-    const [socketID, setSocketId] = useState('');
     const navigation = useNavigate();
     const param = useParams()
-    const [message, setMessage] = useState([]);
-    // const [chatMess, setChatMess] = useState('');
     const userData = useSelector((state) => state.login.loginUser.data)
     const {data,isLoading} = useRetrieveChatsQuery()
     // console.log("chatssss",data);
@@ -42,10 +38,8 @@ const Message = () => {
     //     };
     // }, []);
 
-    const handlerNav = (id,senderId) => {
-        // let userData = JSON.parse(localStorage.getItem('loginUser'));
-        //   let id = '1'
-      navigation(`/message/${id}/${senderId}`);
+    const handlerNav = (id,senderId,idsender,userId) => {
+      navigation(`/message/${id}/${senderId}`,{state:{idsender,userId}});
       socket.emit('joinchat',id);
     };
 
@@ -58,7 +52,7 @@ const Message = () => {
                     <div className={`text-slate-500 text-sm font-[500] border-2 border-[#0F172A]
                         rounded-md transition-all hover:bg-slate-900 hover:text-[#fff] cursor-pointer flex flex-row justify-start items-center gap-2 py-3.5 px-3 pl-2
                         ${(param?.id1 == val?.chatId) && (param?.id2 == userData?.id) ? 'bg-slate-900' : ''}`}
-                        onClick={() => handlerNav(val?.chatId,userData?.id)} key={index}>
+                        onClick={() => handlerNav(val?.chatId,userData?.id,val?.sender?.id,val?.user?.id)} key={index}>
                             <div className='flex flex-row'>
                                 <img src={val.sender.avatar} alt={`${val?.sender?.name}`} 
                                     className='w-[35px] h-[35px] object-cover rounded-full max-w-[none]' 
@@ -71,17 +65,8 @@ const Message = () => {
                     </div>
                 ))}
             </div>
-            {message.length > 0 && message.map((val, index) => (
-                <div key={index}>
-                    <div>{val}</div>
-                </div>
-            ))}
             <div className='flex flex-col py-1'>
                 <Outlet />
-                {/* <form onSubmit={handleMessage}>
-                  <Input type="text" className="border-2" value={chatMess} onChange={(e) => setChatMess(e.target.value)} />
-                  <button type='submit'>submit</button>
-                </form> */}
             </div>
         </div>
     );
