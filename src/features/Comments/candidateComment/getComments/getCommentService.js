@@ -6,7 +6,7 @@ const cookie = new Cookies()
 
 export const userComment = createApi({
     reducerPath:'userComments',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['usercomment'],
     endpoints:(builder) => ({
         postComments:builder.mutation({
@@ -14,7 +14,7 @@ export const userComment = createApi({
                 const token = cookie.get("token");
                 
                 return {
-                    url:`candidate/postComment/${id}`,
+                    url:`/postComment/${id}`,
                     method:'POST',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -31,7 +31,7 @@ export const userComment = createApi({
             query:({id}) => {
                 const token = cookie.get("token");
                 return {
-                    url:`candidate/getComments/${id}`,
+                    url:`/getComments/${id}`,
                     method:'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ export const getCommentCandidate = createAsyncThunk('user/getCandidateComment',a
     try{
         const token = cookie.get('token')
         
-        const userRes = await axios.get(`http://localhost:8000/candidate/getComments/${id}`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getComments/${id}`,
             {
                 headers:{
                     "Content-Type":'application/json',
@@ -72,7 +72,7 @@ export const summonAllComments = createAsyncThunk('user/summonAllProject',async 
     try{
         const token = cookie.get('token')
         
-        const userRes = await axios.get(`http://localhost:8000/candidate/getallcomments`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getallcomments`,
             {
                 headers:{
                     "Content-Type":'application/json',

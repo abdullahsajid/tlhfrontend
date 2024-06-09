@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const templateApi = createApi({
   reducerPath: "template",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["template"],
   endpoints: (builder) => ({
     postTemplate: builder.mutation({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/setTemplates`,
+          url: `/setTemplates`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ export const templateApi = createApi({
       query: (data) => {
         const token = cookie.get('token')
         return {
-          url: `candidate/updateTemplate`,
+          url: `/updateTemplate`,
           method: 'PUT',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const templateApi = createApi({
     getTemplate:builder.query({
       query:({name}) => {
           return {
-              url:`candidate/myResume/${name}`,
+              url:`/myResume/${name}`,
               method:'GET',
               headers:{
                   'Content-Type':'application/json'

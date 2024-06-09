@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const contactApi = createApi({
   reducerPath: "contactApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["Contact"],
   endpoints: (builder) => ({
     getContact: builder.query({
       query: () => {
         const token = cookie.get('token')
         return{
-            url: "candidate/getContact",
+            url: "/getContact",
             method: "GET",
             headers:{
                 Authorization:`Bearer ${token}`,
@@ -27,7 +27,7 @@ export const contactApi = createApi({
       query: (data) => {
         const token = cookie.get('token')
         return{
-            url: "candidate/resumeContact",
+            url: "/resumeContact",
             method: "POST",
             headers:{
                 Authorization:`Bearer ${token}`,
@@ -45,7 +45,7 @@ export const contactApi = createApi({
       query: (data) => {
         const token = cookie.get('token')
         return {
-            url: "candidate/updateContact",
+            url: "/updateContact",
             method: "PUT",
             headers:{
                 Authorization:`Bearer ${token}`,

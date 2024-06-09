@@ -34,7 +34,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
     
     const fetchSearchData = async () => {
         const token = cookie.get('token')
-        const res = await axios.get(`http://localhost:8000/candidate/search?q=${search}`,{
+        const res = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/search?q=${search}`,{
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookie = new Cookies()
 export const logout = createAsyncThunk('user/login',async (_,{rejectWithValue}) => {
     try{
-        const userRes = await axios.get(`http://localhost:8000/candidate/logout`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/logout`,
             {
                 headers:{
                     "Content-Type":'application/json',

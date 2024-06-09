@@ -6,7 +6,7 @@ export const commentCandidate = createAsyncThunk('user/candidateComment',async (
     try{
         const token = cookie.get('token')
         
-        const userRes = await axios.post(`http://localhost:8000/candidate/postComment/${id}`,{comment},
+        const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/postComment/${id}`,{comment},
             {
                 headers:{
                     "Content-Type":'application/json',

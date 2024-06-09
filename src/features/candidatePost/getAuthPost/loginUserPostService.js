@@ -6,7 +6,7 @@ const cookie = new Cookies()
 export const loginUserPost = createAsyncThunk('user/authCandidatePost',async (_,{rejectWithValue}) => {
     try{
         const token = cookie.get('token')
-        const userRes = await axios.get(`http://localhost:8000/candidate/getLoginUserPost`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getLoginUserPost`,
             {
                 headers:{
                     "Content-Type":'application/json',

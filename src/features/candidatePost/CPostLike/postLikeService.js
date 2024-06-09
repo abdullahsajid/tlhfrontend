@@ -6,7 +6,7 @@ const cookie = new Cookies()
 export const candidatePostLike = createAsyncThunk('user/candidatePostLike',async ({id},{rejectWithValue}) => {
     try{
         const token = cookie.get('token')
-        const userRes = await axios.get(`http://localhost:8000/candidate/postLike/${id}`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/postLike/${id}`,
             {
                 headers:{
                     "Content-Type":'application/json',

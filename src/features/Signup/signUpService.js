@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const signUp = createAsyncThunk('user/signUp',async ({email,password,name},{rejectWithValue}) => {
     try{
-        const userRes = await axios.post(`http://localhost:8000/candidate/signup`,{email,password,name},{
+        const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/signup`,{email,password,name},{
             Headers:{
                 "Content-Type":'application/json'
             },

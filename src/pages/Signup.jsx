@@ -140,7 +140,7 @@ const Signup = () => {
                 <h1 class="text-3xl font-bold">Create your account</h1>
               </div>
               <div className='px-3 py-3 flex flex-col gap-y-2'>
-                <label htmlFor="name" className='font-semibold'>Name:</label>
+                <label htmlFor="name" className='font-semibold flex items-center gap-1'>Name: <span className='text-[10px] text-[red]'>*write your real name</span> </label>
                 <Input type="text"
                   id='name'
                   className='px-2 py-2 rounded-md outline-none w-full border-solid border-2 border-[#e5e7eb]'

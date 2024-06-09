@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const resumeProjApi = createApi({
     reducerPath:'resumeProj',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['resumeProj'],
     endpoints:(builder)=>({
         getResProj:builder.query({
             query:()=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/getproj`,
+                    url:`/getproj`,
                     method:'GET',
                     headers:{
                         Authorization:`Bearer ${token}`,
@@ -27,7 +27,7 @@ export const resumeProjApi = createApi({
             query:(data)=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/resumePersonalProj`,
+                    url:`/resumePersonalProj`,
                     method:'POST',
                     headers:{
                         Authorization:`Bearer ${token}`,
@@ -44,7 +44,7 @@ export const resumeProjApi = createApi({
             query:(data)=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/updateProj/${data.id}`,
+                    url:`/updateProj/${data.id}`,
                     method:'PUT',
                     headers:{
                         Authorization:`Bearer ${token}`,
@@ -61,7 +61,7 @@ export const resumeProjApi = createApi({
             query:(data)=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/deleteProj/${data.id}`,
+                    url:`/deleteProj/${data.id}`,
                     method:'DELETE',
                     headers:{
                         Authorization:`Bearer ${token}`,

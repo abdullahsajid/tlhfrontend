@@ -26,7 +26,7 @@ const PaymentForm = () => {
             })
             return
         }
-        fetch("http://localhost:8000/candidate/create-checkout-session", {
+        fetch(`${process.env.REACT_APP_LOCAL_URL}/create-checkout-session`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

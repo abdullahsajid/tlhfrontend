@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const ResHeaderApi = createApi({
     reducerPath:'ResHeader',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['ResHeader'],
     endpoints:(builder)=>({
         getResHeader:builder.query({
             query:()=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/getResume`,
+                    url:`/getResume`,
                     method:'GET',
                     headers:{
                         Authorization:`Bearer ${token}`,
@@ -27,7 +27,7 @@ export const ResHeaderApi = createApi({
             query:(data)=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/resumes`,
+                    url:`/resumes`,
                     method:'POST',
                     headers:{
                         Authorization:`Bearer ${token}`,
@@ -44,7 +44,7 @@ export const ResHeaderApi = createApi({
             query:(data)=>{
                 const token = cookie.get('token')
                 return{
-                    url:`candidate/updateResume`,
+                    url:`/updateResume`,
                     method:'PUT',
                     headers:{
                         Authorization:`Bearer ${token}`,

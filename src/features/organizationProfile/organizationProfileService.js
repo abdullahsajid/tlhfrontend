@@ -7,7 +7,7 @@ export const organizationProfile = createAsyncThunk('user/organizationProfile',a
         const token = cookie.get('token')
         // console.log("payload",{name,industry,Email,weblink,location,Bio,banner,avatar})
         // console.log("Token",token)
-        const userRes = await axios.post(`http://localhost:8000/organization/createOrgProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date},
+        const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/organization/createOrgProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date},
             {
                 headers:{
                     "Content-Type":'application/json',

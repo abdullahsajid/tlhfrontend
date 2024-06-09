@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const langApi = createApi({
   reducerPath: "langApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["Lang"],
   endpoints: (builder) => ({
     getLang: builder.query({
       query: () => {
         const token = cookie.get("token");
         return {
-          url: `candidate/getLang`,
+          url: `/getLang`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const langApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/resumeLang`,
+          url: `/resumeLang`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const langApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: "candidate/updateLang",
+          url: "/updateLang",
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,

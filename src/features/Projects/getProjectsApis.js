@@ -4,7 +4,7 @@ const cookie = new Cookies();
 
 export const getProjectsApis = createApi({
     reducerPath:'projectsApis',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['Projects'],
     endpoints:(builder) => ({
         createProject:builder.mutation({
@@ -107,7 +107,7 @@ export const getProjectsApis = createApi({
             query: (id) => {
                 const token = cookie.get('token')
                 return {
-                    url : `candidate/getProfileById/${id}`,
+                    url : `/getProfileById/${id}`,
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,

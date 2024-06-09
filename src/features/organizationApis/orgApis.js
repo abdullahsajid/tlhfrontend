@@ -4,7 +4,7 @@ const cookie = new Cookies();
 
 export const orgApis = createApi({
     reducerPath:'orgapis',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['orgLike','comments','orgPost','orgJob'],
     endpoints:(builder) => ({
         createJob:builder.mutation({

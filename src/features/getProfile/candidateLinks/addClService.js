@@ -5,7 +5,7 @@ const cookie = new Cookies()
 export const addCandidateLinks = createAsyncThunk('user/addLinks',async ({link,socialName},{rejectWithValue}) => {
     try{
         const token = cookie.get('token') 
-        const userRes = await axios.post(`http://localhost:8000/candidate/addSocialLinks`,{link,socialName},
+        const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/addSocialLinks`,{link,socialName},
             {
                 headers:{
                     "Content-Type":'application/json',

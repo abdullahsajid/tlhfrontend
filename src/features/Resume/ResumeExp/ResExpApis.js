@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const ResExpApi = createApi({
   reducerPath: "resExpApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["resExpApi"],
   endpoints: (builder) => ({
     getResExp: builder.query({
       query: () => {
         const token = cookie.get("token");
         return {
-          url: `candidate/getExp`,
+          url: `/getExp`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const ResExpApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/resumeExp`,
+          url: `/resumeExp`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const ResExpApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/updateExp/${data.id}`,
+          url: `/updateExp/${data.id}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ export const ResExpApi = createApi({
         query:(data)=>{
             const token = cookie.get('token')
             return{
-                url:`candidate/deleteExp/${data.id}`,
+                url:`/deleteExp/${data.id}`,
                 method:'DELETE',
                 headers:{
                     Authorization: `Bearer ${token}`,

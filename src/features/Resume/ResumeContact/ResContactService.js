@@ -7,7 +7,7 @@ export const ResumeContactService = createAsyncThunk('user/reusumeContact',async
     try{
         const token = cookie.get('token')
         
-        const userRes = await axios.post(`http://localhost:8000/candidate/resumeContact`,{contact_address,contact_email,contact_phone},
+        const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/resumeContact`,{contact_address,contact_email,contact_phone},
             {
                 headers:{
                     "Content-Type":'application/json',

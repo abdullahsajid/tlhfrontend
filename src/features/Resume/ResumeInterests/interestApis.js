@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const interestApi = createApi({
   reducerPath: "interest",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl:`${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["interest"],
   endpoints: (builder) => ({
     getInterest: builder.query({
       query: () => {
         const token = cookie.get("token");
         return {
-          url: `candidate/getInterest`,
+          url: `/getInterest`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const interestApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/resumeInterest`,
+          url: `/resumeInterest`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const interestApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/updateInterest`,
+          url: `/updateInterest`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,

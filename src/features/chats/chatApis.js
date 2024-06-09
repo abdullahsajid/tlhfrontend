@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const chatApi = createApi({
     reducerPath:'chatapi',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['chats'],
     endpoints:(builder)=> ({
         createChats:builder.mutation({
             query:(data)=> {
                 const token = cookie.get("token");
                 return {
-                    url:'candidate/createChats',
+                    url:'/createChats',
                     method: 'POST',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ export const chatApi = createApi({
             query:(data)=> {
                 const token = cookie.get("token");
                 return {
-                    url:'candidate/createMessages',
+                    url:'/createMessages',
                     method: 'POST',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const chatApi = createApi({
             query:()=> {
                 const token = cookie.get("token");
                 return {
-                    url:'candidate/retrieveChats',
+                    url:'/retrieveChats',
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export const chatApi = createApi({
             query:(id)=> {
                 const token = cookie.get("token");
                 return {
-                    url:`candidate/fetchAllMessages/${id}`,
+                    url:`/fetchAllMessages/${id}`,
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -6,7 +6,7 @@ export const getCandidateProfile = createAsyncThunk('user/candidateProfile',asyn
     try{
         const token = cookie.get('token')
         
-        const userRes = await axios.get(`http://localhost:8000/candidate/getProfile`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getProfile`,
             {
                 headers:{
                     "Content-Type":'application/json',

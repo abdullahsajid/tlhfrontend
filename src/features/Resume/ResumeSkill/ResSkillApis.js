@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const resSkillApi = createApi({
   reducerPath: "ResSkill",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["ResSkill"],
   endpoints: (builder) => ({
     getResSkill: builder.query({
       query: () => {
         const token = cookie.get("token");
         return {
-          url: `candidate/getSkill`,
+          url: `/getSkill`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const resSkillApi = createApi({
       query: (data) => {
         const token = cookie.get("token")
         return {
-          url: `candidate/resumeSkill`,
+          url: `/resumeSkill`,
           method:"POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const resSkillApi = createApi({
       query: (data) => {
         const token = cookie.get("token")
         return{
-          url: "candidate/updateSkill",
+          url: "/updateSkill",
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,

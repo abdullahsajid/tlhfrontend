@@ -6,7 +6,7 @@ export const getResumeContact = createAsyncThunk('user/getContact',async (_,{rej
     try{
         const token = cookie.get('token')
         
-        const userRes = await axios.get(`http://localhost:8000/candidate/getContact`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getContact`,
             {
                 headers:{
                     "Content-Type":'application/json',

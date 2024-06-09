@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const ResEduApi = createApi({
     reducerPath:'resEduApi',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['resEduApi'],
     endpoints:(builder)=>({
         getResEdu:builder.query({
             query:()=>{
                 const token = cookie.get("token");
                 return{
-                    url:`candidate/getEdu`,
+                    url:`/getEdu`,
                     method:'GET',
                     headers:{
                         Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const ResEduApi = createApi({
             query:(data)=>{
                 const token = cookie.get("token");
                 return{
-                    url:`candidate/resumeEdu`,
+                    url:`/resumeEdu`,
                     method:'POST',
                     headers:{
                         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const ResEduApi = createApi({
             query:(data)=>{
                 const token = cookie.get("token");
                 return{
-                    url:`candidate/updateEdu/${data.id}`,
+                    url:`/updateEdu/${data.id}`,
                     method:'PUT',
                     headers:{
                         Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ export const ResEduApi = createApi({
             query:(data)=>{
                 const token = cookie.get("token");
                 return{
-                    url:`candidate/deleteEdu/${data.id}`,
+                    url:`/deleteEdu/${data.id}`,
                     method:'DELETE',
                     headers:{
                         Authorization: `Bearer ${token}`,

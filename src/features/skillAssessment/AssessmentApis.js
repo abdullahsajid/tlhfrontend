@@ -4,7 +4,7 @@ const cookie = new Cookies();
 
 export const skillAssessmentApi = createApi({
   reducerPath: "skillAssessmentApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["SkillAssessment"],
   endpoints: (builder) => ({
     createAssessment: builder.mutation({

@@ -4,14 +4,14 @@ const cookie = new Cookies();
 
 export const ResCertApi = createApi({
   reducerPath: "resCertApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_LOCAL_URL}` }),
   tagTypes: ["resCertApi"],
   endpoints: (builder) => ({
     getResCert: builder.query({
       query: () => {
         const token = cookie.get("token");
         return {
-          url: `candidate/getCert`,
+          url: `/getCert`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const ResCertApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/resumeCert`,
+          url: `/resumeCert`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const ResCertApi = createApi({
       query: (data) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/updateCert/${data.id}`,
+          url: `/updateCert/${data.id}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ export const ResCertApi = createApi({
       query: (id) => {
         const token = cookie.get("token");
         return {
-          url: `candidate/deleteCert/${id}`,
+          url: `/deleteCert/${id}`,
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,

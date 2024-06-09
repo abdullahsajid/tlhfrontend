@@ -6,7 +6,7 @@ export const getAllProfiles = createAsyncThunk('user/getAllProfiles',async (_,{r
     try{
         const token = cookie.get('token')
     
-        const userRes = await axios.get(`http://localhost:8000/candidate/getUserProfiles`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getUserProfiles`,
             {
                 headers:{
                     "Content-Type":'application/json',

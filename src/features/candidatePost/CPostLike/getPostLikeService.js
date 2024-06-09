@@ -7,7 +7,7 @@ const cookie = new Cookies()
 export const getCandidatePostLike = createAsyncThunk('user/getCandidatePostLike',async ({id},{rejectWithValue}) => {
     try{
         const token = cookie.get('token')
-        const userRes = await axios.get(`http://localhost:8000/candidate/getlikes/${id}`,
+        const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getlikes/${id}`,
             {
                 headers:{
                     "Content-Type":'application/json',
@@ -26,14 +26,14 @@ export const getCandidatePostLike = createAsyncThunk('user/getCandidatePostLike'
 
 export const usersLikes = createApi({
     reducerPath:'userlikes',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     tagTypes:['userPostLikes'],
     endpoints:(builder) => ({
         getUserLike:builder.query({
             query:({id}) => {
                 const token = cookie.get("token");
                 return {
-                    url:`candidate/getlikes/${id}`,
+                    url:`/getlikes/${id}`,
                     method:'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ export const usersLikes = createApi({
             query:({id}) => {
                 const token = cookie.get("token");
                 return {
-                    url:`candidate/postLike/${id}`,
+                    url:`/postLike/${id}`,
                     method:'POST',
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -7,7 +7,7 @@ export const updateOpService = createAsyncThunk('user/updateOp',async({name,indu
         const token = cookie.get('token')
         // console.log("payload",{name,industry,Email,weblink,location,Bio,banner,avatar})
         // console.log("Token",token)
-        const userRes = await axios.put(`http://localhost:8000/organization/updateProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date},
+        const userRes = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/organization/updateProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date},
             {
                 headers:{
                     "Content-Type":'application/json',

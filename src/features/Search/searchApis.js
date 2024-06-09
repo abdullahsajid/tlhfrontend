@@ -4,13 +4,13 @@ const cookie = new Cookies();
 
 export const getSearchApis = createApi({
     reducerPath:'search',
-    baseQuery:fetchBaseQuery({baseUrl:'http://localhost:8000/'}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     endpoints:(builder) => ({
         searchResult:builder.query({
             query: ({para}) => {
                 const token = cookie.get("token");
                 return {
-                    url: `candidate/search?q=${para}`,
+                    url: `/search?q=${para}`,
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -25,7 +25,7 @@ export const getSearchApis = createApi({
             query: ({id}) => {
                 const token = cookie.get("token");
                 return {
-                    url: `candidate/getProfileBySearch/${id}`,
+                    url: `/getProfileBySearch/${id}`,
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -55,7 +55,7 @@ export const getSearchApis = createApi({
             query: ({para}) => {
                 const token = cookie.get("token");
                 return {
-                    url: `candidate/getProfileBySearchAcc?q=${para}`,
+                    url: `/getProfileBySearchAcc?q=${para}`,
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
