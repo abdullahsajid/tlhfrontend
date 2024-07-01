@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import SidebarItems from './SidebarItems'
 import { Home, Building2, Bell, ClipboardList, NotebookText,Layers,MessageCircleMore} from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link,useLocation} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 const Sidebar = () => {
@@ -14,6 +14,7 @@ const Sidebar = () => {
     const [sidebarData, setSidebarData] = useState([]);
     const { data } = useSelector((state) => state.candidateProfile.candidateProfile)
     const [fakeLoading, setFakeLoading] = useState(true)
+    const currentPath = useLocation().pathname;
 
     useEffect(() => {
         setTimeout(() => {
@@ -140,7 +141,7 @@ const Sidebar = () => {
                 </div>
                 {toggleUser && <Link to={`/profile`} className={`flex flex-row items-center bg-[#FFF] px-3 py-2 rounded-md gap-y-3 border-2 hover:border-dashed border-[#f6f6f7] 
                     shadow-lg w-full hover:border-[#383838] transition-all 
-                    ${profileBarToggle ? "bg-slate-900 !text-[#fff] hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90" : ""}`}
+                    ${currentPath === '/profile' ? "bg-slate-900 !text-[#fff] hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90" : ""}`}
                     onClick={handlerProfileToggle}>
                     <div className='mr-3 min-w-[40px]'>
                         {fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} /> : data?.avatar_url ?
