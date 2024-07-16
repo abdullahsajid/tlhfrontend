@@ -72,6 +72,10 @@
 }
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+.root{
+    overflow: hidden;
 }
 [placeholder]:empty::before {
     content: attr(placeholder);

@@ -180,7 +180,7 @@ const ResumeProj = () => {
     return (
         <>
             <div className='flex flex-col gap-2'>
-                <div className='text-2xl font-bold mb-1 pl-10'>
+                <div className='text-2xl font-bold mb-1 pl-10 max-sm:pl-4'>
                     Projects
                 </div>
                 {projects.map((proj, index) => (
@@ -259,7 +259,7 @@ const ResumeProj = () => {
                 ))}
             </div>
             {isEditable &&
-                <div className='w-full flex mt-3 pl-10'>
+                <div className='w-full flex mt-3 pl-10 max-sm:pl-4'>
                     <div className='flex items-center w-full cursor-pointer' onClick={addProject}>
                         <BadgePlus />
                         <hr className='border border-[#000] border-solid w-full' />

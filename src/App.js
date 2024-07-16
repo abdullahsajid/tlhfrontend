@@ -126,6 +126,7 @@ function App() {
     const jobPanelToggle = useSelector((state) => state.assessment.jobPanelToggle)
     const orgPostToggle = useSelector((state) => state.assessment.orgPostToggle)
     const payToggle = useSelector((state) => state.assessment.paymentToggle)
+    const sidebartoggle = useSelector((state) => state.assessment.sidebarToggle)
     let token = cookie.get('token')
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
@@ -245,21 +246,21 @@ function App() {
           )}
         </div>
         <div className="bg-[#F2F2F2] min-h-screen">
-          <div className="h-[60px] fixed inset-y-0 z-[110] w-full pt-[5px] backdrop-blur !bg-[#F2F2F2]">
+          <div className="h-[60px] fixed inset-y-0 z-[999] max-sm:!z-[9999] w-full pt-[5px] backdrop-blur !bg-[#F2F2F2]">
             <Navbar
               handler={handleShowPanel}
               showBar={handleShowOptions}
               showOption={showOption}
             />
           </div>
-          <div className="max-w-[90rem] mx-auto h-full bg-[#F2F2F2]">
+          <div className="max-w-[90rem] mx-auto h-full bg-[#F2F2F2] transition-all">
             {currentPath !== "/edit/resume" && (
-              <div className="hidden md:flex pt-[73px] w-64 flex-col fixed inset-y-0 z-50 h-full">
+              <div className={`max-sm:translate-x-[-100%] md:flex pt-[73px] w-64 flex-col fixed inset-y-0 z-50 h-full max-sm:z-[999] transition-all ${sidebartoggle && "!translate-x-1"}`}>
                 <Sidebar />
               </div>
             )}
             <div
-              className={`md:pl-64 pt-[60px] h-full flex w-full ${
+              className={`md:pl-64 pt-[60px] h-full flex w-full max-sm:justify-center ${
                 currentPath === "/edit/resume" && "!pl-0 !pt-0"
               }`}
             >

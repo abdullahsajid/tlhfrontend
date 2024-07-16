@@ -45,7 +45,7 @@ const Message = () => {
 
   
     return (
-        <div className='py-6 px-10 transition-all w-full flex flex-row gap-2'>
+        <div className='py-6 px-10 max-sm:px-4 transition-all w-full flex flex-row gap-2'>
             <div className='flex flex-col gap-2 w-[20vw] border-r-2 border-[#000] h-[89vh] px-2'>
                 {isLoading ? <div className='flex items-center justify-center mt-5'><Loader/></div> : data?.data?.length <= 0 ? <div className='flex items-center justify-center mt-5'>no users</div> : 
                     data?.data?.map((val,index) => (

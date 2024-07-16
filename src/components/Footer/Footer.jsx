@@ -23,7 +23,7 @@ const Footer = ({ handler }) => {
                             Moving forward towards your ideal career inst easy <br />
                             but every step brings you closer to achieving your dreams
                         </span>
-                        <div className='flex gap-2 mt-5'>
+                        <div className='flex gap-2 mt-5 max-sm:items-center max-sm:justify-center'>
                             <button className='text-[#333] border border-[#101010] bg-[#F7F8F9] py-1 px-3 rounded-md transition-all'
                             >
                                <Link to={'/login'}>Login</Link> 

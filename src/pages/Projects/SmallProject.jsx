@@ -9,9 +9,9 @@ const SmallProject = () => {
     
 
   return (
-    <div className='py-6 px-10 transition-all w-full'>
+    <div className='py-6 px-10 max-sm:px-4 transition-all w-full'>
         <div className='text-[25px] font-bold mt-3'>Projects</div>
-        <div className='grid grid-cols-3 gap-2'>
+        <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-2'>
             {isLoading ? <div><Loader/></div> : 
                 data?.data?.map((items, i) => (
                     <ProjectCard key={i} details={items} colorList={colorList} />

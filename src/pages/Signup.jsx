@@ -8,10 +8,12 @@ import { Input } from '../components/ui/input'
 import { Button } from 'src/components/ui/button'
 import { Link } from 'react-router-dom'
 import RadialGradient from 'src/components/ui/RadialGradient'
+import BtnLoader from '../components/Loader/BtnLoader'
 
 const Signup = () => {
   const dispatch = useDispatch()
   const navigation = useNavigate()
+  const[loader,setLoader] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,6 +26,7 @@ const Signup = () => {
 
   const handlerSubmit = async (e) => {
     e.preventDefault()
+    setLoader(true)
     if (emailError || passwordError) {
       toast.error("Fill correct fields!", {
         style: {
@@ -32,6 +35,7 @@ const Signup = () => {
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
         },
       })
+      setLoader(false)
       return
     }
     if (email == '' || password == '') {
@@ -42,12 +46,13 @@ const Signup = () => {
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
         },
       })
+      setLoader(false)
       return
     }
 
     if (password === confirmPassword) {
       const user = await dispatch(signUp({ email, password, name }))
-      console.log(user)
+      // console.log(user)
       if (user?.payload?.data?.success === false) {
         toast.error(`${user.payload.data.message}`, {
           style: {
@@ -56,9 +61,10 @@ const Signup = () => {
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }
         })
+        setLoader(false)
         return
       }
-      else if (user) {
+      else if (user?.payload?.token) {
         setName('')
         setPassword('')
         setEmail('')
@@ -71,6 +77,7 @@ const Signup = () => {
           }
         })
         navigation('/login')
+        setLoader(false)
       } else {
         toast.error("something Wrong", {
           style: {
@@ -79,6 +86,7 @@ const Signup = () => {
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }
         })
+        setLoader(false)
       }
     } else {
       toast.error("password not match", {
@@ -88,6 +96,7 @@ const Signup = () => {
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
         }
       })
+      setLoader(false)
     }
   }
 
@@ -122,7 +131,7 @@ const Signup = () => {
   return (
     <div className={`flex w-screen h-screen transition-all`}>
       <div className='flex justify-center items-center w-full'>
-        <div className='min-w-[480px] max-w-[80vw] flex flex-col 
+        <div className='min-w-[480px] max-w-[80vw] max-sm:min-w-[375px] flex flex-col 
           shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
           <div className='shrink grow overflow-x-auto overflow-y-auto transition-all relative'>
             {/* <div className='flex w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
@@ -185,7 +194,9 @@ const Signup = () => {
                 <span>{confirmPassError}</span>
               </div>
               <div className='mt-5 px-3 py-2 flex justify-center w-full' onClick={handlerSubmit}>
-                <Button className='w-full px-2 rounded-sm text-white cursor-pointer py-2'>Sign up</Button>
+                <Button className='w-full px-2 rounded-sm text-white cursor-pointer py-2' disabled={loader}>
+                   {loader ? <BtnLoader/> : 'Sign up'}
+                </Button>
               </div>
               <div className='flex justify-center items-center mt-3'>
                 <Link to={'/login'}>Already have an account? Sign in</Link>

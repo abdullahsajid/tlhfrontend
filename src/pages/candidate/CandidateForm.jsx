@@ -204,7 +204,7 @@ const CandidateForm = ({ handler }) => {
 
     return (
         <div className={`fixed top-5 flex justify-center items-center w-screen h-full transition-all testform`}>
-            <div className='min-w-[700px] max-w-[80vw] h-[650px] max-h-[90vh] min-h-[400px] flex flex-col bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7]
+            <div className='min-w-[700px] max-w-[80vw] max-sm:min-w-full max-sm:h-full h-[650px] max-h-[90vh] min-h-[400px] flex flex-col bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7]
                 shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
                 <div className='shrink grow overflow-x-auto overflow-y-auto transition-all relative'>
                     <div className='flex items-center justify-between w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>

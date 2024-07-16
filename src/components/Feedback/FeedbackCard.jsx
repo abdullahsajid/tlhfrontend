@@ -2,7 +2,7 @@ import React from 'react'
 
 const FeedbackCard = ({name,date,desc,img,align}) => {
     return (
-        <div className={`flex flex-col p-3 rounded-xl bg-[#F7F8F9] shadow-lg transition-all border-2 border-[#101010] custom_wid h-full ${align && align}`}>
+        <div className={`flex flex-col p-3 rounded-xl bg-[#F7F8F9] shadow-lg transition-all border-2 border-[#101010] custom_wid h-full max-sm:w-full ${align && align}`}>
             <div className='flex items-center gap-3'>
                 <div>
                     <img src={img} className='w-[42px] h-[42px] object-cover rounded-md' />

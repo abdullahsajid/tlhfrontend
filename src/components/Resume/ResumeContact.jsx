@@ -100,7 +100,7 @@ const ResumeContact = () => {
 
     return (
         <>
-            <div className='grid grid-cols-3 gap-2'>
+            <div className='grid grid-cols-3 max-sm:grid-cols-1 gap-2'>
                 <div className='flex items-center gap-2 text-sm'>
                     <Home size={16} />
                     <ContentEditable

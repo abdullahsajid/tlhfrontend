@@ -6,7 +6,7 @@ const SkillType = () => {
     const { data, isLoading } = useRetrieveSkillTypeQuery()
    
     return (
-        <div className='py-6 px-10 transition-all w-full'>
+        <div className='py-6 px-10 max-sm:px-4 transition-all w-full'>
             <div className='flex flex-col mt-5'>
                 <div className='font-extrabold text-lg'>Skill Assessment</div>
                 <div className='flex flex-wrap mt-5 gap-3 bg-[#fff] p-3 rounded-lg'>

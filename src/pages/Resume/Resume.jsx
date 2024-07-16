@@ -64,15 +64,15 @@ const Resume = () => {
     }
 
     return (
-        <div className='py-6 px-10 transition-all w-full'>
+        <div className='py-6 px-10 max-sm:px-4 transition-all w-full'>
             <div className='flex flex-col'>
                 <div className='text-[25px] font-bold cal_ft'>
                     Create Resume
                 </div>
                 {resp?.data?.data?.[0]?.resumeTemplate?.[0].template_name &&
                     <div className='font-mono font-extrabold'>Selected Template: {resp?.data?.data?.[0]?.resumeTemplate?.[0].template_name}</div>}
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-5 px-5'>
-                    <div className='border-2 border-solid rounded-lg border-3 shadow-xl relative transition-all h-[270px]'
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mt-5 px-5 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center'>
+                    <div className='border-2 border-solid rounded-lg border-3 shadow-xl relative transition-all h-[270px] max-sm:w-[267px]'
                         onClick={(e) => {
                             if (resp?.data?.data?.[0]?.resumeTemplate?.[0].template_name) {
                                 updateResumeTemplate(e, 'minimal')
@@ -82,13 +82,13 @@ const Resume = () => {
                         }
                         }>
                         <img src="./temp007.png" alt="template-1" className='aspect-square rounded-lg cursor-pointer h-full' />
-                        <div className='absolute inset-0 flex justify-center items-center rounded-lg hover:backdrop-blur-sm transition-all cursor-pointer'>
+                        <div className='absolute inset-0 flex justify-center items-center rounded-lg hover:backdrop-blur-sm transition-all cursor-pointer max-sm:w-[267px]'>
                             <div className='hover:bg-[#111] rounded'>
                                 <Plus className='hover:text-[#fff]' />
                             </div>
                         </div>
                     </div>
-                    <div className='border-2 border-solid rounded-lg border-3 shadow-xl relative transition-all h-[270px]'
+                    <div className='border-2 border-solid rounded-lg border-3 shadow-xl relative transition-all h-[270px] max-sm:w-[267px]'
                         onClick={(e) => {
                             if (resp?.data?.data?.[0]?.resumeTemplate?.[0].template_name) {
                                 updateResumeTemplate(e, 'IT')
@@ -99,7 +99,7 @@ const Resume = () => {
                         }>
                         <img src="./r_template2.png" alt="template-1"
                             className='aspect-square rounded-lg cursor-pointer h-full' />
-                        <div className='absolute inset-0 flex justify-center items-center rounded-lg hover:backdrop-blur-sm transition-all cursor-pointer'>
+                        <div className='absolute inset-0 flex justify-center items-center rounded-lg hover:backdrop-blur-sm transition-all cursor-pointer max-sm:w-[267px]'>
                             <div className='hover:bg-[#111] rounded'>
                                 <Plus className='hover:text-[#fff]' />
                             </div>

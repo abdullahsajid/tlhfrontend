@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom'
 import { Input } from '../components/ui/input'
 import { Button } from 'src/components/ui/button'
 import { Link } from 'react-router-dom'
+import BtnLoader from '../components/Loader/BtnLoader'
 import RadialGradient  from 'src/components/ui/RadialGradient'
 
 const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const[loader,setLoader] = useState(false)
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
     const[emailError,setEmailError] = useState('')
@@ -20,6 +22,7 @@ const Login = () => {
     
     const handleLogin = async (e) => {
         e.preventDefault()
+        setLoader(true)
         if(emailError || passwordError){
             toast.error("Fill correct fields!",{
               style:{
@@ -29,7 +32,7 @@ const Login = () => {
             },
           })
             return 
-          }
+        }
         if(email == '' || password == ''){
               toast.error("Fill all Fields!",{
                 style:{
@@ -38,6 +41,7 @@ const Login = () => {
                   boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
               },
             })
+            setLoader(false)
             return 
         }
         const user = await dispatch(login({email,password}))
@@ -49,6 +53,7 @@ const Login = () => {
                 border:'3px solid #fff',
                 boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }})
+            setLoader(false)
             return
         }
         else if(user?.payload?.data?.id){
@@ -63,6 +68,7 @@ const Login = () => {
               navigate('/admin')  
             }else{
             navigate('/home')}
+            setLoader(true)
         }else{
             toast.error("credentials wrong!",{
                 style:{
@@ -71,6 +77,7 @@ const Login = () => {
                   boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
               },
             })
+            setLoader(false)
         }
     }
 
@@ -109,7 +116,7 @@ const Login = () => {
                   <div className="flex basis-1/2 self-stretch items-end shrink"></div>
               </div> */}
               
-              <div className='flex flex-col relative z-0 px-8 py-10 border-2 w-[430px] bg-[#f6f6f7] rounded-md border-solid border-[#e5e7eb]'>
+              <div className='flex flex-col relative z-0 px-8 py-10 border-2 w-[430px] max-sm:w-[375px] bg-[#f6f6f7] rounded-md border-solid border-[#e5e7eb]'>
                   <div className='flex justify-center items-center'>
                       <h1 className="text-3xl font-bold">Sign in</h1>
                   </div>
@@ -137,8 +144,8 @@ const Login = () => {
                       <span>{passwordError}</span>
                   </div>   
                   <div className='mt-5 px-3 py-2 flex justify-center w-full'  onClick={handleLogin}>
-                      <Button className='w-full px-2 rounded-sm text-white cursor-pointer py-2'>
-                        log in
+                      <Button className=' w-full px-2 rounded-sm text-white cursor-pointer py-2' disabled={loader}>
+                         {loader ? <BtnLoader/> : "log in"}
                       </Button>
                   </div>
                   <div className='flex justify-center items-center mt-3'>

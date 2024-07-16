@@ -21,7 +21,7 @@ const Home = () => {
   if(userSkill !== null){
     skill = userSkill?.map((val) => val.skill)
   }else if(userSkill == null){
-    skill = ['react js','php','git']
+    skill = ['reactjs','php','git','nodejs','laravel','azure','devops']
   }
   // console.log(userSkill);
   const {data,isLoading} = useRecommendPostsQuery(skill)
@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <>
       <div className='flex gap-x-7'>
-        <div className='py-6 pl-16 max-sm:pl-8 w-[50rem] flex flex-col gap-y-2 relative z-[100]'>
+        <div className='py-6 pl-16  w-[50rem] flex flex-col gap-y-2 relative z-[100] max-sm:w-full max-sm:pl-0 max-sm:justify-center max-sm:items-center'>
           <CreatePost />
           {isLoading || (data && data) == undefined ? <div className='w-full h-full flex items-center justify-center'><Loader/></div> : 
             data?.map((item,index) => {
@@ -60,7 +60,7 @@ const Home = () => {
               )
             })}
         </div>
-        <div className='relative'>
+        <div className='relative max-sm:hidden'>
           <div className='w-80 pt-6 flex flex-col gap-y-4 sticky top-14 z-10'>
             <ProfileDetail />
             {/* <ReleventUser /> */}

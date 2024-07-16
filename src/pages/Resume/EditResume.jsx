@@ -19,7 +19,7 @@ const EditResume = () => {
     return (
         <>
             <div className='py-6 px-10 pt-24 transition-all w-full flex flex-col justify-center items-center'>
-                <div className='w-[1182px] mx-auto flex flex-col gap-2'>
+                <div className='w-[1182px] max-sm:w-full mx-auto flex flex-col gap-2'>
                     <div className='flex justify-between items-center'>
                         <div className='font-bold text-2xl flex flex-col'>
                             <div>
@@ -32,32 +32,32 @@ const EditResume = () => {
                             <ArrowUpRight />
                         </Link>
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg px-10 py-3'>
+                    <div className='border border-[#000] border-solid rounded-lg px-10 max-sm:px-4 py-3'>
                         <ResumeHeader />
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg px-10 py-3'>
+                    <div className='border border-[#000] border-solid rounded-lg px-10 max-sm:px-4 py-3'>
                         <ResumeContact />
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3 bg-[#313C4E]'>
+                    <div className='border border-[#000] border-solid rounded-lg pr-10 max-sm:pr-4 py-3 max-sm:px-4 bg-[#313C4E]'>
                         <ResumeSkills />
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
+                    <div className='border border-[#000] border-solid rounded-lg pr-10 max-sm:pr-4 py-3'>
                         <WorkExp />
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
+                    <div className='border border-[#000] border-solid rounded-lg pr-10 max-sm:pr-4 py-3'>
                         <ResumeEdu />
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
+                    <div className='border border-[#000] border-solid rounded-lg pr-10 max-sm:pr-4 py-3'>
                         <ResumeProj />
                     </div>
-                    <div className='border border-[#000] border-solid rounded-lg pr-10 py-3'>
+                    <div className='border border-[#000] border-solid rounded-lg pr-10 max-sm:pr-4 py-3'>
                         <ResumeCertificate />
                     </div>
-                    <div className='grid grid-cols-2 gap-2'>
-                        <div className=' border border-[#000] border-solid rounded-lg px-10 py-3'>
+                    <div className='grid grid-cols-2 gap-2 max-sm:grid-cols-1'>
+                        <div className='border border-[#000] border-solid rounded-lg px-10 max-sm:px-4 py-3'>
                             <ResumeInterest />
                         </div>
-                        <div className=' border border-[#000] border-solid rounded-lg px-10 py-3'>
+                        <div className='border border-[#000] border-solid rounded-lg px-10 max-sm:px-4 py-3'>
                             <ResumeLang />
                         </div>
                     </div>

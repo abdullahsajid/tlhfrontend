@@ -12,7 +12,7 @@ const Procedure = () => {
     return (
         <div className='bg-[#010101] m-2 rounded-md transition-all hover:custom-shadow mt-4' id="feature">
             <div className='mx-auto px-4 w-full max-w-[1440px] py-6 pb-10 custom__bg'>
-                <div className='grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-5'>
+                <div className='grid grid-cols-2 max-sm:grid-cols-1 gap-5 max-sm:gap-5'>
                     <div className='flex flex-col max-sm:gap-4'>
                         <div>
                             <h1 className='text-[#fff] text-[50px] font-bold'>Get Employed by {toggleBr ? '' :<br />} renowned companies</h1>
@@ -34,7 +34,7 @@ const Procedure = () => {
                         </div>
                     </div>
                     <div className='flex items-center justify-center'>
-                        <img src="./office_img.jpg" className='h-[500px] object-cover rounded-md shadow-lg' />
+                        <img src="./office_img.jpg" className='h-[500px] object-cover rounded-md shadow-lg w-full' />
                     </div>
                 </div>
             </div>

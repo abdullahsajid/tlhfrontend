@@ -84,10 +84,10 @@ const CommentContainer = ({ id, avatar }) => {
             </div>
             {isLoading ? <div  className='mt-5'><Loader/></div> : data?.data?.comments?.map((value, i) => {
                 const profileData = profile.find((val) => val?.user_id == value?.userId)
-                return <Comments content={value.comment}
-                    date={value.createdAt}
-                    avatar={profileData.avatar_url}
-                    name={profileData.name}
+                return <Comments content={value?.comment}
+                    date={value?.createdAt}
+                    avatar={profileData?.avatar_url}
+                    name={profileData?.name}
                     key={i}
                 />
             })}

@@ -5,33 +5,33 @@ import AnimatedShinyText from 'src/components/ui/AnimatedShinyText'
 const Hero = ({ handler }) => {
 
     return (
-        <div className='mx-auto px-4 w-full max-w-[1440px] py-6' id="home">
+        <div className='mx-auto px-4 w-full max-w-[1440px] py-6 max-sm:pt-1' id="home">
             <div className='grid grid-cols-2 max-sm:grid-cols-1 gap-2 px-3'>
                 <div className='flex flex-col'>
                     <div className='max-sm:flex max-sm:justify-center'>
-                        <h1 className='!text-[clamp(38px,_7.45vw,_60px)] xl:text-[clamp(52px,_7.8vw,_70px)] text-shadow-gray font-bold
-                            leading-tight'>
+                        <h1 className='!text-[clamp(30px,_7.45vw,_60px)] xl:text-[clamp(52px,_7.8vw,_70px)] text-shadow-gray font-bold
+                            leading-tight max-sm:leading-snug'>
                             <span>Find career that</span><br />
                             <span>Fits your ambitions</span><br />
                             <span>only at
                                 {/* <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
                                     <span className='custom-text-border text-gray-50 font-serif'> TechLinkHub</span>
                                 </AnimatedShinyText> */}
-                                 <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                                 <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 max-sm:px-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
                                     <span className='font-serif'>TechLinkHub</span>
                                 </AnimatedShinyText>
                             </span>
                         </h1>
                     </div>
-                    <div className='max-w-[80%] my-3'>
-                        <span className='text-[#68647B] text-lg '>
+                    <div className='max-w-[80%] my-3 max-sm:max-w-full'>
+                        <span className='text-[#68647B] text-lg max-sm:text-[16px]'>
                             With TechLinkHub, we provide platform that understands how important it is to achieve career that
                             align your dreams.
                         </span>
                     </div>
                     <div className='flex items-center my-3 gap-3'>
                         <div>
-                            <button className='py-3 px-8 bg-[#000] text-[#fff] rounded-md h-full text-lg font-bold'>320K</button>
+                            <button className='py-3 px-8 bg-[#000] text-[#fff] rounded-md h-full text-lg font-bold max-sm:py-2'>320K</button>
                         </div>
                         <div className='flex flex-col items-center'>
                             <div className='flex'>
@@ -40,7 +40,7 @@ const Hero = ({ handler }) => {
                                     whileTap={{ scale: 0.9 }}
                                 >
                                     <img src="https://avatars.githubusercontent.com/u/77003390?v=4"
-                                        className='w-[35px] h-[35px] object-cover rounded-full' />
+                                        className='w-[35px] h-[35px] object-cover rounded-full max-sm:w-[30px] max-sm:h-[30px]' />
                                 </motion.div>
                                 <motion.div 
                                     className='ml-[-5px]'
@@ -48,7 +48,7 @@ const Hero = ({ handler }) => {
                                     whileTap={{ scale: 0.9 }}
                                 >
                                     <img src="https://avatars.githubusercontent.com/u/96902562?s=100&v=4"
-                                        className='w-[35px] h-[35px] object-cover rounded-full' />
+                                        className='w-[35px] h-[35px] object-cover rounded-full max-sm:w-[30px] max-sm:h-[30px]' />
                                 </motion.div>
                                 <motion.div 
                                     className='ml-[-5px]'
@@ -56,10 +56,10 @@ const Hero = ({ handler }) => {
                                     whileTap={{ scale: 0.9 }}
                                 >
                                     <img src="./bilal.jpg"
-                                        className='w-[35px] h-[35px] object-cover rounded-full' />
+                                        className='w-[35px] h-[35px] object-cover rounded-full max-sm:w-[30px] max-sm:h-[30px]' />
                                 </motion.div>
                             </div>
-                            <div className='text-[14px] font-bold'>Active Users</div>
+                            <div className='text-[14px] font-bold max-sm:text-[12px]'>Active Users</div>
                         </div>
                     </div>
                     {/* <div className='flex gap-2 mt-5'>
@@ -69,13 +69,13 @@ const Hero = ({ handler }) => {
                             onClick={() => handler(0)}>Register</button>
                     </div> */}
                 </div>
-                <div className='flex bg-[#d2f1d2] rounded-3xl p-9 h-full'>
-                    <div className='flex flex-col'>
-                        <div className='font-bold text-[35px]'>
+                <div className='flex bg-[#d2f1d2] rounded-3xl p-9 h-full max-sm:px-3 max-sm:flex-col'>
+                    <div className='flex flex-col max-sm:items-center max-sm:justify-center'>
+                        <div className='font-bold text-[35px] max-sm:text-[30px]'>
                             What type of job <br />
                             you are looking
                         </div>
-                        <div className='flex flex-wrap gap-x-2 gap-y-3 mt-5 w-[300px]'>
+                        <div className='flex flex-wrap gap-x-2 gap-y-3 mt-5 w-[300px] max-sm:items-center max-sm:justify-center'>
                             <motion.div 
                                     drag
                                     dragConstraints={{
@@ -133,7 +133,7 @@ const Hero = ({ handler }) => {
                             </motion.div>
                         </div>
                     </div>
-                    <div>
+                    <div className='max-sm:hidden'>
                         <img src="./img.png" className='object-cover' />
                     </div>
                 </div>

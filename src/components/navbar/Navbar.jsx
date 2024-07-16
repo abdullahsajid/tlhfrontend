@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { GripHorizontal, Cog, BadgePlus, LogOut, NotepadTextDashed,HandCoins,DatabaseZap,MessageCircleMore } from "lucide-react"
+import { GripHorizontal, Cog, BadgePlus, LogOut, NotepadTextDashed,HandCoins,DatabaseZap,Menu,X } from "lucide-react"
 import Cookies from 'universal-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../features/logout'
 import { Link, useNavigate } from 'react-router-dom'
-import { setUpdateJobPostPanel,setJobPostedData,setPaymentToggle} from 'src/features/skillAssessment/AssessmentSlice'
+import { setUpdateJobPostPanel,setJobPostedData,setPaymentToggle,setSideBarToggle} from 'src/features/skillAssessment/AssessmentSlice'
 import { useSearchResultQuery } from 'src/features/Search/searchApis'
 import { Input } from 'src/components/ui/input'
 import axios from 'axios'
@@ -17,6 +17,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
     const [isAuth, setAuth] = useState(false)
     const dispatch = useDispatch()
     const { loginUser } = useSelector((state) => state.login)
+    const sidebartoggle = useSelector((state) => state.assessment.sidebarToggle)
     const [search,setSearch] = useState('')
     const [searchPayload,setSearchPayload] = useState([])
     const logoutHandler = async () => {
@@ -73,15 +74,19 @@ const Navbar = ({ handler, showOption, showBar }) => {
 
 
     return (
-        <div className='p-3 px-5 border-solid border-2 border-[#383838] bg-slate-900 hover:bg-slate-900/90 max-w-[90rem] mx-auto rounded-[32px] transition-all'
+        <div className='p-3 px-5 max-sm:px-3 border-solid border-2 border-[#383838] bg-slate-900 hover:bg-slate-900/90 max-w-[90rem] mx-auto max-sm:w-[375px] rounded-[32px] transition-all'
             style={{boxShadow:'inset 0 -1px 0 0 #333'}}
         >
-            <div className='flex justify-between items-center transition-all'>
-                <Link to={`${(loginUser?.data?.name === 'admin007') ? '/admin' : '/home'}`} className='flex gap-1 justify-center items-center'>
+            <div className='flex justify-between items-center transition-all max-sm:gap-3'>
+                    <div className='hidden max-sm:flex mr-3'>
+                        {sidebartoggle ? <X color='#fff' onClick={() => dispatch(setSideBarToggle(false))}/> : <Menu color='#fff' onClick={() => dispatch(setSideBarToggle(true))}/>} 
+                    </div>
+                <Link to={`${(loginUser?.data?.name === 'admin007') ? '/admin' : '/home'}`} className='flex gap-1 justify-center items-center max-sm:text-[14px] relative'>
                     <span className='flex justify-center items-center bg-[#f7f7f7] to-blue-500 text-[#000] p-[3px] rounded-[0.20rem] font-bold shadow-md'>Tech</span>
                     <span className='font-semibold text-[#fff]'>LinkHub</span>
+                    <span className='text-[#333] px-1 text-[12px] font-bold absolute left-28 max-sm:left-24 -top-1.5 ml-1 z-[9999] bg-[#fff] rounded'>Beta</span>
                 </Link>
-                <div className='w-[35rem] relative transition-all'>
+                <div className='w-[35rem] relative transition-all max-sm:hidden'>
                     <Input type="text" 
                         className='w-full rounded-md px-2 py-1.5 border-2 bd_color bg-slate-900/90 hover:bg_cust 
                             shadow text-[#fff] focus:border-[#383838] focus:outline-none transition-all' 
@@ -123,7 +128,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                         </div>
                         {showOption && (
                             <div className='relative w-max transition-all'>
-                                <div className={`absolute -left-5 ${(loginUser?.data?.name === 'admin007') ? "top-12" : "top-36"} custom-position-center w-max bg-[#FFF]
+                                <div className={`absolute -left-5 max-sm:-left-12 ${(loginUser?.data?.name === 'admin007') ? "top-12" : "top-36"} custom-position-center w-max bg-[#FFF]
                                     px-3 py-1 rounded-md shadow-md z-50 flex flex-col transition-all`}>
                                     {(loginUser?.data?.name === 'admin007') ? '' :
                                         <div className='cursor-pointer py-1 px-1 flex flex-row justify-start items-center gap-x-1 

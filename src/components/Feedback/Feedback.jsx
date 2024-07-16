@@ -11,7 +11,7 @@ const Feedback = () => {
                         This review provide a direct insight into the advantages of job searching through techlinkhub
                     </span>
                 </div>
-                <div className='flex flex-wrap gap-3 mt-5'>
+                <div className='flex flex-wrap gap-3 mt-5 max-sm:flex-col'>
                     <FeedbackCard
                         img={"./bilal.jpg"}
                         name={"Muhammad Bilal"} 
@@ -47,14 +47,14 @@ const Feedback = () => {
                         name={"Muhammad Ali"} 
                         date={"Jun 18, 2024"}
                         desc={"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English"}
-                        align={'mt-[-100px]'}
+                        align={'mt-[-100px] max-sm:mt-0'}
                     />
                     <FeedbackCard 
                         img={"https://avatars.githubusercontent.com/u/77003390?v=4"}
                         name={"Abdullah Sajid"} 
                         date={"Jun 19, 2024"}
                         desc={"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less"}
-                        align={'mt-[-50px]'}
+                        align={'mt-[-50px] max-sm:mt-0'}
                     />
                     <FeedbackCard 
                         img={"https://avatars.githubusercontent.com/u/96902562?s=100&v=4"}

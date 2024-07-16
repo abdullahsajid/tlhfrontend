@@ -44,7 +44,7 @@ const ProjectDetails = () => {
         // console.log("userDetails",userDetails);
     }
   return (
-    <div className='py-6 px-10 transition-all w-full'>
+    <div className='py-6 px-10 max-sm:px-4 transition-all w-full'>
         <div className='flex flex-col gap-2 mt-3'>
             <div className='text-[30px]'>{data?.data?.project_title}</div>
             <div>
@@ -83,7 +83,7 @@ const ProjectDetails = () => {
             {isLoading ? <div className='flex items-end justify-center w-full'><Loader/></div>:
             <div className='flex flex-col mt-3'>
                 <div className='flex justify-between items-center gap-2'>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center max-sm:flex-col max-sm:items-start gap-3'>
                         <div>
                             <img src={`${clientData?.data?.avatar_url}`} 
                                 alt={`${clientData?.data?.name}`}

@@ -38,11 +38,11 @@ const Nav = ({handler}) => {
                     </div>
                 </div>}
             <div className={`flex justify-around rounded-[32px] border-2 bg-[rgba(20,20,19,0.9)] border-[#676768] max-sm:flex-col p-1 transition-all ${toggleNav ? "flex" : "max-sm:hidden"}`}>
-                <div className='flex items-center justify-center px-7 py-4 text-[#fff] font-bold text-lg
-                hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
+                <div className={`flex items-center justify-center px-7 py-4 text-[#fff] font-bold text-lg
+                hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px] ${toggleNav ? "max-sm:hidden" : ""}`}>
                     TechLinkHub
                 </div>
-                <div className='flex '>
+                <div className={`flex ${toggleNav ? 'flex-col' : ''}`}>
                     <a href='#home' className='flex items-center justify-center px-7 py-2 text-[#fff] font-bold text-lg
                     hover:bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
                         Home
@@ -60,12 +60,12 @@ const Nav = ({handler}) => {
                         Testimonial
                     </a>
                 </div>
-                <div className='flex items-center'>
+                <div className={`flex items-center ${toggleNav ? "justify-center mb-2" : ""}`}>
                     {/* <Button className='flex items-center justify-center px-7 py-4 font-bold text-lg text-[#000]
                     hover:bg-[#fff] bg-[#fff] hover:text-[#010101] hover:rounded-xl transition-all max-sm:!rounded-[32px]'>
                         <Link to={'/login'}>Get Started</Link> 
                     </Button> */}
-                    <ShimmerButton className="shadow-2xl" onClick={() => handlerNavigator()}>
+                    <ShimmerButton className={`shadow-2xl`} onClick={() => handlerNavigator()}>
                       Get Started
                     </ShimmerButton>
                 </div>

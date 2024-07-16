@@ -5,7 +5,10 @@ import { Home, Building2, Bell, ClipboardList, NotebookText,Layers,MessageCircle
 import { Link,useLocation} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
+import { setSideBarToggle } from "src/features/skillAssessment/AssessmentSlice";
+import { useDispatch } from 'react-redux'
 const Sidebar = () => {
+    const dispatch = useDispatch()
     const org = useSelector((state) => state.getOrgProfile.getOp)
     const { loginUser } = useSelector((state) => state.login)
     const [toggleUser, setToggleUser] = useState(false)
@@ -90,12 +93,12 @@ const Sidebar = () => {
                     icon: Layers,
                     endpoint: '/projects'
                 },
-                {
-                    id: 4,
-                    label: "Messages",
-                    icon: MessageCircleMore,
-                    endpoint: '/message'
-                }
+                // {
+                //     id: 4,
+                //     label: "Messages",
+                //     icon: MessageCircleMore,
+                //     endpoint: '/message'
+                // }
             ]);
         } else {
             setSidebarData([
@@ -135,14 +138,17 @@ const Sidebar = () => {
             <div className='flex justify-between flex-col w-full h-full p-3 pl-0'>
                 <div className='flex flex-col gap-y-2'>
                     {sidebarData.map((items, i) => (
-                        <SidebarItems key={i} label={items.label} Icon={items.icon}
+                        <SidebarItems key={i} id={items.id} label={items.label} Icon={items.icon}
                             active={items.id === active} onActive={() => handlerActive(items.id)} endpoint={items.endpoint} />
                     ))}
                 </div>
                 {toggleUser && <Link to={`/profile`} className={`flex flex-row items-center bg-[#FFF] px-3 py-2 rounded-md gap-y-3 border-2 hover:border-dashed border-[#f6f6f7] 
                     shadow-lg w-full hover:border-[#383838] transition-all 
                     ${currentPath === '/profile' ? "bg-slate-900 !text-[#fff] hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90" : ""}`}
-                    onClick={handlerProfileToggle}>
+                    onClick={() => {
+                        handlerProfileToggle()
+                        dispatch(setSideBarToggle(false))
+                    }}>
                     <div className='mr-3 min-w-[40px]'>
                         {fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} /> : data?.avatar_url ?
                             <img src={`${data?.avatar_url}`} alt="" className='w-12 h-10 rounded-md object-cover' /> : <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} />}

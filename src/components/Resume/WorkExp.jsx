@@ -180,7 +180,7 @@ const WorkExp = () => {
     return (
         <>
             <div className='flex flex-col'>
-                <div className='text-2xl font-bold pl-10'>
+                <div className='text-2xl font-bold pl-10 max-sm:pl-4'>
                     Work Experience
                 </div>
                 {experience.map((exp, index) => (
@@ -275,7 +275,7 @@ const WorkExp = () => {
             </div>
 
             {isEditable &&
-                <div className='w-full flex mt-3 pl-10'>
+                <div className='w-full flex mt-3 pl-10 max-sm:pl-4'>
                     <div className='flex items-center w-full cursor-pointer' onClick={addExperience}>
                         <BadgePlus />
                         <hr className='border border-[#000] border-solid w-full' />

@@ -130,10 +130,10 @@ const ResumeSkills = () => {
     return (
         <>
             <div className='flex flex-col gap-2'>
-                <div className='text-2xl font-bold pl-10 text-[#fff]'>
+                <div className='text-2xl font-bold pl-10 max-sm:pl-0 text-[#fff]'>
                     Skills
                 </div>
-                <div className='flex gap-2 ml-10'>
+                <div className='flex gap-2 ml-10 max-sm:ml-0'>
                     {isLoading ? <div className='flex items-center justify-center w-full'><Loader/></div> : 
                     skill.map((skill, index) => (
                         <div key={index}>
@@ -171,7 +171,7 @@ const ResumeSkills = () => {
                 }
             </div>
             {isEditable &&
-                <div className='w-full flex mt-3 pl-10'>
+                <div className='w-full flex mt-3 pl-10 max-sm:pl-0'>
                     <div className='flex items-center w-full cursor-pointer' onClick={addSkills}>
                         <BadgePlus className='text-[#fff]' />
                         <hr className='border border-[#fff] border-solid w-full' />
