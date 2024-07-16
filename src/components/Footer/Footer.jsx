@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Linkedin, Instagram, Twitter,Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = ({ handler }) => {
@@ -53,9 +53,10 @@ const Footer = ({ handler }) => {
                         Community
                     </div>
                     <div className='flex items-center gap-3 max-sm:mt-2'>
-                        <div className='border rounded-full p-1'> <Linkedin className='text-[#fff]' /></div>
-                        <div className='border rounded-full p-1'> <Instagram className='text-[#fff]' /></div>
-                        <div className='border rounded-full p-1'> <Twitter className='text-[#fff]' /></div>
+                        <a href='https://www.linkedin.com/in/aabdullahsajid/' target='_blank' className='border rounded-full p-1'> <Linkedin className='text-[#fff]' /></a>
+                        <a href='https://www.instagram.com/aabdullahsajid/' target='_blank' className='border rounded-full p-1'> <Instagram className='text-[#fff]' /></a>
+                        <a href='https://x.com/aabdullahsajid' target='_blank' className='border rounded-full p-1'> <Twitter className='text-[#fff]' /></a>
+                        <a href='https://github.com/abdullahsajid' target='_blank' className='border rounded-full p-1'> <Github className='text-[#fff]' /></a>
                     </div>
                 </div>
             </div>

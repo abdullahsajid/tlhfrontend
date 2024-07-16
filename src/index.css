@@ -55,10 +55,10 @@
     }
 }
 
-::selection {
+/* ::selection {
     color: #fff;
     background: #151819;
-}
+} */
 ::-webkit-scrollbar-thumb{
     background-color: #818181;
     border-radius: 3px solid #818181;

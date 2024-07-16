@@ -35,29 +35,35 @@ const Hero = ({ handler }) => {
                         </div>
                         <div className='flex flex-col items-center'>
                             <div className='flex'>
-                                <motion.div
+                                <motion.a
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
+                                    href='https://www.linkedin.com/in/aabdullahsajid/'
+                                    target='_blank'
                                 >
                                     <img src="https://avatars.githubusercontent.com/u/77003390?v=4"
                                         className='w-[35px] h-[35px] object-cover rounded-full max-sm:w-[30px] max-sm:h-[30px]' />
-                                </motion.div>
-                                <motion.div 
+                                </motion.a>
+                                <motion.a 
                                     className='ml-[-5px]'
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
+                                    href='https://www.linkedin.com/in/muhammad-umair-b28b29227/'
+                                    target='_blank'
                                 >
                                     <img src="https://avatars.githubusercontent.com/u/96902562?s=100&v=4"
                                         className='w-[35px] h-[35px] object-cover rounded-full max-sm:w-[30px] max-sm:h-[30px]' />
-                                </motion.div>
-                                <motion.div 
+                                </motion.a>
+                                <motion.a 
                                     className='ml-[-5px]'
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
+                                    href='https://www.linkedin.com/in/bilal-talib-121ch/'
+                                    target='_blank'
                                 >
                                     <img src="./bilal.jpg"
                                         className='w-[35px] h-[35px] object-cover rounded-full max-sm:w-[30px] max-sm:h-[30px]' />
-                                </motion.div>
+                                </motion.a>
                             </div>
                             <div className='text-[14px] font-bold max-sm:text-[12px]'>Active Users</div>
                         </div>
