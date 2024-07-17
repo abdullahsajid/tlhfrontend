@@ -10,9 +10,13 @@ import { getCandidateProfile } from '../../features/getProfile/getCpService'
 import { updateProfileService } from '../../features/CandidateProfile/updateProfile/updateProfileService'
 import { Input } from 'src/components/ui/input'
 import { Textarea } from 'src/components/ui/textarea'
+import BtnLoader from 'src/components/Loader/BtnLoader'
 
 const CandidateForm = ({ handler }) => {
     const dispatch = useDispatch()
+    const[loader,setLoader] = useState(false)
+    const[skillLoader,setSkillLoader] = useState(false)
+    const[linkLoader,setLinkLoader] = useState(false)
     const [banner, setBanner] = useState(null)
     const [avatar, setAvatar] = useState(null)
     const [name, setName] = useState('')
@@ -50,6 +54,7 @@ const CandidateForm = ({ handler }) => {
 
     const handlerProfile = async (e) => {
         e.preventDefault()
+        setLoader(true)
         if (name === '' && bio === '' && about === '' && education === '' && experience === '' && (!banner || banner === null) && (!avatar || avatar === null)) {
             toast.error("please fill all fields!", {
                 style: {
@@ -58,6 +63,7 @@ const CandidateForm = ({ handler }) => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
             return
         } else {
             const data = await dispatch(candidateProfile({ name, bio, about, education, banner, avatar, experience }))
@@ -71,6 +77,7 @@ const CandidateForm = ({ handler }) => {
                     }
                 })
                 dispatch(getCandidateProfile())
+                setLoader(false)
                 return
             } else {
                 toast.error("something went wrong try again!", {
@@ -80,12 +87,14 @@ const CandidateForm = ({ handler }) => {
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                     }
                 })
+                setLoader(false)
             }
         }
     }
 
     const handlerSkill = async (e) => {
         e.preventDefault()
+        setSkillLoader(true)
         if (skill == '') {
             toast.error("please fill field!", {
                 style: {
@@ -94,6 +103,7 @@ const CandidateForm = ({ handler }) => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setSkillLoader(false)
             return
         } else {
             const data = await dispatch(addCandidateSkills({ skill }))
@@ -108,6 +118,7 @@ const CandidateForm = ({ handler }) => {
                     }
                 })
                 dispatch(getCandidateProfile())
+                setSkillLoader(false)
             } else {
                 toast.error("something went wrong try again!", {
                     style: {
@@ -116,12 +127,14 @@ const CandidateForm = ({ handler }) => {
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                     }
                 })
+                setSkillLoader(false)
             }
         }
     }
 
     const handlerSocialLink = async (e) => {
         e.preventDefault()
+        setLinkLoader(true)
         if (link == '' || socialName == '') {
             toast.error("please fill all fields!", {
                 style: {
@@ -130,10 +143,11 @@ const CandidateForm = ({ handler }) => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLinkLoader(false)
             return
         } else {
             const data = await dispatch(addCandidateLinks({ link, socialName }))
-            console.log("social: ", data)
+            // console.log("social: ", data)
             if (data) {
                 setLinks('')
                 setSocialName('')
@@ -146,6 +160,7 @@ const CandidateForm = ({ handler }) => {
                     }
                 })
                 dispatch(getCandidateProfile())
+                setLinkLoader(false)
             } else {
                 toast.error("something went wrong try again!", {
                     style: {
@@ -154,12 +169,14 @@ const CandidateForm = ({ handler }) => {
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                     }
                 })
+                setLinkLoader(false)
             }
         }
     }
 
     const updateProfile = async (e) => {
         e.preventDefault()
+        setLoader(true)
         const data = await dispatch(updateProfileService({ name, bio, about, education, banner, avatar, experience }))
         if (data) {
             handler()
@@ -171,6 +188,7 @@ const CandidateForm = ({ handler }) => {
                 }
             })
             dispatch(getCandidateProfile())
+            setLoader(false)
         } else {
             toast.error("something went wrong try again!", {
                 style: {
@@ -179,6 +197,7 @@ const CandidateForm = ({ handler }) => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
         }
     }
 
@@ -189,16 +208,16 @@ const CandidateForm = ({ handler }) => {
             imgBanner.src = data.banner_url
             avatarImg.src = data.avatar_url
             imgBanner.onload = () => {
-                setBanner(data.banner_url)
+                setBanner(data?.banner_url)
             }
             avatarImg.onload = () => {
-                setAvatar(data.avatar_url)
+                setAvatar(data?.avatar_url)
             }
-            setName(data.name)
-            setBio(data.bio)
-            setAbout(data.about)
-            setEducation(data.education)
-            setExperience(data.experience)
+            setName(data?.name)
+            setBio(data?.bio)
+            setAbout(data?.about)
+            setEducation(data?.education)
+            setExperience(data?.experience)
         }
     }, [])
 
@@ -212,7 +231,10 @@ const CandidateForm = ({ handler }) => {
                             <div onClick={() => handler()} className='cursor-pointer rounded-full p-1 hover:hoverbg'><X /></div>
                             <div className='flex font-semibold'>Edit Profile</div>
                         </div>
-                        <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer' onClick={data?.id ? updateProfile : handlerProfile}>{`${data?.id ? "Update" : "Save"}`}</div>
+                        <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer' 
+                            onClick={data?.id ? updateProfile : handlerProfile} disabled={loader}>
+                                {loader ? <BtnLoader/> : `${data?.id ? "Update" : "Save"}`}
+                        </div>
                     </div>
                     <div className='flex flex-col relative z-0'>
                         <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>
@@ -321,7 +343,10 @@ const CandidateForm = ({ handler }) => {
                             />
                         </div>
                         <div className='px-3 pb-2 flex justify-end'>
-                            <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={handlerSkill}>Add Skill</button>
+                            <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' 
+                                onClick={handlerSkill} disabled={skillLoader}>
+                                    {skillLoader ? <BtnLoader/> : "Add Skill"}
+                            </button>
                         </div>
                         <div className='px-3 py-1'>
                             <hr className='border-solid border-2 border-slate-300' />
@@ -347,7 +372,10 @@ const CandidateForm = ({ handler }) => {
                             />
                         </div>
                         <div className='px-3 pb-2 flex justify-end'>
-                            <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={handlerSocialLink}>Add Link</button>
+                            <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' 
+                                onClick={handlerSocialLink} disabled={linkLoader}>
+                                    {linkLoader ? <BtnLoader/> : "Add Link"}
+                            </button>
                         </div>
                     </div>
                 </div>

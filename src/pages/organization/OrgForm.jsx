@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {X,ImagePlus} from 'lucide-react' 
+import {X,ImagePlus, Triangle} from 'lucide-react' 
 import { organizationProfile } from '../../features/organizationProfile/organizationProfileService'
 import { useDispatch, useSelector } from 'react-redux'
 import { addOrgSocialLinks } from '../../features/getProfile/orgLinks/addOrgLService'
@@ -10,9 +10,12 @@ import { updateOpService } from '../../features/organizationProfile/updateOrgPro
 import { Input } from 'src/components/ui/input'
 import { Textarea } from 'src/components/ui/textarea'
 import * as moment from 'moment';
+import BtnLoader from 'src/components/Loader/BtnLoader'
 
 const OrgForm = ({handler}) => {
     const dispatch = useDispatch()
+    const[loader,setLoader] = useState(false)
+    const[linkLoader,setLinkLoader] = useState(false)
     const {data} = useSelector((state) => state.getOrgProfile.getOp)
     const[name,setName] = useState('')
     const[industry,setIndustry] = useState('')
@@ -51,6 +54,7 @@ const OrgForm = ({handler}) => {
 
     const handleOrgProfile = async (e) => {
         e.preventDefault()
+        setLoader(true)
         const data = await dispatch(organizationProfile({name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date}))
         if(data){
             handler()
@@ -62,6 +66,7 @@ const OrgForm = ({handler}) => {
                 }
             })
             dispatch(getOrganizationProfile())
+            setLoader(false)
         }else{
             toast.error("something went wrong try again!",{
                 style:{
@@ -70,11 +75,13 @@ const OrgForm = ({handler}) => {
                     boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
         }
     }
 
     const socialLinkHandler = async (e) => {
         e.preventDefault()
+        setLinkLoader(true)
         if(socialName == '' || link == ''){
             toast.error("please fill all fields!",{
                 style:{
@@ -83,6 +90,7 @@ const OrgForm = ({handler}) => {
                     boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLinkLoader(false)
             return
         }else{
             // console.log("Test to see!",socialName,link)
@@ -97,6 +105,7 @@ const OrgForm = ({handler}) => {
                     }
                 })
                 dispatch(getOrganizationProfile())
+                setLinkLoader(false)
             }else{
                 toast.error("something went wrong try again!",{
                     style:{
@@ -105,12 +114,14 @@ const OrgForm = ({handler}) => {
                         boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                     }
                 })
+                setLinkLoader(false)
             }
         }
     }
 
     const updateProfile = async (e) => {
         e.preventDefault()
+        setLoader(true)
         const data = await dispatch(updateOpService({name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date}))
         if(data){
             handler()
@@ -122,6 +133,7 @@ const OrgForm = ({handler}) => {
                 }
             })
             dispatch(getOrganizationProfile())
+            setLoader(false)
         }else{
             toast.error("something went wrong try again!",{
                 style:{
@@ -130,6 +142,7 @@ const OrgForm = ({handler}) => {
                     boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
         }
 
     }
@@ -159,7 +172,10 @@ const OrgForm = ({handler}) => {
                         <div onClick={()=>handler()} className='cursor-pointer rounded-full p-1 hover:hoverbg'><X/></div>
                         <div className='flex font-semibold'>Edit Organization</div>
                     </div>
-                    <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={data?.id ? updateProfile : handleOrgProfile}>{`${data?.id ? "Update":"Save"}`}</div>
+                    <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' 
+                        onClick={data?.id ? updateProfile : handleOrgProfile}>
+                            {loader ? <BtnLoader/> :`${data?.id ? "Update":"Save"}`}
+                    </div>
                 </div>
                 <div className='flex flex-col relative z-0'>
                     <div className='flex flex-col justify-center overflow-hidden relative max-h-[200px] h-full'>
@@ -309,7 +325,10 @@ const OrgForm = ({handler}) => {
                         />
                     </div>
                     <div className='px-3 pb-2 flex justify-end'>
-                        <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' onClick={socialLinkHandler}>Add Link</button>
+                        <button className='bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer' 
+                            onClick={socialLinkHandler} disabled={linkLoader}>
+                                {linkLoader ? <BtnLoader/> : "Add Link"}
+                        </button>
                     </div>
                 </div>
             </div>

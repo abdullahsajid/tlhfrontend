@@ -47,7 +47,7 @@ const Login = () => {
         const user = await dispatch(login({email,password}))
         
         if(user?.payload?.data?.success === false){
-            toast.error(`${user.payload.data.message}`,{ 
+            toast.error(`${user?.payload?.data?.message}`,{ 
               style:{
                 backgroundColor:'#f6f6f7',
                 border:'3px solid #fff',
@@ -64,7 +64,7 @@ const Login = () => {
                 border:'3px solid #fff',
                 boxShadow:'0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }})
-            if(user.payload.data.name === 'admin007'){
+            if(user?.payload?.data?.name === 'admin007'){
               navigate('/admin')  
             }else{
             navigate('/home')}

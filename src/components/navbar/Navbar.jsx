@@ -100,8 +100,8 @@ const Navbar = ({ handler, showOption, showBar }) => {
                                 }
                             }}
                     />
-                    <div className={`bg-[#fff] w-full h-max absolute top-10 rounded-b-md shadow border-2 border-[#D0D0D0] p-3 transition-all d-none  ${search !== '' && "flex flex-col"}`}>
-                        {searchPayload.length == 0 ? <div className='flex items-center justify-center text-sm font-bold'>Not Found</div> : searchPayload?.map((item,index) => (
+                    {searchPayload?.length > 0 && <div className={`bg-[#fff] w-full h-max absolute top-10 rounded-b-md shadow border-2 border-[#D0D0D0] p-3 transition-all d-none  ${search !== '' && "flex flex-col"}`}>
+                        {searchPayload?.length > 0 && searchPayload?.map((item,index) => (
                             <div className='flex items-center gap-2 hover:bg-[#eeeded] p-1 rounded-md transition-all cursor-pointer'key={index} onClick={() => handlerProfileNavigator(item?.id,item?.org_name,item?.source_table)}>
                                 <div className='flex'>
                                     <img src={`${item?.avatar_url}`} className='w-[35px] h-[35px] object-cover rounded-full' style={{maxWidth:"none"}} />
@@ -114,7 +114,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div>}
                 </div>
                 <div>
                     {isAuth &&
