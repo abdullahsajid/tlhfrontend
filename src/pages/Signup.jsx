@@ -131,7 +131,7 @@ const Signup = () => {
   return (
     <div className={`flex w-screen h-screen transition-all`}>
       <div className='flex justify-center items-center w-full'>
-        <div className='min-w-[480px] max-w-[80vw] max-sm:min-w-[375px] flex flex-col 
+        <div className='min-w-[480px] max-w-[80vw] max-sm:min-w-[360px] flex flex-col 
           shadow-lg shrink overflow-x-hidden overflow-y-hidden transition-all'>
           <div className='shrink grow overflow-x-auto overflow-y-auto transition-all relative'>
             {/* <div className='flex w-full border-solid border-b-2 border-slate-300 px-3 py-3 sticky top-0 z-10 bg-[#f6f6f7]'>
@@ -144,11 +144,11 @@ const Signup = () => {
               </div>
               <div class="flex basis-1/2 self-stretch items-end shrink"></div>
             </div> */}
-            <div className='flex flex-col relative z-0 px-8 py-10 bg-[#f6f6f7] rounded-md border border-solid border-[#e5e7eb]'>
+            <div className='flex flex-col relative z-0 px-8 py-10 max-sm:py-3 bg-[#f6f6f7] rounded-md border border-solid border-[#e5e7eb]'>
               <div className='mt-3 flex justify-center items-center'>
-                <h1 class="text-3xl font-bold">Create your account</h1>
+                <h1 class="text-3xl max-sm:text-2xl font-bold">Create your account</h1>
               </div>
-              <div className='px-3 py-3 flex flex-col gap-y-2'>
+              <div className='px-3 py-3 max-sm:py-2 flex flex-col gap-y-2 max-sm:gap-y-1'>
                 <label htmlFor="name" className='font-semibold flex items-center gap-1'>Name: <span className='text-[10px] text-[red]'>*write your real name</span> </label>
                 <Input type="text"
                   id='name'
@@ -157,7 +157,7 @@ const Signup = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div className='px-3 py-3 flex flex-col gap-y-2'>
+              <div className='px-3 py-3 max-sm:py-2 flex flex-col gap-y-2 max-sm:gap-y-1'>
                 <label htmlFor="email" className='font-semibold'>Email:</label>
                 <Input type="email"
                   id='email'
@@ -169,7 +169,7 @@ const Signup = () => {
                 />
                 <span>{emailError}</span>
               </div>
-              <div className='px-3 py-3 flex flex-col gap-y-2'>
+              <div className='px-3 py-3 max-sm:py-2 flex flex-col gap-y-2 max-sm:gap-y-1'>
                 <label htmlFor="password" className='font-semibold'>Password</label>
                 <Input type='password'
                   id="password"
@@ -181,7 +181,7 @@ const Signup = () => {
                 />
                 <span>{passwordError}</span>
               </div>
-              <div className='px-3 py-3 flex flex-col gap-y-2'>
+              <div className='px-3 py-3 max-sm:py-2 flex flex-col gap-y-2 max-sm:gap-y-1'>
                 <label htmlFor="confirmPassword" className='font-semibold'>Confirm Password</label>
                 <Input type='password'
                   id="confirmPassword"
@@ -193,7 +193,7 @@ const Signup = () => {
                 />
                 <span>{confirmPassError}</span>
               </div>
-              <div className='mt-5 px-3 py-2 flex justify-center w-full' onClick={handlerSubmit}>
+              <div className='mt-5 px-3 py-2 max-sm:py-2 flex justify-center w-full' onClick={handlerSubmit}>
                 <Button className='w-full px-2 rounded-sm text-white cursor-pointer py-2' disabled={loader}>
                    {loader ? <BtnLoader/> : 'Sign up'}
                 </Button>

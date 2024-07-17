@@ -116,7 +116,7 @@ const Login = () => {
                   <div className="flex basis-1/2 self-stretch items-end shrink"></div>
               </div> */}
               
-              <div className='flex flex-col relative z-0 px-8 py-10 border-2 w-[430px] max-sm:w-[375px] bg-[#f6f6f7] rounded-md border-solid border-[#e5e7eb]'>
+              <div className='flex flex-col relative z-0 px-8 py-10 border-2 w-[430px] max-sm:w-[360px] bg-[#f6f6f7] rounded-md border-solid border-[#e5e7eb]'>
                   <div className='flex justify-center items-center'>
                       <h1 className="text-3xl font-bold">Sign in</h1>
                   </div>

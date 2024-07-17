@@ -17,3 +17,5 @@ export const login = createAsyncThunk('user/login',async ({email,password},{reje
         return rejectWithValue(error.userRes.data)
     }
 })
+
+
