@@ -2,12 +2,12 @@ import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const recommendApi = createApi({
     reducerPath:'recommendApi',
-    baseQuery:fetchBaseQuery({baseUrl:`http://52.165.25.158:5000`}),
+    baseQuery:fetchBaseQuery({baseUrl:`${process.env.REACT_APP_LOCAL_URL}`}),
     endpoints:(builder) => ({
         recommendPosts:builder.query({
             query:(skills) => {
                 return{
-                    url:`recommend?skills=${skills.join(',')}`,
+                    url:`rpy/recommend?skills=${skills.join(',')}`,
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/json'
