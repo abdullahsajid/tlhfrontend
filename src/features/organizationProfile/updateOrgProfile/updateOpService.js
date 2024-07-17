@@ -8,7 +8,7 @@ export const updateOpService = createAsyncThunk('user/updateOp',async({name,indu
         // console.log("payload",{name,industry,Email,weblink,location,Bio,banner,avatar})
         // console.log("Token",token)
         const userRes = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/organization/updateProfile`,{name,industry,Email,weblink,location,Bio,banner,avatar,about,founded_date},
-            {
+        {
                 headers:{
                     "Content-Type":'application/json',
                     Authorization: `Bearer ${token}`
@@ -22,5 +22,3 @@ export const updateOpService = createAsyncThunk('user/updateOp',async({name,indu
         return rejectWithValue(error.userRes.data)
     }
 })
-
-

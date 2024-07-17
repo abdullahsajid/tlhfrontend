@@ -158,7 +158,7 @@ const OrgForm = ({handler}) => {
             setBio(data?.description)
             setLocation(data?.location)
             setAbout(data?.about)
-            setFounded(data?.founded_date)
+            setFounded(data?.founded_date?.slice(0,10))
         }
     },[])
 
