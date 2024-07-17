@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookie = new Cookies()
 export const login = createAsyncThunk('user/login',async ({email,password},{rejectWithValue}) => {
     try{
-        const userRes = await axios.post(`http://localhost:8001/login`,{email,password},{
+        const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/login`,{email,password},{
             Headers:{
                 "Content-Type":'application/json'
             },
@@ -20,3 +20,4 @@ export const login = createAsyncThunk('user/login',async ({email,password},{reje
 
 
 // ${process.env.REACT_APP_LOCAL_URL}
+// http://localhost:8001
