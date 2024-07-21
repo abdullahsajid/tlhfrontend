@@ -5,12 +5,14 @@ import { useCreateProjectMutation,useUpdateProjectMutation,useSummonProjectByIdQ
 import toast from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import {setUpdateJobPostPanel} from 'src/features/skillAssessment/AssessmentSlice'
+import BtnLoader from 'src/components/Loader/BtnLoader'
 
 const CreateProject = ({handler}) => {
     const dispatch = useDispatch()
     const [createProject] = useCreateProjectMutation()
     const [updateProject] = useUpdateProjectMutation()
     const updateData = useSelector((state) => state.assessment.jobPostDetails)
+    const[loader,setLoader] = useState(false)
     //console.log(updateData);
     //const {data,isLoading} = useSummonProjectByIdQuery(updateData?.project_id)
     //console.log("data",data.data);
@@ -60,9 +62,11 @@ const CreateProject = ({handler}) => {
     }
     
     const handleCreateProject = async () => {
+        setLoader(true)
         const {data} = await createProject(project)
         if(data.success === true){
             dispatch(setUpdateJobPostPanel(false))
+            setLoader(false)
         }else{
             toast.error("something went wrong try again!", {
                 style: {
@@ -71,14 +75,17 @@ const CreateProject = ({handler}) => {
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
         }
     }
 
     const handlerUpdate = async () => {
+        setLoader(true)
         project.id = updateData?.project_id
         const {data} = await updateProject(project)
         if(data.success === true){
             dispatch(setUpdateJobPostPanel(false))
+            setLoader(false)
         }else{
             toast.error("something went wrong try again!", {
                 style: {
@@ -87,6 +94,7 @@ const CreateProject = ({handler}) => {
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
         }
     }
 
@@ -114,8 +122,8 @@ const CreateProject = ({handler}) => {
                         <div className='flex font-semibold'>{updateData ? "Update Project" : "Create Project"}</div>
                     </div>
                     <div className='flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 py-1 rounded-md text-white cursor-pointer'
-                        onClick={updateData ? handlerUpdate : handleCreateProject}>
-                        {updateData ? "Update" : "Create"}
+                        onClick={updateData ? handlerUpdate : handleCreateProject} disabled={loader}>
+                        {loader ? <BtnLoader/> : updateData ? "Update" : "Create"}
                     </div>
                 </div>
                 <div className='flex flex-col gap-y-3 px-5 py-3'>

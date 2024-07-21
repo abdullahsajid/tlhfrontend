@@ -5,9 +5,12 @@ import { Label } from 'src/components/ui/label'
 import { Input } from 'src/components/ui/input'
 import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
+import BtnLoader from 'src/components/Loader/BtnLoader'
+
 const PaymentForm = () => {
     const dispatch = useDispatch()
     const [payDetails,setPayDetails] = useState({name:'',price:''})
+    const[loader,setLoader] = useState(false)
     const handlerChange = (name,value) => {
         setPayDetails((pre) => ({
             ...pre,
@@ -16,6 +19,7 @@ const PaymentForm = () => {
     }
 
     const handlerStripe = (e) => {
+        setLoader(true)
         if(payDetails.name.trim() === '' || payDetails.price.trim() === ''){
             toast.error('request you to fill fields!',{
                 style: {
@@ -24,6 +28,7 @@ const PaymentForm = () => {
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                 }
             })
+            setLoader(false)
             return
         }
         fetch(`${process.env.REACT_APP_LOCAL_URL}/create-checkout-session`, {
@@ -37,6 +42,7 @@ const PaymentForm = () => {
           })
             .then((res) => {
               if (res.ok) return res.json();
+              setLoader(false)
               return res.json().then((json) => Promise.reject(json));
             })
             .then(({ url }) => {
@@ -59,10 +65,11 @@ const PaymentForm = () => {
                         </div>
                         <div className={`flex justify-center items-center bg-slate-900 hover:bg-slate-900/90 px-2 rounded-md text-slate-50 p-1 cursor-pointer`}
                             // disabled={btnLoader}
+                            disabled={loader}
                             onClick={() => handlerStripe()}
                         >
                             {/* create {btnLoader && <BtnLoader/>} */}
-                            Pay
+                            {loader && <BtnLoader/>} Pay
                         </div>
                     </div>
                     <div className='flex flex-col gap-y-3 px-5 py-3'>
