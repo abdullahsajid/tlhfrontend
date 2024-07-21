@@ -2,7 +2,7 @@
 
 import { io } from 'socket.io-client';
 
-const endpoint = 'http://localhost:8001';
+const endpoint = `${process.env.REACT_APP_LOCAL_URL}`;
 const socket = io(endpoint);
 
 socket.on('connect', () => {
