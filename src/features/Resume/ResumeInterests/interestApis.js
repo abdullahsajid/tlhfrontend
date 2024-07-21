@@ -9,7 +9,7 @@ export const interestApi = createApi({
   endpoints: (builder) => ({
     getInterest: builder.query({
       query: () => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/getInterest`,
           method: "GET",
@@ -25,7 +25,7 @@ export const interestApi = createApi({
     }),
     postInterest: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/resumeInterest`,
           method: "POST",
@@ -42,7 +42,7 @@ export const interestApi = createApi({
     }),
     updateInterest: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/updateInterest`,
           method: "PUT",

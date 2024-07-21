@@ -9,7 +9,7 @@ export const ResCertApi = createApi({
   endpoints: (builder) => ({
     getResCert: builder.query({
       query: () => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/getCert`,
           method: "GET",
@@ -25,7 +25,7 @@ export const ResCertApi = createApi({
     }),
     postResCert: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/resumeCert`,
           method: "POST",
@@ -42,7 +42,7 @@ export const ResCertApi = createApi({
     }),
     updateResCert: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/updateCert/${data.id}`,
           method: "PUT",
@@ -59,7 +59,7 @@ export const ResCertApi = createApi({
     }),
     deleteResCert: builder.mutation({
       query: (id) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/deleteCert/${id}`,
           method: "DELETE",

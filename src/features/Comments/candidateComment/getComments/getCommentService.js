@@ -11,7 +11,7 @@ export const userComment = createApi({
     endpoints:(builder) => ({
         postComments:builder.mutation({
             query:({id,comment}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 
                 return {
                     url:`/postComment/${id}`,
@@ -29,7 +29,7 @@ export const userComment = createApi({
         }),
         getComments:builder.query({
             query:({id}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:`/getComments/${id}`,
                     method:'GET',
@@ -49,7 +49,7 @@ export const {useGetCommentsQuery,usePostCommentsMutation} = userComment
 
 export const getCommentCandidate = createAsyncThunk('user/getCandidateComment',async ({id},{rejectWithValue}) => {
     try{
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         
         const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getComments/${id}`,
             {
@@ -70,7 +70,7 @@ export const getCommentCandidate = createAsyncThunk('user/getCandidateComment',a
 
 export const summonAllComments = createAsyncThunk('user/summonAllProject',async (_,{rejectWithValue}) => {
     try{
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         
         const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getallcomments`,
             {

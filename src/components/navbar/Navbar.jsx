@@ -8,11 +8,10 @@ import { setUpdateJobPostPanel,setJobPostedData,setPaymentToggle,setSideBarToggl
 import { useSearchResultQuery } from 'src/features/Search/searchApis'
 import { Input } from 'src/components/ui/input'
 import axios from 'axios'
-
 const cookie = new Cookies()
 
 const Navbar = ({ handler, showOption, showBar }) => {
-    const token = cookie.get('token')
+    const token = cookie.get('tlhtoken')
     const navigation = useNavigate()
     const [isAuth, setAuth] = useState(false)
     const dispatch = useDispatch()
@@ -21,20 +20,21 @@ const Navbar = ({ handler, showOption, showBar }) => {
     const [search,setSearch] = useState('')
     const [searchPayload,setSearchPayload] = useState([])
     const logoutHandler = async () => {
-        await dispatch(logout())
-        cookie.remove()
+        const data = await dispatch(logout())
         setAuth(false)
-        navigation('/')
+        if(data?.payload?.data?.success){
+            localStorage.removeItem('loginUser')
+            cookie.remove('tlhtoken')
+            navigation('/')
+        }
     }
-
-    
         
     const handlerSearch = (e) => {
         setSearch(e.target.value)
     }
     
     const fetchSearchData = async () => {
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         const res = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/search?q=${search}`,{
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ const Navbar = ({ handler, showOption, showBar }) => {
                         {searchPayload?.length > 0 && searchPayload?.map((item,index) => (
                             <div className='flex items-center gap-2 hover:bg-[#eeeded] p-1 rounded-md transition-all cursor-pointer'key={index} onClick={() => handlerProfileNavigator(item?.id,item?.org_name,item?.source_table)}>
                                 <div className='flex'>
-                                    <img src={`${item?.avatar_url}`} className='w-[35px] h-[35px] object-cover rounded-full' style={{maxWidth:"none"}} />
+                                    <img src={`${!(item?.avatar_url)? './avatar.jpg' : item?.avatar_url}`} className='w-[35px] h-[35px] object-cover rounded-full' style={{maxWidth:"none"}} />
                                 </div>
                                 <div className='flex flex-col'>
                                     <div>{item?.org_name}</div>

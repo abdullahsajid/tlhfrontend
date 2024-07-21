@@ -6,7 +6,7 @@ const cookie = new Cookies()
 
 export const getCandidatePostLike = createAsyncThunk('user/getCandidatePostLike',async ({id},{rejectWithValue}) => {
     try{
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getlikes/${id}`,
             {
                 headers:{
@@ -31,7 +31,7 @@ export const usersLikes = createApi({
     endpoints:(builder) => ({
         getUserLike:builder.query({
             query:({id}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:`/getlikes/${id}`,
                     method:'GET',
@@ -47,7 +47,7 @@ export const usersLikes = createApi({
         }),
         postUserLike:builder.mutation({
             query:({id}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:`/postLike/${id}`,
                     method:'POST',

@@ -9,7 +9,7 @@ export const langApi = createApi({
   endpoints: (builder) => ({
     getLang: builder.query({
       query: () => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/getLang`,
           method: "GET",
@@ -25,7 +25,7 @@ export const langApi = createApi({
     }),
     createLang: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/resumeLang`,
           method: "POST",
@@ -42,7 +42,7 @@ export const langApi = createApi({
     }),
     updateLang: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: "/updateLang",
           method: "PUT",

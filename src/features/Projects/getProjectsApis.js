@@ -9,7 +9,7 @@ export const getProjectsApis = createApi({
     endpoints:(builder) => ({
         createProject:builder.mutation({
             query: (data) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url: 'organization/createProject',
                     method: 'POST',
@@ -25,7 +25,7 @@ export const getProjectsApis = createApi({
         }),
         updateProject:builder.mutation({
             query: (data) => {
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return {
                     url: `organization/updateProject/${data.id}`,
                     method:'PUT',
@@ -42,7 +42,7 @@ export const getProjectsApis = createApi({
         }),
         deleteProject:builder.mutation({
             query: (data) => {
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return {
                     url : `organization/deleteProject/${data.id}`,
                     method: 'DELETE',
@@ -58,7 +58,7 @@ export const getProjectsApis = createApi({
         }),
         summonAllProjects:builder.query({
             query: () => {
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return {
                     url : 'organization/summonAllProjects',
                     method: 'GET',
@@ -73,7 +73,7 @@ export const getProjectsApis = createApi({
         }),
         summonAllProjectsByUser:builder.query({
             query: () => {
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return {
                     url : 'organization/summonAllProjectsByUser',
                     method : 'GET',
@@ -89,7 +89,7 @@ export const getProjectsApis = createApi({
         }),
         summonProjectById:builder.query({
             query: (id) => {
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return {
                     url : `organization/summonProjectById/${id}`,
                     method: 'GET',
@@ -105,7 +105,7 @@ export const getProjectsApis = createApi({
         }),
         summonProfile:builder.query({
             query: (id) => {
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return {
                     url : `/getProfileById/${id}`,
                     method: 'GET',

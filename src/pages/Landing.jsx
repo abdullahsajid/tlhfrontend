@@ -1,8 +1,9 @@
 import React, { lazy, useState, useEffect } from 'react'
-import Login from './Login'
-import Signup from './Signup'
+// import Login from './Login'
+// import Signup from './Signup'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Cookies from "universal-cookie";
 const Footer = lazy(() => import('../components/Footer/Footer'))
 const Feedback = lazy(() => import('../components/Feedback/Feedback'))
 const JobContainer = lazy(() => import('../components/Positions/JobContainer'))
@@ -10,14 +11,15 @@ const Nav = lazy(() => import('../components/nav/Nav'))
 const Hero = lazy(() => import('../components/Hero/Hero'))
 const Activity = lazy(() => import('../components/Activity/Activity'))
 const Procedure = lazy(() => import('../components/Procedure/Procedure'))
-
+const cookie = new Cookies()
 
 const Landing = () => {
     const [showEditPanel, setShowEditPanel] = useState(false);
     const { loginUser } = useSelector((state) => state.login);
     const navigate = useNavigate();
+    const token = cookie.get("tlhtoken");
     useEffect(() => {
-        if (loginUser?.token) {
+        if (token) {
             return navigate("/home");
         }
     }, []);

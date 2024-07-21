@@ -7,7 +7,7 @@ const Auth = ({children}) => {
   const navigate = useNavigate()
     // const {loginUser} = useSelector((state)=> state.login)
     // const {signUpUser} = useSelector((state) => state.signup)
-    let token = cookie.get('token')
+    let token = cookie.get('tlhtoken')
     if(token){
       return (token) ? children : navigate('/')
     }

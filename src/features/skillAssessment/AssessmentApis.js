@@ -9,7 +9,7 @@ export const skillAssessmentApi = createApi({
   endpoints: (builder) => ({
     createAssessment: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: "organization/createSkillType",
           method: "POST",
@@ -25,7 +25,7 @@ export const skillAssessmentApi = createApi({
     }),
     createQuestion: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: "organization/createQuestion",
           method: "POST",
@@ -41,7 +41,7 @@ export const skillAssessmentApi = createApi({
     }),
     retrieveSkillType: builder.query({
       query: () => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: "organization/getSkillType",
           method: "GET",
@@ -56,7 +56,7 @@ export const skillAssessmentApi = createApi({
     }),
     retrieveMcqs: builder.query({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `organization/getmcqs/${data.id}`,
           method: "GET",
@@ -71,7 +71,7 @@ export const skillAssessmentApi = createApi({
     }),
     calculateResult: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: "organization/calculateScore",
           method: "POST",
@@ -88,7 +88,7 @@ export const skillAssessmentApi = createApi({
     }),
     getBadges: builder.query({
       query : () => {
-        const token = cookie.get("token")
+        const token = cookie.get("tlhtoken")
         return {
           url: 'organization/getBadge',
           method: 'GET',

@@ -9,7 +9,7 @@ export const ResExpApi = createApi({
   endpoints: (builder) => ({
     getResExp: builder.query({
       query: () => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/getExp`,
           method: "GET",
@@ -25,7 +25,7 @@ export const ResExpApi = createApi({
     }),
     postResExp: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/resumeExp`,
           method: "POST",
@@ -42,7 +42,7 @@ export const ResExpApi = createApi({
     }),
     updateResExp: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/updateExp/${data.id}`,
           method: "PUT",
@@ -59,7 +59,7 @@ export const ResExpApi = createApi({
     }),
     deleteResExp:builder.mutation({
         query:(data)=>{
-            const token = cookie.get('token')
+            const token = cookie.get('tlhtoken')
             return{
                 url:`/deleteExp/${data.id}`,
                 method:'DELETE',

@@ -14,7 +14,7 @@ const OrgSpecificPost = ({postId}) => {
       shadow-md w-full hover:border-[#383838] transition-all'>
         <div className='flex items-center'>
           <div>
-            <img src={details?.avatar_url} className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
+            <img src={!(details?.avatar_url) ? 'https://tlhfrontend.vercel.app/avatar-org.jpg' : details?.avatar_url} className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
           </div>
           <div className='flex flex-col ml-2'>
             <div className='text-sm font-bold'>{details?.org_name}</div>

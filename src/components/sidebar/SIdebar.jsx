@@ -7,7 +7,12 @@ import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { setSideBarToggle } from "src/features/skillAssessment/AssessmentSlice";
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+const cookie = new Cookies()
+
 const Sidebar = () => {
+    const token = cookie.get('tlhtoken')
     const dispatch = useDispatch()
     const org = useSelector((state) => state.getOrgProfile.getOp)
     const { loginUser } = useSelector((state) => state.login)
@@ -24,10 +29,11 @@ const Sidebar = () => {
             setFakeLoading(false)
         }, 2000)
     }, [])
-
+    
+    const getName = JSON.parse(localStorage.getItem('loginUser'))
 
     useEffect(() => {
-        if (org.data && org.data.id && loginUser?.token) {
+        if (org?.data?.id && token) {
             setSidebarData([
                 {
                     id: 0,
@@ -66,8 +72,7 @@ const Sidebar = () => {
                     endpoint: '/message'
                 }
             ]);
-        }
-        else if (loginUser?.token) {
+        }else if(loginUser?.token || token){
             setSidebarData([
                 {
                     id: 0,
@@ -76,31 +81,32 @@ const Sidebar = () => {
                     endpoint: '/home'
                 },
                 {
-                    id: 1,
+                    id: 2,
                     label: "Create Resume",
-                    icon: Building2,
+                    icon: NotebookText,
                     endpoint: '/createResume'
                 },
                 {
-                    id: 2,
+                    id: 3,
                     label: "Skill Assessment",
                     icon: NotebookText,
                     endpoint: '/skilltype'   
                 },
                 {
-                    id: 3,
+                    id: 4,
                     label: "Projects",
                     icon: Layers,
                     endpoint: '/projects'
                 },
-                // {
-                //     id: 4,
-                //     label: "Messages",
-                //     icon: MessageCircleMore,
-                //     endpoint: '/message'
-                // }
+                {
+                    id: 5,
+                    label: "Messages",
+                    icon: MessageCircleMore,
+                    endpoint: '/message'
+                }
             ]);
-        } else {
+        }
+        else {
             setSidebarData([
                 {
                     id: 0,
@@ -129,7 +135,7 @@ const Sidebar = () => {
     }
 
     useEffect(() => {
-        loginUser?.token ? setToggleUser(true) : setToggleUser(false)
+        (loginUser?.token || token) ? setToggleUser(true) : setToggleUser(false)
     }, [loginUser, toggleUser])
     // {`/${loginUser?.data?.name}`} 
     return (
@@ -150,11 +156,11 @@ const Sidebar = () => {
                         dispatch(setSideBarToggle(false))
                     }}>
                     <div className='mr-3 min-w-[40px]'>
-                        {fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} /> : data?.avatar_url ?
-                            <img src={`${data?.avatar_url}`} alt="" className='w-12 h-10 rounded-md object-cover' /> : <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} />}
+                        {fakeLoading ? <Skeleton style={{ width: '2.5rem', height: '2.5rem', borderRadius: "0.375rem", border: "3px solid #fff" }} /> :
+                            <img src={`${!(data?.avatar_url) ? './avatar.jpg' : data?.avatar_url}`} alt="" className='w-12 h-10 rounded-md object-cover' />}
                     </div>
                     <div className='uppercase font-semibold w-full text-[14px]'>
-                        {fakeLoading ? <Skeleton width={"100%"} style={{ border: "3px solid #fff" }} /> : data?.name ? data?.name : <Skeleton width={"100%"} style={{ border: "3px solid #fff" }} />}
+                        {fakeLoading ? <Skeleton width={"100%"} style={{ border: "3px solid #fff" }} /> : data?.name ? data?.name : getName?.data?.name}
                     </div>
                 </Link>}
             </div>

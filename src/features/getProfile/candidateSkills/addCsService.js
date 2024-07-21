@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookie = new Cookies()
 export const addCandidateSkills = createAsyncThunk('user/addSkills',async ({skill},{rejectWithValue}) => {
     try{
-        const token = cookie.get('token') 
+        const token = cookie.get('tlhtoken') 
         const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/addSkills`,{skill},
             {
                 headers:{

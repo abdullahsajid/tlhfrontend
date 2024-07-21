@@ -9,7 +9,7 @@ export const resSkillApi = createApi({
   endpoints: (builder) => ({
     getResSkill: builder.query({
       query: () => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/getSkill`,
           method: "GET",
@@ -25,7 +25,7 @@ export const resSkillApi = createApi({
     }),
     createSkill: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token")
+        const token = cookie.get("tlhtoken")
         return {
           url: `/resumeSkill`,
           method:"POST",
@@ -42,7 +42,7 @@ export const resSkillApi = createApi({
     }),
     updateSkills:builder.mutation({
       query: (data) => {
-        const token = cookie.get("token")
+        const token = cookie.get("tlhtoken")
         return{
           url: "/updateSkill",
           method: "PUT",

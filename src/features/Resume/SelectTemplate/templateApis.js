@@ -9,7 +9,7 @@ export const templateApi = createApi({
   endpoints: (builder) => ({
     postTemplate: builder.mutation({
       query: (data) => {
-        const token = cookie.get("token");
+        const token = cookie.get("tlhtoken");
         return {
           url: `/setTemplates`,
           method: "POST",
@@ -26,7 +26,7 @@ export const templateApi = createApi({
     }),
     updateTemplate: builder.mutation({
       query: (data) => {
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         return {
           url: `/updateTemplate`,
           method: 'PUT',

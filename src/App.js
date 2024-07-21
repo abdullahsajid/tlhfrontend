@@ -127,7 +127,7 @@ function App() {
     const orgPostToggle = useSelector((state) => state.assessment.orgPostToggle)
     const payToggle = useSelector((state) => state.assessment.paymentToggle)
     const sidebartoggle = useSelector((state) => state.assessment.sidebarToggle)
-    let token = cookie.get('token')
+    let token = cookie.get('tlhtoken')
     const navigate = useNavigate();
     const currentPath = useLocation().pathname;
 

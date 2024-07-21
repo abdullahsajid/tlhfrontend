@@ -65,7 +65,7 @@ const OrgPost = () => {
                 </div>
                 <div className='flex flex-col gap-3 mt-3 mx-3'>
                     <div className='flex items-center gap-2'>
-                        <img src={`${data?.avatar_url}`} alt={`${data?.org_name}`} 
+                        <img src={`${!(data?.avatar_url) ? 'https://tlhfrontend.vercel.app/avatar-org.jpg' : data?.avatar_url}`} alt={`${data?.org_name}`} 
                             className='w-12 h-12 rounded-lg bg-center bg-no-repeat bg-cover' />
                         <div className='font-bold'>{data?.org_name}</div>
                     </div>

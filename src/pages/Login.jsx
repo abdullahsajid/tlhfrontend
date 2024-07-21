@@ -143,8 +143,8 @@ const Login = () => {
                       />
                       <span>{passwordError}</span>
                   </div>   
-                  <div className='mt-5 px-3 py-2 flex justify-center w-full'  onClick={handleLogin}>
-                      <Button className=' w-full px-2 rounded-sm text-white cursor-pointer py-2' disabled={loader}>
+                  <div className='mt-5 px-3 py-2 flex justify-center w-full' disabled={loader} onClick={handleLogin}>
+                      <Button className=' w-full px-2 rounded-sm text-white cursor-pointer py-2' >
                          {loader ? <BtnLoader/> : "log in"}
                       </Button>
                   </div>

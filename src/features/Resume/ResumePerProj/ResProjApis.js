@@ -9,7 +9,7 @@ export const resumeProjApi = createApi({
     endpoints:(builder)=>({
         getResProj:builder.query({
             query:()=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/getproj`,
                     method:'GET',
@@ -25,7 +25,7 @@ export const resumeProjApi = createApi({
         }),
         postResProj:builder.mutation({
             query:(data)=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/resumePersonalProj`,
                     method:'POST',
@@ -42,7 +42,7 @@ export const resumeProjApi = createApi({
         }),
         updateResProj:builder.mutation({
             query:(data)=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/updateProj/${data.id}`,
                     method:'PUT',
@@ -59,7 +59,7 @@ export const resumeProjApi = createApi({
         }),
         deleteResProj:builder.mutation({
             query:(data)=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/deleteProj/${data.id}`,
                     method:'DELETE',

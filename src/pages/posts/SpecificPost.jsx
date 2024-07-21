@@ -29,10 +29,10 @@ const SpecificPost = ({ name, avatar, postImg, content, time, like, postId }) =>
       shadow-md w-full hover:border-[#383838] transition-all'>
         <div className='flex items-center'>
           <div>
-            <img src={avatar} className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
+            <img src={!(avatar) ? './avatar.jpg' : avatar} className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
           </div>
           <div className='flex flex-col ml-2'>
-            <div className='text-sm font-bold'>{name}</div>
+            <div className='text-sm font-bold'>{!(name) ? "Unknown" : name}</div>
             <div className='text-sm font-semibold'>{moment(time)?.format('MMM Do YYYY, LT')}</div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 const cookie = new Cookies()
+
 export const login = createAsyncThunk('user/login',async ({email,password},{rejectWithValue}) => {
     try{
         const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/login`,{email,password},{
@@ -10,7 +11,7 @@ export const login = createAsyncThunk('user/login',async ({email,password},{reje
             },
             withCredentials:true
         })
-        cookie.set("token",userRes.data.token,{path:'/'})
+        cookie.set("tlhtoken",userRes.data.token,{path:'/'})
         localStorage.setItem("loginUser",JSON.stringify(userRes.data))
         return await userRes.data
     }catch(error){

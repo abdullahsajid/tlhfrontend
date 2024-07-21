@@ -9,7 +9,7 @@ export const chatApi = createApi({
     endpoints:(builder)=> ({
         createChats:builder.mutation({
             query:(data)=> {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:'/createChats',
                     method: 'POST',
@@ -26,7 +26,7 @@ export const chatApi = createApi({
         }),
         createMessages:builder.mutation({
             query:(data)=> {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:'/createMessages',
                     method: 'POST',
@@ -42,7 +42,7 @@ export const chatApi = createApi({
         }),
         retrieveChats:builder.query({
             query:()=> {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:'/retrieveChats',
                     method: 'GET',
@@ -58,7 +58,7 @@ export const chatApi = createApi({
         }),
         fetchAllMessages:builder.query({
             query:(id)=> {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url:`/fetchAllMessages/${id}`,
                     method: 'GET',

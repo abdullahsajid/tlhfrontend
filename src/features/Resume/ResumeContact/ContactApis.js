@@ -9,7 +9,7 @@ export const contactApi = createApi({
   endpoints: (builder) => ({
     getContact: builder.query({
       query: () => {
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         return{
             url: "/getContact",
             method: "GET",
@@ -25,7 +25,7 @@ export const contactApi = createApi({
     }),
     postContact: builder.mutation({
       query: (data) => {
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         return{
             url: "/resumeContact",
             method: "POST",
@@ -43,7 +43,7 @@ export const contactApi = createApi({
     }),
     updateContact: builder.mutation({
       query: (data) => {
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         return {
             url: "/updateContact",
             method: "PUT",

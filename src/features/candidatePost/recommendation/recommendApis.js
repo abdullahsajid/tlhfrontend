@@ -7,7 +7,7 @@ export const recommendApi = createApi({
         recommendPosts:builder.query({
             query:(skills) => {
                 return{
-                    url:`rpy/recommend?skills=${skills.join(',')}`,
+                    url:`rpy/recommend?skills=${skills?.join(',')}&page=1`,
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -19,3 +19,4 @@ export const recommendApi = createApi({
 })
 
 export const {useRecommendPostsQuery} = recommendApi
+// ${process.env.REACT_APP_LOCAL_URL}

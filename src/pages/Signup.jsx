@@ -9,6 +9,8 @@ import { Button } from 'src/components/ui/button'
 import { Link } from 'react-router-dom'
 import RadialGradient from 'src/components/ui/RadialGradient'
 import BtnLoader from '../components/Loader/BtnLoader'
+import Cookies from "universal-cookie";
+const cookie = new Cookies()
 
 const Signup = () => {
   const dispatch = useDispatch()
@@ -52,7 +54,7 @@ const Signup = () => {
 
     if (password === confirmPassword) {
       const user = await dispatch(signUp({ email, password, name }))
-      // console.log(user)
+      console.log(user)
       if (user?.payload?.data?.success === false) {
         toast.error(`${user.payload.data.message}`, {
           style: {
@@ -76,7 +78,9 @@ const Signup = () => {
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
           }
         })
-        navigation('/login')
+        cookie.set("tlhtoken",user?.payload?.token,{path:'/'})
+        localStorage.setItem("loginUser",JSON.stringify({data:user?.payload?.data?.[0],token:user?.payload?.token}))
+        navigation('/home')
         setLoader(false)
       } else {
         toast.error("something Wrong", {
@@ -193,8 +197,8 @@ const Signup = () => {
                 />
                 <span>{confirmPassError}</span>
               </div>
-              <div className='mt-5 px-3 py-2 max-sm:py-2 flex justify-center w-full' onClick={handlerSubmit}>
-                <Button className='w-full px-2 rounded-sm text-white cursor-pointer py-2' disabled={loader}>
+              <div className='mt-5 px-3 py-2 max-sm:py-2 flex justify-center w-full' disabled={loader} onClick={handlerSubmit}>
+                <Button className='w-full px-2 rounded-sm text-white cursor-pointer py-2' >
                    {loader ? <BtnLoader/> : 'Sign up'}
                 </Button>
               </div>

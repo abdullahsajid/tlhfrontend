@@ -6,7 +6,7 @@ const cookie = new Cookies()
 export const addOrgSocialLinks = createAsyncThunk('user/addOrgSocial',async ({socialName,link,data},{rejectWithValue}) => {
     
     try{
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         if(data?.id){ 
             const userRes = await axios.post(`${process.env.REACT_APP_LOCAL_URL}/organization/socialLinks/${data?.id}`,{name:socialName,link},
                 {

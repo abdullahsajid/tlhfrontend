@@ -16,6 +16,7 @@ const Profile = () => {
   
   // const {loginUserPosts} = useSelector((state) => state.post?.loginUserPost?.detail)
   const [fakeLoading, setFakeLoading] = useState(true)
+  const getName = JSON.parse(localStorage.getItem('loginUser'))
   // const[posts,setPosts] = useState([])
   // console.log(loginUserPosts)
   useEffect(() => {
@@ -33,17 +34,15 @@ const Profile = () => {
       <div className='flex flex-col transition-all'>
         <div className='relative w-full z-[0] transition-all'>
           <div className='w-full bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7] shadow'>
-            {fakeLoading ? <Skeleton style={{ height: "300px", width: '100%', border: '2px solid #fff' }} /> : !(detail?.banner_url) ?
-              <Skeleton style={{ height: "300px", width: '100%', border: '2px solid #fff' }} /> :
-              <img src={`${detail?.banner_url}`}
+            {fakeLoading ? <Skeleton style={{ height: "300px", width: '100%', border: '2px solid #fff' }} /> :
+              <img src={`${!(detail?.banner_url) ? './aura-dark.jpg' : detail?.banner_url}`}
                 className='bg-center bg-no-repeat bg-cover rounded-md w-full max-h-[300px] object-cover' />
             }
           </div>
 
           <div className='absolute left-24 max-sm:left-20 z-[100] custom-position-center bg-[#f6f6f7] rounded-md border border-solid border-[#f6f6f7] shadow'>
-            {fakeLoading ? <Skeleton style={{ width: '8rem', height: '8rem', borderRadius: '0.375rem', border: '2px solid #fff' }} /> : !(detail?.avatar_url) ?
-              <Skeleton style={{ width: '8rem', height: '8rem', borderRadius: '0.375rem', border: '2px solid #fff' }} />
-              : <img src={`${detail?.avatar_url}`} className='w-32 h-32 rounded-md object-cover' />
+            {fakeLoading ? <Skeleton style={{ width: '8rem', height: '8rem', borderRadius: '0.375rem', border: '2px solid #fff' }} /> : 
+             <img src={`${!(detail?.avatar_url) ? './avatar.jpg' : detail?.avatar_url}`} className='w-32 h-32 rounded-md object-cover' />
             }
           </div>
 
@@ -58,7 +57,7 @@ const Profile = () => {
 
         <div className='flex flex-col gap-y-2 mt-20 ml-7 max-sm:ml-0'>
           <div className='flex text-2xl font-semibold'>
-            {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(detail?.name) ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : detail?.name}
+            {fakeLoading ? <Skeleton width={200} style={{ border: "3px solid #fff" }} /> : !(detail?.name) ? getName?.data?.name : detail?.name}
           </div>
           <div className='flex w-96 flex-wrap gap-3 '>
             {detail?.skill ? detail?.skill.map((item, i) => (

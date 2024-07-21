@@ -79,8 +79,7 @@ const CreatePost = () => {
     shadow w-full hover:border-[#383838] transition-all max-sm:w-[375px]'>
       <div className='flex justify-center items-center transition-all'>
         <div className='mr-4'>{(fakeLoading || loading) ? <Skeleton style={{ width: '3rem', height: "3rem", borderRadius: '0.375rem', border: "3px solid #fff" }} /> :
-          !(data?.avatar_url) ? <Skeleton style={{ width: '3rem', height: "3rem", borderRadius: '0.375rem', border: "3px solid #fff" }} /> :
-            <img src={`${data?.avatar_url && data?.avatar_url}`}
+            <img src={`${!(data?.avatar_url) ? "./avatar.jpg" : data?.avatar_url}`}
               className='w-12 h-12 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
         }
         </div>

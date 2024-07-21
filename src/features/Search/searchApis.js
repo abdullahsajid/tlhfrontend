@@ -8,7 +8,7 @@ export const getSearchApis = createApi({
     endpoints:(builder) => ({
         searchResult:builder.query({
             query: ({para}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url: `/search?q=${para}`,
                     method: 'GET',
@@ -23,7 +23,7 @@ export const getSearchApis = createApi({
         }),
         getUserProfileDetails:builder.query({
             query: ({id}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url: `/getProfileBySearch/${id}`,
                     method: 'GET',
@@ -38,7 +38,7 @@ export const getSearchApis = createApi({
         }),
         getOrgUserProfileDetails:builder.query({
             query: ({id}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url: `organization/getProfileBySearch/${id}`,
                     method: 'GET',
@@ -53,7 +53,7 @@ export const getSearchApis = createApi({
         }),
         getProfilesBySearchAcc:builder.query({
             query: ({para}) => {
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return {
                     url: `/getProfileBySearchAcc?q=${para}`,
                     method: 'GET',

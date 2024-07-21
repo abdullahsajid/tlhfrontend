@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookie = new Cookies()
 export const updateProfileService = createAsyncThunk('user/updateCandidatePro',async ({name,bio,about,education,banner,avatar,experience},{rejectWithValue}) => {
     try{
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         // console.log("payload",{name,bio,about,education,banner,avatar,experience})
         // console.log("Token",token)
         const userRes = await axios.put(`${process.env.REACT_APP_LOCAL_URL}/updateProfile`,{name,bio,about,education,banner,avatar,experience},

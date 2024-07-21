@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 const cookie = new Cookies()
 export const getResumeContact = createAsyncThunk('user/getContact',async (_,{rejectWithValue}) => {
     try{
-        const token = cookie.get('token')
+        const token = cookie.get('tlhtoken')
         
         const userRes = await axios.get(`${process.env.REACT_APP_LOCAL_URL}/getContact`,
             {

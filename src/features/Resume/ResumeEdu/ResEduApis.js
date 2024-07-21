@@ -9,7 +9,7 @@ export const ResEduApi = createApi({
     endpoints:(builder)=>({
         getResEdu:builder.query({
             query:()=>{
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return{
                     url:`/getEdu`,
                     method:'GET',
@@ -25,7 +25,7 @@ export const ResEduApi = createApi({
         }),
         postResEdu:builder.mutation({
             query:(data)=>{
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return{
                     url:`/resumeEdu`,
                     method:'POST',
@@ -42,7 +42,7 @@ export const ResEduApi = createApi({
         }),
         updateResEdu:builder.mutation({
             query:(data)=>{
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return{
                     url:`/updateEdu/${data.id}`,
                     method:'PUT',
@@ -59,7 +59,7 @@ export const ResEduApi = createApi({
         }),
         deleteResEdu:builder.mutation({
             query:(data)=>{
-                const token = cookie.get("token");
+                const token = cookie.get("tlhtoken");
                 return{
                     url:`/deleteEdu/${data.id}`,
                     method:'DELETE',

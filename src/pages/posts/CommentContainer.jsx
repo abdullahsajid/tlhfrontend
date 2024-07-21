@@ -13,6 +13,7 @@ import BtnLoader from 'src/components/Loader/BtnLoader'
 const CommentContainer = ({ id, avatar }) => {
     const [comment, setComment] = useState('')
     const dispatch = useDispatch()
+    const candidatePro = useSelector((state) => state.candidateProfile?.candidateProfile)
     const [btnLoading,setBtnLoading] = useState(false)
     const [postComments,{isLoading:commentLoad}] = usePostCommentsMutation()
     const profile = useSelector((state) => state.userProfiles?.profiles?.data)
@@ -58,11 +59,11 @@ const CommentContainer = ({ id, avatar }) => {
     return (
         <>
             <div className='flex flex-col bg-[#FFF] p-2 rounded-md gap-y-3 border-2 border-dashed border-[#f6f6f7] 
-        shadow-md w-full hover:border-[#383838] transition-all'>
+                shadow-md w-full hover:border-[#383838] transition-all'>
                 <div className='px-4 pt-4 pb-4'>
                     <div className="flex items-center">
                         <div className='me-3 flex items-center min-w-[40px]'>
-                            <img src={avatar} alt=""
+                            <img src={!(candidatePro?.data?.avatar_url) ? './avatar.jpg' : candidatePro?.data?.avatar_url} alt=""
                                 className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
                         </div>
                         <div className='flex justify-between items-center grow'>

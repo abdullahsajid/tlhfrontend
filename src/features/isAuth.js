@@ -5,7 +5,7 @@ const initialState = {
     isAuth:false,
     loading:true
 }
-const token = cookie.get('token')
+const token = cookie.get('tlhtoken')
 export const isAuthSlice = createSlice({
     name:'auth',
     initialState,

@@ -60,7 +60,7 @@ const OrgCommentContainer = ({id}) => {
                 <div className='px-4 pt-4 pb-4'>
                     <div className="flex items-center">
                         <div className='me-3 flex items-center min-w-[40px]'>
-                            <img src={details?.avatar_url} alt=""
+                            <img src={!(details?.avatar_url) ? 'http://localhost:3000/avatar-org.jpg' : details?.avatar_url} alt=""
                                 className='w-10 h-10 rounded-md bg-center bg-no-repeat bg-cover object-cover' />
                         </div>
                         <div className='flex justify-between items-center grow'>

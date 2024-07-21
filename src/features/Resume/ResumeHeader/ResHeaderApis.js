@@ -9,7 +9,7 @@ export const ResHeaderApi = createApi({
     endpoints:(builder)=>({
         getResHeader:builder.query({
             query:()=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/getResume`,
                     method:'GET',
@@ -25,7 +25,7 @@ export const ResHeaderApi = createApi({
         }),
         postResHeader:builder.mutation({
             query:(data)=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/resumes`,
                     method:'POST',
@@ -42,7 +42,7 @@ export const ResHeaderApi = createApi({
         }),
         updateResHeader:builder.mutation({
             query:(data)=>{
-                const token = cookie.get('token')
+                const token = cookie.get('tlhtoken')
                 return{
                     url:`/updateResume`,
                     method:'PUT',
