@@ -14,7 +14,7 @@ const ResumeLang = () => {
     const [createLang] = useCreateLangMutation()
 
     useEffect(() => {
-        if (data?.data[0]?.lang_name && data?.data[0]?.lang_name.length > 0) {
+        if (data?.data[0]?.lang_name && data?.data[0]?.lang_name?.length > 0) {
             setLang(data?.data[0]?.lang_name)
         } else {
             setLang([
@@ -51,7 +51,7 @@ const ResumeLang = () => {
 
     const handlerRemoveLang = (index) => {
         setLang((lng) => {
-            const mostRecent = lng.filter((_, i) => i !== index)
+            const mostRecent = lng?.filter((_, i) => i !== index)
             handlerUpdateLang(mostRecent)
             return mostRecent
         })
@@ -59,7 +59,7 @@ const ResumeLang = () => {
 
     const handlerResLang = async (e) => {
         e.preventDefault()
-        let validateField = lang.every((item) => item.language === '')
+        let validateField = lang?.every((item) => item?.language === '')
         if (validateField) {
             toast.error("please fill all fields!", {
                 style: {
@@ -96,7 +96,7 @@ const ResumeLang = () => {
 
     const handlerUpdateResLang = async (e) => {
         e.preventDefault()
-        let validateField = lang.every((item) => item.language === '')
+        let validateField = lang?.every((item) => item?.language === '')
         if (validateField) {
             toast.error("please fill all fields!", {
                 style: {
