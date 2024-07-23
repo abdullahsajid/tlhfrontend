@@ -137,7 +137,7 @@ const ResumeLang = () => {
                 </div>
                 <div className='flex gap-2 flex-wrap'>
                     {isLoading ? <div className='flex items-center justify-center w-full'><Loader /></div> :
-                        lang.map((lg, index) => (
+                        lang?.map((lg, index) => (
                             <div key={index}>
                             <>
                                 <div className={`flex gap-1 items-center border border-solid border-[#000] rounded-md text-sm px-[3px] py-[2px] outline-none text-[#000] ${isEditable ? 'border-b-2 border-[rgb(115,103,240)]' : ''}`}
